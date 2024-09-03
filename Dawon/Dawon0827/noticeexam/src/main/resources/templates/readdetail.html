@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	[[${notice.title}]] / [[${notice.content}]]
+
+
+
+	<h5 th:text="|${#lists.size(notice.comments)}개의 댓글이 있습니다.|"></h5>
+	<div>
+		<ul>
+			<li th:each="comment : ${notice.comments}"
+				th:text="${comment.content}"></li>
+		</ul>
+	</div>
+
+
+	<form th:action="@{|/comment/create/${notice.id}|}" method="post">
+		<textarea name="content" id="content" rows="3"></textarea>
+		<input type="submit" value="댓글달기">
+	</form>
+
+
+</body>
+</html>

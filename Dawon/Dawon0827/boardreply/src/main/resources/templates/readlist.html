@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+
+
+
+	<h2>게시판 목록보기</h2>
+
+	<table>
+		<thead>
+			<tr>
+				<th>제목</th>
+				<th>작성일시</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="board : ${boards}">
+				<td><a th:href="@{|/readdetail/${board.id}|}"
+					th:text="${board.title}"></a></td>
+				<td th:text="${board.date}"></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>
