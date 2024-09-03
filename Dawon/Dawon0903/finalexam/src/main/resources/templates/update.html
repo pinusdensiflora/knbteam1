@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<form action="/update" method="post" enctype = "multipart/form-data">
+	
+<!-- 업데이트를 할 때는 id 값을 hidden으로 다시 가지고 가자 -->
+<input type="hidden" name="id" th:value = "${notice.id}">	
+<!-- 사진을 바꾸지 않을 경우를 대비해서 기존의 사진도 같이 히든으로 받아온다. -->
+<input type="hidden" name="img" th:value = "${notice.img}">
+
+
+<p>제목 :<input type="text" name="title" th:value = "${notice.title}">
+<p>내용 :<input type="text" name="about" th:value = "${notice.about}">
+
+<!-- 사진은 th:value로 넣을 수가 없다. 자바로 강제로 행하는 것은 추천하지 않는다. 그러면 어떻게? -->
+<!--  -->
+<p>사진 :<input type="file" name="file">
+
+<input type="submit" value="등록">
+
+</form>
+
+</body>
+</html>
+

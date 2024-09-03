@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<h1>게시판 상세</h1>
+
+				<a th:text="${notice.id}"></a><br>
+				<a th:text="${notice.title}"></a> <br>
+			
+				<a th:text="${#temporals.format(notice.date, 'yyyy-MM-dd HH:mm')}"></a>
+				<br>
+				<img th:src="@{|https://bucketimgexamdw.s3.ap-northeast-2.amazonaws.com/${notice.img}|}">
+				<img th:src="|${downpath}/${notice.img}|">
+<br>		
+<a href="/">	  					   목록 보기</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a th:href="@{|/delete/${notice.id}|}">삭제 하기</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a th:href="@{|/update/${notice.id}|}">수정 하기</a>			
+			
+</body>
+</html>

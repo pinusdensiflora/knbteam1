@@ -1,0 +1,343 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container my-3">
+
+<h1>게시판 목록</h1>
+
+<th:block th:each="notice : ${notices}">
+				<a th:text="${notice.id}"></a>
+				
+				<a th:href="@{|/readdetail/${notice.id}|}"
+					th:text="${notice.title}"></a> 
+			
+				<a th:text="${#temporals.format(notice.date, 'yyyy-MM-dd HH:mm')}"></a>
+				<br>
+</th:block>
+			
+<a href="/create">게시글 작성</a>	
+<!-- ㅇㅅㅇ 1.레이아웃설정  -->
+<!-- ㅇㅅㅇ 2.상단 페이지 문구 삭제, 공지 종류 글자 변경 -->
+ <div class="content">
+        <div class="mb-9">
+          <div class="row g-2 mb-4">
+            <div class="col-auto">
+              <h2 class="mb-0">공지사항</h2>
+            </div>
+          </div>
+          <ul class="nav nav-links mb-3 mb-lg-2 mx-n3">
+            <li class="nav-item"><a class="nav-link active" aria-current="page" href="#"><span>전체공지 </span><span class="text-body-tertiary fw-semibold">(68817)</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><span>일반공지 </span><span class="text-body-tertiary fw-semibold">(6)</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><span>회원공지</span><span class="text-body-tertiary fw-semibold">(17)</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><span>배송공지 </span><span class="text-body-tertiary fw-semibold">(6,810)</span></a></li>
+          </ul>
+          <div id="products" data-list='{"valueNames":["customer","email","total-orders","total-spent","city","last-seen","last-order"],"page":10,"pagination":true}'>
+            <div class="mb-4">
+              <div class="row g-3">
+                <div class="col-auto">
+                  <div class="search-box">
+                    <form class="position-relative">
+                      <input class="form-control search-input search" type="search" placeholder="Search customers" aria-label="Search" />
+                      <span class="fas fa-search search-box-icon"></span>
+
+                    </form>
+                  </div>
+                </div>
+                <div class="col-auto scrollbar overflow-hidden-y flex-grow-1">
+                  <div class="btn-group position-static" role="group">
+                    <div class="btn-group position-static text-nowrap">
+                      <button class="btn btn-phoenix-secondary px-7 flex-shrink-0" type="button" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent">
+                        Country<span class="fas fa-angle-down ms-2"></span></button>
+                      <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">US</a></li>
+                        <li><a class="dropdown-item" href="#">Uk</a></li>
+                        <li><a class="dropdown-item" href="#">Australia</a></li>
+                      </ul>
+                    </div>
+                    <div class="btn-group position-static text-nowrap">
+                      <button class="btn btn-sm btn-phoenix-secondary px-7 flex-shrink-0" type="button" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent">
+                        VIP<span class="fas fa-angle-down ms-2"></span></button>
+                      <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">VIP 1</a></li>
+                        <li><a class="dropdown-item" href="#">VIP 2</a></li>
+                        <li><a class="dropdown-item" href="#">VIP 3</a></li>
+                        <li></li>
+                      </ul>
+                    </div>
+                    <button class="btn btn-phoenix-secondary px-7 flex-shrink-0">More filters</button>
+                  </div>
+                </div>
+                <div class="col-auto">
+                  <button class="btn btn-link text-body me-4 px-0"><span class="fa-solid fa-file-export fs-9 me-2"></span>Export</button>
+                  <!-- ㅇㅅㅇ 3. a태그로 변환 -->
+                  <a href="/create" class="btn btn-primary"><span class="fas fa-plus me-2"></span>공지 등록</a>
+                </div>
+              </div>
+            </div>
+            <div class="mx-n4 px-4 mx-lg-n6 px-lg-6 bg-body-emphasis border-top border-bottom border-translucent position-relative top-1">
+              <div class="table-responsive scrollbar-overlay mx-n1 px-1">
+                <table class="table table-sm fs-9 mb-0">
+                  <thead>
+                    <tr>
+                      <th class="white-space-nowrap fs-9 align-middle ps-0">
+                        <div class="form-check mb-0 fs-8">
+                          <input class="form-check-input" id="checkbox-bulk-customers-select" type="checkbox" data-bulk-select='{"body":"customers-table-body"}' />
+                        </div>
+                      </th>
+                      <th class="sort align-middle pe-5" scope="col" data-sort="customer" style="width:10%;">CUSTOMER</th>
+                      <th class="sort align-middle pe-5" scope="col" data-sort="email" style="width:20%;">EMAIL</th>
+                      <th class="sort align-middle text-end" scope="col" data-sort="total-orders" style="width:10%">ORDERS</th>
+                      <th class="sort align-middle text-end ps-3" scope="col" data-sort="total-spent" style="width:10%">TOTAL SPENT</th>
+                      <th class="sort align-middle ps-7" scope="col" data-sort="city" style="width:25%;">CITY</th>
+                      <th class="sort align-middle text-end" scope="col" data-sort="last-seen" style="width:15%;">LAST SEEN</th>
+                      <th class="sort align-middle text-end pe-0" scope="col" data-sort="last-order" style="width:10%;min-width: 150px;">LAST ORDER</th>
+                    </tr>
+                  </thead>
+                  <tbody class="list" id="customers-table-body">
+                  <!-- ㅇㅅㅇ 4.반복시킬 것이므로 한 사람만 두고 모두 삭제함 -->
+                    <tr class="hover-actions-trigger btn-reveal-trigger position-static">
+                      <td class="fs-9 align-middle ps-0 py-3">
+                        <div class="form-check mb-0 fs-8">
+                          <input class="form-check-input" type="checkbox" data-bulk-select-row='{"customer":{"avatar":"/team/32.webp","name":"Carry Anna"},"email":"annac34@gmail.com","city":"Budapest","totalOrders":89,"totalSpent":23987,"lastSeen":"34 min ago","lastOrder":"Dec 12, 12:56 PM"}' />
+                        </div>
+                      </td>
+                      <td class="customer align-middle white-space-nowrap pe-5"><a class="d-flex align-items-center text-body-emphasis" href="../../../apps/e-commerce/admin/customer-details.html">
+                          <div class="avatar avatar-m"><img class="rounded-circle" src="../../../assets/img/team/32.webp" alt="" />
+                          </div>
+                          <p class="mb-0 ms-3 text-body-emphasis fw-bold">Carry Anna</p>
+                        </a></td>
+                      <td class="email align-middle white-space-nowrap pe-5"><a class="fw-semibold" href="mailto:annac34@gmail.com">annac34@gmail.com</a></td>
+                      <td class="total-orders align-middle white-space-nowrap fw-semibold text-end text-body-highlight">89</td>
+                      <td class="total-spent align-middle white-space-nowrap fw-bold text-end ps-3 text-body-emphasis">$ 23987</td>
+                      <td class="city align-middle white-space-nowrap text-body-highlight ps-7">Budapest</td>
+                      <td class="last-seen align-middle white-space-nowrap text-body-tertiary text-end">34 min ago</td>
+                      <td class="last-order align-middle white-space-nowrap text-body-tertiary text-end">Dec 12, 12:56 PM</td>
+                    </tr>
+                    
+                  </tbody>
+                </table>
+              </div>
+              <div class="row align-items-center justify-content-between py-2 pe-0 fs-9">
+                <div class="col-auto d-flex">
+                  <p class="mb-0 d-none d-sm-block me-3 fw-semibold text-body" data-list-info="data-list-info"></p><a class="fw-semibold" href="#!" data-list-view="*">View all<span class="fas fa-angle-right ms-1" data-fa-transform="down-1"></span></a><a class="fw-semibold d-none" href="#!" data-list-view="less">View Less<span class="fas fa-angle-right ms-1" data-fa-transform="down-1"></span></a>
+                </div>
+                <div class="col-auto d-flex">
+                  <button class="page-link" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
+                  <ul class="mb-0 pagination"></ul>
+                  <button class="page-link pe-0" data-list-pagination="next"><span class="fas fa-chevron-right"></span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer class="footer position-absolute">
+          <div class="row g-0 justify-content-between align-items-center h-100">
+            <div class="col-12 col-sm-auto text-center">
+              <p class="mb-0 mt-2 mt-sm-0 text-body">Thank you for creating with Phoenix<span class="d-none d-sm-inline-block"></span><span class="d-none d-sm-inline-block mx-1">|</span><br class="d-sm-none" />2024 &copy;<a class="mx-1" href="https://themewagon.com">Themewagon</a></p>
+            </div>
+            <div class="col-12 col-sm-auto text-center">
+              <p class="mb-0 text-body-tertiary text-opacity-85">v1.16.0</p>
+            </div>
+          </div>
+        </footer>
+      </div>
+      <div class="modal fade" id="searchBoxModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="true" data-phoenix-modal="data-phoenix-modal" style="--phoenix-backdrop-opacity: 1;">
+        <div class="modal-dialog">
+          <div class="modal-content mt-15 rounded-pill">
+            <div class="modal-body p-0">
+              <div class="search-box navbar-top-search-box" data-list='{"valueNames":["title"]}' style="width: auto;">
+                <form class="position-relative" data-bs-toggle="search" data-bs-display="static">
+                  <input class="form-control search-input fuzzy-search rounded-pill form-control-lg" type="search" placeholder="Search..." aria-label="Search" />
+                  <span class="fas fa-search search-box-icon"></span>
+
+                </form>
+                <div class="btn-close position-absolute end-0 top-50 translate-middle cursor-pointer shadow-none" data-bs-dismiss="search">
+                  <button class="btn btn-link p-0" aria-label="Close"></button>
+                </div>
+                <div class="dropdown-menu border start-0 py-0 overflow-hidden w-100">
+                  <div class="scrollbar-overlay" style="max-height: 30rem;">
+                    <div class="list pb-3">
+                      <h6 class="dropdown-header text-body-highlight fs-10 py-2">24 <span class="text-body-quaternary">results</span></h6>
+                      <hr class="my-0" />
+                      <h6 class="dropdown-header text-body-highlight fs-9 border-bottom border-translucent py-2 lh-sm">Recently Searched </h6>
+                      <div class="py-2"><a class="dropdown-item" href="../../../apps/e-commerce/landing/product-details.html">
+                          <div class="d-flex align-items-center">
+
+                            <div class="fw-normal text-body-highlight title"><span class="fa-solid fa-clock-rotate-left" data-fa-transform="shrink-2"></span> Store Macbook</div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item" href="../../../apps/e-commerce/landing/product-details.html">
+                          <div class="d-flex align-items-center">
+
+                            <div class="fw-normal text-body-highlight title"> <span class="fa-solid fa-clock-rotate-left" data-fa-transform="shrink-2"></span> MacBook Air - 13″</div>
+                          </div>
+                        </a>
+
+                      </div>
+                      <hr class="my-0" />
+                      <h6 class="dropdown-header text-body-highlight fs-9 border-bottom border-translucent py-2 lh-sm">Products</h6>
+                      <div class="py-2"><a class="dropdown-item py-2 d-flex align-items-center" href="../../../apps/e-commerce/landing/product-details.html">
+                          <div class="file-thumbnail me-2"><img class="h-100 w-100 fit-cover rounded-3" src="../../../assets/img/products/60x60/3.png" alt="" /></div>
+                          <div class="flex-1">
+                            <h6 class="mb-0 text-body-highlight title">MacBook Air - 13″</h6>
+                            <p class="fs-10 mb-0 d-flex text-body-tertiary"><span class="fw-medium text-body-tertiary text-opactity-85">8GB Memory - 1.6GHz - 128GB Storage</span></p>
+                          </div>
+                        </a>
+                        <a class="dropdown-item py-2 d-flex align-items-center" href="../../../apps/e-commerce/landing/product-details.html">
+                          <div class="file-thumbnail me-2"><img class="img-fluid" src="../../../assets/img/products/60x60/3.png" alt="" /></div>
+                          <div class="flex-1">
+                            <h6 class="mb-0 text-body-highlight title">MacBook Pro - 13″</h6>
+                            <p class="fs-10 mb-0 d-flex text-body-tertiary"><span class="fw-medium text-body-tertiary text-opactity-85 ms-2">30 Sep at 12:30 PM</span></p>
+                          </div>
+                        </a>
+
+                      </div>
+                      <hr class="my-0" />
+                      <h6 class="dropdown-header text-body-highlight fs-9 border-bottom border-translucent py-2 lh-sm">Quick Links</h6>
+                      <div class="py-2"><a class="dropdown-item" href="../../../apps/e-commerce/landing/product-details.html">
+                          <div class="d-flex align-items-center">
+
+                            <div class="fw-normal text-body-highlight title"><span class="fa-solid fa-link text-body" data-fa-transform="shrink-2"></span> Support MacBook House</div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item" href="../../../apps/e-commerce/landing/product-details.html">
+                          <div class="d-flex align-items-center">
+
+                            <div class="fw-normal text-body-highlight title"> <span class="fa-solid fa-link text-body" data-fa-transform="shrink-2"></span> Store MacBook″</div>
+                          </div>
+                        </a>
+
+                      </div>
+                      <hr class="my-0" />
+                      <h6 class="dropdown-header text-body-highlight fs-9 border-bottom border-translucent py-2 lh-sm">Files</h6>
+                      <div class="py-2"><a class="dropdown-item" href="../../../apps/e-commerce/landing/product-details.html">
+                          <div class="d-flex align-items-center">
+
+                            <div class="fw-normal text-body-highlight title"><span class="fa-solid fa-file-zipper text-body" data-fa-transform="shrink-2"></span> Library MacBook folder.rar</div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item" href="../../../apps/e-commerce/landing/product-details.html">
+                          <div class="d-flex align-items-center">
+
+                            <div class="fw-normal text-body-highlight title"> <span class="fa-solid fa-file-lines text-body" data-fa-transform="shrink-2"></span> Feature MacBook extensions.txt</div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item" href="../../../apps/e-commerce/landing/product-details.html">
+                          <div class="d-flex align-items-center">
+
+                            <div class="fw-normal text-body-highlight title"> <span class="fa-solid fa-image text-body" data-fa-transform="shrink-2"></span> MacBook Pro_13.jpg</div>
+                          </div>
+                        </a>
+
+                      </div>
+                      <hr class="my-0" />
+                      <h6 class="dropdown-header text-body-highlight fs-9 border-bottom border-translucent py-2 lh-sm">Members</h6>
+                      <div class="py-2"><a class="dropdown-item py-2 d-flex align-items-center" href="../../../pages/members.html">
+                          <div class="avatar avatar-l status-online  me-2 text-body">
+                            <img class="rounded-circle " src="../../../assets/img/team/40x40/10.webp" alt="" />
+
+                          </div>
+                          <div class="flex-1">
+                            <h6 class="mb-0 text-body-highlight title">Carry Anna</h6>
+                            <p class="fs-10 mb-0 d-flex text-body-tertiary">anna@technext.it</p>
+                          </div>
+                        </a>
+                        <a class="dropdown-item py-2 d-flex align-items-center" href="../../../pages/members.html">
+                          <div class="avatar avatar-l  me-2 text-body">
+                            <img class="rounded-circle " src="../../../assets/img/team/40x40/12.webp" alt="" />
+
+                          </div>
+                          <div class="flex-1">
+                            <h6 class="mb-0 text-body-highlight title">John Smith</h6>
+                            <p class="fs-10 mb-0 d-flex text-body-tertiary">smith@technext.it</p>
+                          </div>
+                        </a>
+
+                      </div>
+                      <hr class="my-0" />
+                      <h6 class="dropdown-header text-body-highlight fs-9 border-bottom border-translucent py-2 lh-sm">Related Searches</h6>
+                      <div class="py-2"><a class="dropdown-item" href="../../../apps/e-commerce/landing/product-details.html">
+                          <div class="d-flex align-items-center">
+
+                            <div class="fw-normal text-body-highlight title"><span class="fa-brands fa-firefox-browser text-body" data-fa-transform="shrink-2"></span> Search in the Web MacBook</div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item" href="../../../apps/e-commerce/landing/product-details.html">
+                          <div class="d-flex align-items-center">
+
+                            <div class="fw-normal text-body-highlight title"> <span class="fa-brands fa-chrome text-body" data-fa-transform="shrink-2"></span> Store MacBook″</div>
+                          </div>
+                        </a>
+
+                      </div>
+                    </div>
+                    <div class="text-center">
+                      <p class="fallback fw-bold fs-7 d-none">No Result Found.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+        var navbarTopStyle = window.config.config.phoenixNavbarTopStyle;
+        var navbarTop = document.querySelector('.navbar-top');
+        if (navbarTopStyle === 'darker') {
+          navbarTop.setAttribute('data-navbar-appearance', 'darker');
+        }
+
+        var navbarVerticalStyle = window.config.config.phoenixNavbarVerticalStyle;
+        var navbarVertical = document.querySelector('.navbar-vertical');
+        if (navbarVertical && navbarVerticalStyle === 'darker') {
+          navbarVertical.setAttribute('data-navbar-appearance', 'darker');
+        }
+      </script>
+      <div class="support-chat-container">
+        <div class="container-fluid support-chat">
+          <div class="card bg-body-emphasis">
+            <div class="card-header d-flex flex-between-center px-4 py-3 border-bottom border-translucent">
+              <h5 class="mb-0 d-flex align-items-center gap-2">Demo widget<span class="fa-solid fa-circle text-success fs-11"></span></h5>
+              <div class="btn-reveal-trigger">
+                <button class="btn btn-link p-0 dropdown-toggle dropdown-caret-none transition-none d-flex" type="button" id="support-chat-dropdown" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent"><span class="fas fa-ellipsis-h text-body"></span></button>
+                <div class="dropdown-menu dropdown-menu-end py-2" aria-labelledby="support-chat-dropdown"><a class="dropdown-item" href="#!">Request a callback</a><a class="dropdown-item" href="#!">Search in chat</a><a class="dropdown-item" href="#!">Show history</a><a class="dropdown-item" href="#!">Report to Admin</a><a class="dropdown-item btn-support-chat" href="#!">Close Support</a></div>
+              </div>
+            </div>
+            <div class="card-body chat p-0">
+              <div class="d-flex flex-column-reverse scrollbar h-100 p-3">
+                <div class="text-end mt-6"><a class="mb-2 d-inline-flex align-items-center text-decoration-none text-body-emphasis bg-body-hover rounded-pill border border-primary py-2 ps-4 pe-3" href="#!">
+                    <p class="mb-0 fw-semibold fs-9">I need help with something</p><span class="fa-solid fa-paper-plane text-primary fs-9 ms-3"></span>
+                  </a><a class="mb-2 d-inline-flex align-items-center text-decoration-none text-body-emphasis bg-body-hover rounded-pill border border-primary py-2 ps-4 pe-3" href="#!">
+                    <p class="mb-0 fw-semibold fs-9">I can’t reorder a product I previously ordered</p><span class="fa-solid fa-paper-plane text-primary fs-9 ms-3"></span>
+                  </a><a class="mb-2 d-inline-flex align-items-center text-decoration-none text-body-emphasis bg-body-hover rounded-pill border border-primary py-2 ps-4 pe-3" href="#!">
+                    <p class="mb-0 fw-semibold fs-9">How do I place an order?</p><span class="fa-solid fa-paper-plane text-primary fs-9 ms-3"></span>
+                  </a><a class="false d-inline-flex align-items-center text-decoration-none text-body-emphasis bg-body-hover rounded-pill border border-primary py-2 ps-4 pe-3" href="#!">
+                    <p class="mb-0 fw-semibold fs-9">My payment method not working</p><span class="fa-solid fa-paper-plane text-primary fs-9 ms-3"></span>
+                  </a>
+                </div>
+                <div class="text-center mt-auto">
+                  <div class="avatar avatar-3xl status-online"><img class="rounded-circle border border-3 border-light-subtle" src="../../../assets/img/team/30.webp" alt="" /></div>
+                  <h5 class="mt-2 mb-3">Eric</h5>
+                  <p class="text-center text-body-emphasis mb-0">Ask us anything – we’ll get back to you here or by email within 24 hours.</p>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer d-flex align-items-center gap-2 border-top border-translucent ps-3 pe-4 py-3">
+              <div class="d-flex align-items-center flex-1 gap-3 border border-translucent rounded-pill px-4">
+                <input class="form-control outline-none border-0 flex-1 fs-9 px-0" type="text" placeholder="Write message" />
+                <label class="btn btn-link d-flex p-0 text-body-quaternary fs-9 border-0" for="supportChatPhotos"><span class="fa-solid fa-image"></span></label>
+                <input class="d-none" type="file" accept="image/*" id="supportChatPhotos" />
+                <label class="btn btn-link d-flex p-0 text-body-quaternary fs-9 border-0" for="supportChatAttachment"> <span class="fa-solid fa-paperclip"></span></label>
+                <input class="d-none" type="file" id="supportChatAttachment" />
+              </div>
+              <button class="btn p-0 border-0 send-btn"><span class="fa-solid fa-paper-plane fs-9"></span></button>
+            </div>
+          </div>
+        </div>
+        <button class="btn p-0 border border-translucent btn-support-chat"><span class="fs-8 btn-text text-primary text-nowrap">Chat demo</span><span class="fa-solid fa-circle text-success fs-9 ms-2"></span><span class="fa-solid fa-chevron-down text-primary fs-7"></span></button>
+      </div>
+    </main>
+    
+
+
+</div>
+</html>

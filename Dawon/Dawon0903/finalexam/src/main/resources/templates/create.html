@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<!-- vaildation 걸지 않음 -->
+<form action="/create" method="post" enctype = "multipart/form-data">
+	
+	<!--1. 제목과 내용은 subject와 content가 엔티티의 필드와 '일치'하는지 확인을 해야했다. -->
+<p>제목 :<input type="text" name="title">
+	<!-- 분류추가 디자인 과정에서 진행됨. 피닉스 적용이후라서 바로 부트스트랩 사용함 -->
+<p>분류 :
+<select class="form-select" aria-label="Default select example" name = "cate">
+  <option selected>분류</option>
+  <option value="전체공지">전체공지</option>
+  <option value="일반공지">일반공지</option>
+  <option value="회원공지">회원공지</option>
+  <option value="배송공지">배송공지</option>
+</select>
+
+<p>내용 :<input type="text" name="about">
+
+	<!--2. 그런데 사진(파일)은 테이블의 사진이 들어가는 필드명과 반드시 '다른' 이름을 써야한다 여기선 그냥 적당히 file로 지정-->
+<p>사진 :<input type="file" name="file">
+
+<input type="submit" value="등록">
+
+</form>
+
+</body>
+</html>
+

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<h1>게시판 목록</h1>
+
+
+<th:block th:each="notice : ${notices}">
+				<a th:text="${notice.id}"></a>
+				
+				<a th:href="@{|/readdetail/${notice.id}|}"
+					th:text="${notice.title}"></a> 
+			
+				<a th:text="${#temporals.format(notice.date, 'yyyy-MM-dd HH:mm')}"></a>
+				<br>
+</th:block>
+			
+<a href="/create">게시글 작성</a>	
+
+
+			
+</body>
+</html>
