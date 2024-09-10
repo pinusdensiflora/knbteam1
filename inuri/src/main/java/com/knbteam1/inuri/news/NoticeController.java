@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class NoticeController {
 	
 	
-	@GetMapping("/")
+	@GetMapping("")
 	public String notice() {
 		
 		return "news/notice";
