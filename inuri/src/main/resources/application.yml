@@ -1,3 +1,13 @@
 spring:
   config:
     import: optional:.env[.properties]
+
+  datasource:
+    url: ${AWS_DB_ENDPOINT}
+    username: ${AWS_DB_ID}
+    password: ${AWS_DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
