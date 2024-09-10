@@ -8,6 +8,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class NoticeController {
 	
+	
+	//news생성
+	@GetMapping("/create")
+	public String create() {
+		
+		return "news/newsCreate";
+	}
+	
+	
 	//공지사항탭
 	@GetMapping("")
 	public String notice() {
@@ -45,6 +54,7 @@ public class NoticeController {
 		return "news/address";
 		
 	}
+	
 	
 
 }
