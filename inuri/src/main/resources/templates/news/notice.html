@@ -1,4 +1,8 @@
-<!-- 배다원 -->
+<!-- 
+생성자 : 배다원 
+생성일 : 9.10
+연락처 : dawnzeze@gmail.com
+-->
 <html layout:decorate="~{layout}">
 <div layout:fragment="content">
    
@@ -32,8 +36,8 @@
    <div class="container-fluid fruite py-5">
             <div class="container py-5">
                 <h1 class="mb-4">공지사항</h1>
-                <div class="row g-4">
-                    <div class="col-lg-12">
+                <div class="row g-4 ">
+                    <div class="col-lg-12 ">
                         <div class="row g-4">
                             <div class="col-xl-3">
                                 <div class="input-group w-100 mx-auto d-flex">
@@ -57,10 +61,10 @@
                         <div class="">
 
                             <div class="">
-                                <div class="row g-4 justify-content-center">
+                                <div class="row g-4 justify-content-center ">
                                 
                                
- 				<div class="table-responsive">
+ 				<div class="table-responsive ">
  				
  				
  				
@@ -85,7 +89,7 @@
                 <p class="mb-0 mt-4">[[${news.nid}]]</p>
             </td>
             <td>
-                <p class="mb-0 mt-4"><a th:href = "@{|/news/notice/${news.nid}|}">[[${news.ntitle}]]</a></p> <!-- 제목 예시 텍스트 -->
+                <p class="mb-0 mt-4"><a th:href = "@{|/news/${news.nid}|}">[[${news.ntitle}]]</a></p> <!-- 제목 예시 텍스트 -->
             </td>
             <td>
                 <p class="mb-0 mt-4">[[${news.ndate}]]</p>
@@ -112,6 +116,10 @@
                                             <a href="#" class="rounded">»</a>
                                         </div>
                                     </div>
+                                    
+                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  										<a href ="/news/notice/create" class="btn btn-primary" type="button">글쓰기</a>
+									</div>
                                 </div>
                             </div>
                         </div>
