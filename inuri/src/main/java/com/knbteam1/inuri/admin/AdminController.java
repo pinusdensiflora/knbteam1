@@ -14,9 +14,9 @@ public class AdminController {
         return "admin/main";
     }
 
-    @GetMapping("/customers")
-    public String readCustomer() {
-        return "admin/customer/readCustomerList";
+    @GetMapping("/patrons")
+    public String readPatron() {
+        return "admin/patron/readPatronList";
     }
 
     @GetMapping("/children")
