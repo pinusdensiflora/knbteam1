@@ -1,6 +1,5 @@
 <!-- 
-newsCreate.html
-생산자: 배다원
+생성자: 배다원
 생성날짜: 9.10
 연락처: dawnzeze@gmail.com
  -->
@@ -26,7 +25,7 @@ newsCreate.html
         
         
         <form th:action="@{|/news/${cateKey}/create|}" method = "post">
-                                <h4 class="mb-5 fw-bold">아이누리 글 쓰기 [[${cateKey}]]</h4>
+                                <h4 class="mb-5 fw-bold">아이누리 글 쓰기</h4>
                                 <div class="row g-4">
 
                                     <div class="col-lg-6">
@@ -50,7 +49,7 @@ newsCreate.html
   <option value="info6">인재채용</option>
   <option value="info7">보도자료</option>
   <hr>
-  <option value="terms">이용약관</option>
+<!--   <option value="terms">이용약관</option> -->
   <option value="faq">FAQ</option>
   
 </select>

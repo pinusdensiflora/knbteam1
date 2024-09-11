@@ -1,3 +1,9 @@
+/*
+ 생산자: 배다원
+ 생산날짜: 9.10
+ 연락처: dawnzeze@gmail.com
+ 
+ */
 package com.knbteam1.inuri.news;
 
 import java.util.Map;
@@ -9,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,7 +25,9 @@ import lombok.RequiredArgsConstructor;
 public class NewsController {
 	
 	private final Map<String, String> cateMap = Map.of(
-            "notice", "공지사항",
+
+			"notice", "공지사항",
+			
             "info1", "기업소식",
             "info2", "후원금 사용내역",
             "info3", "진행프로젝트",
@@ -26,6 +35,7 @@ public class NewsController {
             "info5", "명예후원자",
             "info6", "인재 채용",
             "info7", "보도자료",
+            
             "terms", "이용약관",
             "faq", "FAQ"
         );
@@ -33,7 +43,7 @@ public class NewsController {
 	
 	private final NewsService newsService;
 	
-	//news생성
+	//news CREATE
 	@GetMapping("/{cate}/create")
 	public String create(Model model, @PathVariable("cate") String cate) {
 		model.addAttribute("cateKey", cate);
@@ -46,7 +56,41 @@ public class NewsController {
 	@PostMapping("/{cate}/create")
 	public String create(@ModelAttribute News news) {
 		newsService.create(news);
+		
+		 if (news.getNcate().matches("info\\d{1}")) {
+	            // info 카테고리의 경우 조건문을 실행
+	            //System.out.println("문자열이 'info'와 1자리 숫자로 이루어져 있습니다.");
+			 	return "redirect:/news/info/" + news.getNcate().charAt(4);
+	     } 
 		return "redirect:/news/" + news.getNcate(); //카테고리에 따른 리턴 차이 필요
+	}
+	
+	
+	@GetMapping("/{id}")
+	public String readdetail(Model model, @PathVariable("id") Integer id) {
+		
+		return "news/readdetail";
+	}
+	
+	
+	//UPDATE
+	
+	
+	
+	
+	
+	//DELETE
+	@PostMapping("/news/{cate}/delete/{id}")
+	public String delete(@PathVariable("id") Integer id,@PathVariable("cate") String cate) {
+		newsService.delete(id);
+		
+		if (cate.matches("info\\d{1}")) {
+            // info 카테고리의 경우 조건문을 실행
+            //System.out.println("문자열이 'info'와 1자리 숫자로 이루어져 있습니다.");
+		 	return "redirect:/news/info/" + cate.charAt(4);
+     } 
+		
+		return "redirect:/news/" + cate;
 	}
 	
 	
@@ -67,17 +111,26 @@ public class NewsController {
 
 	
 	//소식탭
-	@GetMapping({"/info" , "/info1"})
-	public String companyNews(Model model) {
+	@GetMapping("/info")
+	public String infoMain(Model model) {
 		
 		model.addAttribute("newsl", newsService.readlist("info1")); //카테고리만
-		return "news/info/companyNews";
+		return "news/info/info1";
 		
 	}
 	
+	@GetMapping("/info/{cateNum}")
+	public String info(Model model, @PathVariable("cateNum") String cateNum) {
+		
+		model.addAttribute("newsl", newsService.readlist("info"+ cateNum)); //카테고리만
+		return "news/info/info"+ cateNum;
+		
+	}
+
+	
 	
 	//고객지원탭
-	@GetMapping("/assist")
+	@GetMapping({"/assist","/faq"})
 	public String assist() {
 		return "news/assist/FAQ";
 	}
