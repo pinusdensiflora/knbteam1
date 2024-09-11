@@ -37,8 +37,7 @@
 							</div>
 						</div>
 						<div class="col-6">
-							<p>
-								기업정보 > 소식 > <a href="/news/info">기업소식</a>
+							<p>기업정보 > <a href ="/news/info">소식</a> > <a href="/news/info">기업소식</a></p>
 						</div>
 						<div class="col-xl-3">
 							<div
@@ -121,24 +120,29 @@
 							
 							
 							
-				<div class="p-5 bg-light rounded">
+				<div class="p-5">
                     <div class="row g-4">
                         <div class="col-12">
-                            <div class="text-center mx-auto" style="max-width: 700px;">
-                                <h1 class="text-primary">1:1 문의</h1>
-                                <p class="mb-4">FAQ로 해결하기 어려운 문제를 전달해 주시면 빠른 시일 내에 확인 해 드리겠습니다. <br> <a href="/news/assist">자주묻는 질문</a></p>
+                            <div class="mx-auto" >
+                                <h1 class="text-primary">[[${news.ntitle}]]</h1>
+                                <p class="mb-4">작성일 : [[${news.ndate}]]<br> <a href="/news/assist">자주묻는 질문</a></p>
+                            	<hr>
                             </div>
                         </div>
                        
                         <div class="">
-                            <form action="" class="">
-                                <input type="text" class="w-100 form-control border-0 py-3 mb-4" placeholder="Your Name">
-                                <input type="email" class="w-100 form-control border-0 py-3 mb-4" placeholder="Enter Your Email">
-                                <textarea class="w-100 form-control border-0 mb-4" rows="5" cols="10" placeholder="Your Message"></textarea>
-                                <button class="w-100 btn form-control border-secondary py-3 bg-white text-primary " type="submit">Submit</button>
-                            </form>
+                           
+                                	<div style = "height : 50vh;">[[${news.ndesc}]]</div>
+<!--                                 <textarea class="w-100 form-control border-0 mb-4" rows="30" cols="10" placeholder="내용 없음">[[${news.ndesc}]]</textarea>
+ -->     
                         </div>
                         
+                        
+                        <div class="d-flex justify-content-between py-3 mb-5">
+                         	<a th:href="@{|/news/${news.ncate}|}" class="btn border border-secondary text-primary px-4 py-2"> 목록보기</a> 
+                              
+                            <button type="submit" class="btn border border-danger text-danger px-4 py-2"> 삭제</button> 
+                        </div>
                     </div>
                 
                 

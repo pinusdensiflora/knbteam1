@@ -25,9 +25,10 @@ import lombok.RequiredArgsConstructor;
 public class NewsController {
 	
 	private final Map<String, String> cateMap = Map.of(
-
+			//article
 			"notice", "공지사항",
 			
+			//info
             "info1", "기업소식",
             "info2", "후원금 사용내역",
             "info3", "진행프로젝트",
@@ -36,9 +37,10 @@ public class NewsController {
             "info6", "인재 채용",
             "info7", "보도자료",
             
+            //assist
             "terms", "이용약관",
             "faq", "FAQ"
-        );
+    );
 	
 	
 	private final NewsService newsService;
@@ -60,15 +62,15 @@ public class NewsController {
 		 if (news.getNcate().matches("info\\d{1}")) {
 	            // info 카테고리의 경우 조건문을 실행
 	            //System.out.println("문자열이 'info'와 1자리 숫자로 이루어져 있습니다.");
-			 	return "redirect:/news/info/" + news.getNcate().charAt(4);
+			 	return "redirect:/news/article/" + news.getNcate().charAt(4);
 	     } 
-		return "redirect:/news/" + news.getNcate(); //카테고리에 따른 리턴 차이 필요
+		return "redirect:/news/article/" + news.getNcate(); //카테고리에 따른 리턴 차이 필요
 	}
 	
 	
 	@GetMapping("/{id}")
 	public String readdetail(Model model, @PathVariable("id") Integer id) {
-		
+		model.addAttribute("news", newsService.readdetail(id));
 		return "news/readdetail";
 	}
 	
@@ -102,7 +104,7 @@ public class NewsController {
 	
 	
 	//공지사항탭
-	@GetMapping({"","/notice"})
+	@GetMapping({"","/article/notice"})
 	public String notice(Model model) {
 		model.addAttribute("newsl", newsService.readlist("notice")); //notice 카테고리
 		return "news/notice";
@@ -111,7 +113,7 @@ public class NewsController {
 
 	
 	//소식탭
-	@GetMapping("/info")
+	@GetMapping({"/info", "/article/info1"})
 	public String infoMain(Model model) {
 		
 		model.addAttribute("newsl", newsService.readlist("info1")); //카테고리만
@@ -119,23 +121,33 @@ public class NewsController {
 		
 	}
 	
-	@GetMapping("/info/{cateNum}")
-	public String info(Model model, @PathVariable("cateNum") String cateNum) {
-		
-		model.addAttribute("newsl", newsService.readlist("info"+ cateNum)); //카테고리만
-		return "news/info/info"+ cateNum;
-		
-	}
+//	@GetMapping("/article/{cateNum}")
+//	public String info(Model model, @PathVariable("cateNum") String cateNum) {
+//		
+//		model.addAttribute("newsl", newsService.readlist("info"+ cateNum)); //카테고리만
+//		return "news/info/info"+ cateNum;
+//		
+//	}
+	
+//	@GetMapping("/article/{cate}")
+//	public String info(Model model, @PathVariable("cate") String cate) {
+//		//info 조건문 넣어서 전체 가능하게 변경하기
+//		model.addAttribute("newsl", newsService.readlist(cate); //카테고리만
+//		return "news/info/info"+ cate.charAt(4);
+//		
+//	}
+	
+
 
 	
 	
 	//고객지원탭
-	@GetMapping({"/assist","/faq"})
+	@GetMapping({"/assist","/article/faq"})
 	public String assist() {
 		return "news/assist/FAQ";
 	}
 	
-	@GetMapping("/assist/inquiry")
+	@GetMapping("/article/inquiry")
 	public String inquiry() {
 		return "news/assist/inquiry";
 	}
