@@ -142,22 +142,23 @@ memberInform.html
                         <h1 class="display-1">회원가입</h1>
                         <h2 class="mb-4">일반 회원가입</h2>
                         
-              <form>
+              <form action="/signup" method = "post">
+              
                 <div class="form-group">
-                    <label for="username"></label>
-                    <input type="text" class="form-control" id="username" placeholder="이름">
+                 
+                    <input name = "name" type="text" class="form-control" placeholder="이름">
                 </div>
+                 
                  <div class="form-group">
-                    <label for="email"></label>
-                    <input type="text" class="form-control" id="email" placeholder="이메일">
+                    
+                    <input name = "username"type="text" class="form-control" id="email" placeholder="이메일">
                 </div>
                 <div class="form-group">
-                    <label for="password"></label>
-                    <input type="password" class="form-control" id="password" placeholder="비밀번호를 입력해주세요">
+                 <input name = "password" type="password" class="form-control" id="password" placeholder="비밀번호를 입력해주세요">
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                 <input type="password" class="form-control" id="confirmPassword" placeholder="비밀번호를 한 번 더 입력해 주세요" required>
-                </div>
+                </div> -->
                 <p class="mb-4 mt-3">※8자 이상 대문자,소문자,숫자,특수문자 중 3가지 이상을 사용해 주세요.</p>
                 <button type="submit" class="btn btn-primary btn-block mt-3">이메일로 가입</button>
             </form>
