@@ -1,3 +1,9 @@
+/*
+ 생산자: 배다원
+ 생산날짜: 9.10
+ 연락처: dawnzeze@gmail.com
+ 
+ */
 package com.knbteam1.inuri.news;
 
 import java.io.IOException;
@@ -56,7 +62,7 @@ public class NewsService {
 		}
 		
 		
-		// readlist
+		// readlist 카테고리별
 		public List<News> readlist(String cate) {
 			return newsRepository.findByNcate(cate);
 		}
@@ -82,7 +88,7 @@ public class NewsService {
 //				news.setImg(fileName);  //새로운 uuid 붙인 사진 넣기
 //			}
 			
-			//update시 id는 hidden 으로 함께 추가필수
+			//update시 id는 hidden 으로 함께 추가됨
 			newsRepository.save(news);
 		}
 		

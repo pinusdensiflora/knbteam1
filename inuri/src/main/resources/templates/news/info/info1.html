@@ -1,0 +1,188 @@
+<!-- 
+생성자 : 배다원 
+생성일 : 9.11
+연락처 : dawnzeze@gmail.com
+-->
+<html layout:decorate="~{layout}">
+<div layout:fragment="content">
+
+   
+   <div class="container-fluid page-header py-5">
+            <h1 class="text-center text-white display-6">기업정보</h1>
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="/news">공지사항</a></li>
+                <li class="breadcrumb-item"><a href="/news/info">소식</a></li>
+                <li class="breadcrumb-item"><a href="/news/assist">고객지원</a></li>
+                <li class="breadcrumb-item"><a href="/news/address">찾아오시는 길</a></li>
+            </ol>
+        </div>
+
+
+
+
+<div class="container-fluid fruite py-5">
+            <div class="container py-5">
+                <h1 class="mb-4">소식</h1>
+                <div class="row g-4">
+                    <div class="col-lg-12">
+                        <div class="row g-4">
+                            <div class="col-xl-3">
+                                <div class="input-group w-100 mx-auto d-flex">
+                                    <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
+                                    <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
+                                </div>
+                            </div>
+                            <div class="col-6"><p>기업정보 > 소식 > <a href = "/news/info">기업소식</a></div>
+                            <div class="col-xl-3">
+                                <div class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4">
+                                    <label for="fruits">Default Sorting:</label>
+                                    <select id="fruits" name="fruitlist" class="border-0 form-select-sm bg-light me-3" form="fruitform">
+                                        <option value="volvo">Nothing</option>
+                                        <option value="saab">Popularity</option>
+                                        <option value="opel">Organic</option>
+                                        <option value="audi">Fantastic</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-4 ">
+                            <div class="col-lg-3 bg-light rounded p-4">
+                                <div class="row g-4">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <h4>Categories</h4>
+                                            <ul class="list-unstyled fruite-categorie">
+                                                <li>
+                                                    <div class="d-flex justify-content-between fruite-name">
+                                                        <a href="/news/info/1"><i class="fas fa-apple-alt me-2"></i>기업소식</a>
+                                                        <span>(3)</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="d-flex justify-content-between fruite-name">
+                                                        <a href="/news/info/2"><i class="fas fa-apple-alt me-2"></i>후원금 사용내역</a>
+                                                        <span>(5)</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="d-flex justify-content-between fruite-name">
+                                                        <a href="/news/info/3"><i class="fas fa-apple-alt me-2"></i>진행 프로젝트</a>
+                                                        <span>(2)</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="d-flex justify-content-between fruite-name">
+                                                        <a href="/news/info/4"><i class="fas fa-apple-alt me-2"></i>피후원자 추가안내</a>
+                                                        <span>(8)</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="d-flex justify-content-between fruite-name">
+                                                        <a href="/news/info/5"><i class="fas fa-apple-alt me-2"></i>명예후원자</a>
+                                                        <span>(5)</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="d-flex justify-content-between fruite-name">
+                                                        <a href="/news/info/6"><i class="fas fa-apple-alt me-2"></i>인재채용</a>
+                                                        <span>(5)</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="d-flex justify-content-between fruite-name">
+                                                        <a href="/news/info/7"><i class="fas fa-apple-alt me-2"></i>보도자료</a>
+                                                        <span>(8)</span>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                </div>
+              
+                                
+                            </div>
+                            <div class="col-lg-9">
+                            
+                            
+                                <div class="justify-content-center">
+                                
+                                
+<div class="table-responsive">
+ 				
+ 				
+ 				
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col" style="width: 10%;">번호</th>
+            <th scope="col" style="width: 70%;">제목</th>  <!-- 제목의 가로폭을 70%로 설정 -->
+            <th scope="col" style="width: 20%;">작성일</th>
+        </tr>
+    </thead>
+    <tbody>
+    
+    
+    
+<th:block th:each = "news:${newsl}">
+
+
+
+        <tr>
+            <td>
+                <p class="mb-0 mt-4">[[${news.nid}]]</p>
+            </td>
+            <td>
+                <p class="mb-0 mt-4"><a th:href = "@{|/news/${news.nid}|}">[[${news.ntitle}]]</a></p> <!-- 제목 예시 텍스트 -->
+            </td>
+            <td>
+                <p class="mb-0 mt-4">[[${news.ndate}]]</p>
+            </td>
+        </tr>
+</th:block>
+    </tbody>
+</table>
+
+
+                </div> 
+                                    
+                                    
+                                    
+                                    <div class="col-12">
+                                        <div class="pagination d-flex justify-content-center mt-5">
+                                            <a href="#" class="rounded">«</a>
+                                            <a href="#" class="active rounded">1</a>
+                                            <a href="#" class="rounded">2</a>
+                                            <a href="#" class="rounded">3</a>
+                                            <a href="#" class="rounded">4</a>
+                                            <a href="#" class="rounded">5</a>
+                                            <a href="#" class="rounded">6</a>
+                                            <a href="#" class="rounded">»</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  									<a href ="/news/info1/create" class="btn btn-primary" type="button">글쓰기</a>
+								</div>
+                                
+                               
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+</div>
+</html>
