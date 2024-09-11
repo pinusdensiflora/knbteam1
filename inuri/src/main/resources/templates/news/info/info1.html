@@ -54,43 +54,43 @@
                                             <ul class="list-unstyled fruite-categorie">
                                                 <li>
                                                     <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="/news/info/1"><i class="fas fa-apple-alt me-2"></i>기업소식</a>
+                                                        <a href="/news/info1"><i class="fas fa-apple-alt me-2"></i>기업소식</a>
                                                         <span>(3)</span>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="/news/info/2"><i class="fas fa-apple-alt me-2"></i>후원금 사용내역</a>
+                                                        <a href="/news/info2"><i class="fas fa-apple-alt me-2"></i>후원금 사용내역</a>
                                                         <span>(5)</span>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="/news/info/3"><i class="fas fa-apple-alt me-2"></i>진행 프로젝트</a>
+                                                        <a href="/news/info3"><i class="fas fa-apple-alt me-2"></i>진행 프로젝트</a>
                                                         <span>(2)</span>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="/news/info/4"><i class="fas fa-apple-alt me-2"></i>피후원자 추가안내</a>
+                                                        <a href="/news/info4"><i class="fas fa-apple-alt me-2"></i>피후원자 추가안내</a>
                                                         <span>(8)</span>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="/news/info/5"><i class="fas fa-apple-alt me-2"></i>명예후원자</a>
+                                                        <a href="/news/info5"><i class="fas fa-apple-alt me-2"></i>명예후원자</a>
                                                         <span>(5)</span>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="/news/info/6"><i class="fas fa-apple-alt me-2"></i>인재채용</a>
+                                                        <a href="/news/info6"><i class="fas fa-apple-alt me-2"></i>인재채용</a>
                                                         <span>(5)</span>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="/news/info/7"><i class="fas fa-apple-alt me-2"></i>보도자료</a>
+                                                        <a href="/news/info7"><i class="fas fa-apple-alt me-2"></i>보도자료</a>
                                                         <span>(8)</span>
                                                     </div>
                                                 </li>
@@ -139,7 +139,7 @@
                 <p class="mb-0 mt-4">[[${news.nid}]]</p>
             </td>
             <td>
-                <p class="mb-0 mt-4"><a th:href = "@{|/news/${news.nid}|}">[[${news.ntitle}]]</a></p> <!-- 제목 예시 텍스트 -->
+                <p class="mb-0 mt-4"><a th:href = "@{|/news/article/${news.nid}|}">[[${news.ntitle}]]</a></p> <!-- 제목 예시 텍스트 -->
             </td>
             <td>
                 <p class="mb-0 mt-4">[[${news.ndate}]]</p>

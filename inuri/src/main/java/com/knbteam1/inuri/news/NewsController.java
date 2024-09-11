@@ -64,11 +64,11 @@ public class NewsController {
 	            //System.out.println("문자열이 'info'와 1자리 숫자로 이루어져 있습니다.");
 			 	return "redirect:/news/article/" + news.getNcate().charAt(4);
 	     } 
-		return "redirect:/news/article/" + news.getNcate(); //카테고리에 따른 리턴 차이 필요
+		return "redirect:/news/" + news.getNcate(); //카테고리에 따른 리턴 차이 필요
 	}
 	
 	
-	@GetMapping("/{id}")
+	@GetMapping("/article/{id}")
 	public String readdetail(Model model, @PathVariable("id") Integer id) {
 		model.addAttribute("news", newsService.readdetail(id));
 		return "news/readdetail";
@@ -99,12 +99,24 @@ public class NewsController {
 	
 	
 	
-	
+	@GetMapping("/{cate}")
+	public String cate(Model model, @PathVariable("cate") String cate) {
+		model.addAttribute("newsl", newsService.readlist(cate));
+		
+		if(cate.equals("notice")) {
+			return "news/notice";
+			
+		} else if(cate.substring(0, 4).equals("info")) {
+			
+			return "news/info/"+cate;
+		}
+		return "news/assist/"+ cate;
+	}
 	
 	
 	
 	//공지사항탭
-	@GetMapping({"","/article/notice"})
+	@GetMapping("")
 	public String notice(Model model) {
 		model.addAttribute("newsl", newsService.readlist("notice")); //notice 카테고리
 		return "news/notice";
@@ -113,7 +125,7 @@ public class NewsController {
 
 	
 	//소식탭
-	@GetMapping({"/info", "/article/info1"})
+	@GetMapping("/info")
 	public String infoMain(Model model) {
 		
 		model.addAttribute("newsl", newsService.readlist("info1")); //카테고리만
@@ -142,12 +154,12 @@ public class NewsController {
 	
 	
 	//고객지원탭
-	@GetMapping({"/assist","/article/faq"})
+	@GetMapping("/assist")
 	public String assist() {
 		return "news/assist/FAQ";
 	}
 	
-	@GetMapping("/article/inquiry")
+	@GetMapping("/assist/inquiry")
 	public String inquiry() {
 		return "news/assist/inquiry";
 	}
