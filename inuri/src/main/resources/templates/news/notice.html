@@ -1,7 +1,8 @@
 <!-- 배다원 -->
 <html layout:decorate="~{layout}">
-<div layout:fragment="content">
-   
+  <div layout:fragment="content">
+    <div class="container-fluid page-header py-5">
+      <h1 class="text-center text-white display-6">기업정보</h1>
 
    
    
@@ -17,12 +18,12 @@
                 <li class="breadcrumb-item"><a href="/news/info">소식</a></li>
                 
 
-					
-					   
-                <li class="breadcrumb-item"><a href="/news/assist">고객지원</a></li>
-                <li class="breadcrumb-item"><a href="/news/address">찾아오시는 길</a></li>
-            </ol>
-        </div>
+        <li class="breadcrumb-item"><a href="/news/assist">고객지원</a></li>
+        <li class="breadcrumb-item">
+          <a href="/news/address">찾아오시는 길</a>
+        </li>
+      </ol>
+    </div>
 
 
 
@@ -117,15 +118,86 @@
                         </div>
                     </div>
                 </div>
+              </div>
+              <div class="col-6">
+                <p>
+                  기업정보 > <a href="/news">공지사항</a>
+                  <a href="/news/notice/create"> 글작성</a>
+                </p>
+              </div>
+              <div class="col-xl-3">
+                <div
+                  class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4"
+                >
+                  <label for="fruits">Default Sorting:</label>
+                  <select
+                    id="fruits"
+                    name="fruitlist"
+                    class="border-0 form-select-sm bg-light me-3"
+                    form="fruitform"
+                  >
+                    <option value="volvo">Nothing</option>
+                    <option value="saab">Popularity</option>
+                    <option value="opel">Organic</option>
+                    <option value="audi">Fantastic</option>
+                  </select>
+                </div>
+              </div>
             </div>
+            <div class="">
+              <div class="">
+                <div class="row g-4 justify-content-center">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col" style="width: 10%">번호</th>
+                          <th scope="col" style="width: 70%">제목</th>
+                          <!-- 제목의 가로폭을 70%로 설정 -->
+                          <th scope="col" style="width: 20%">작성일</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <th:block th:each="news:${newsl}">
+                          <tr>
+                            <td>
+                              <p class="mb-0 mt-4">[[${news.nid}]]</p>
+                            </td>
+                            <td>
+                              <p class="mb-0 mt-4">
+                                <a th:href="@{|/news/notice/${news.nid}|}"
+                                  >[[${news.ntitle}]]</a
+                                >
+                              </p>
+                              <!-- 제목 예시 텍스트 -->
+                            </td>
+                            <td>
+                              <p class="mb-0 mt-4">[[${news.ndate}]]</p>
+                            </td>
+                          </tr>
+                        </th:block>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <div class="col-12">
+                    <div class="pagination d-flex justify-content-center mt-5">
+                      <a href="#" class="rounded">«</a>
+                      <a href="#" class="active rounded">1</a>
+                      <a href="#" class="rounded">2</a>
+                      <a href="#" class="rounded">3</a>
+                      <a href="#" class="rounded">4</a>
+                      <a href="#" class="rounded">5</a>
+                      <a href="#" class="rounded">6</a>
+                      <a href="#" class="rounded">»</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-   
-   
-   
-   
-    
-   
-   
-   
-</div>
+      </div>
+    </div>
+  </div>
 </html>
