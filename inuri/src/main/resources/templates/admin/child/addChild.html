@@ -1,7 +1,26 @@
 <html layout:decorate="~{admin/admin}">
 <div layout:fragment="content" class="col-lg-9">
-  <div class="row g-4 justify-content-center">
-    아동 추가
-  </div>
+    <div class="bg-light rounded h-100 p-4">
+        <h6 class="mb-4">후원 아동 등록</h6>
+        <form action="/admin/children/add" method="post" enctype="multipart/form-data">
+            <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">이름</label>
+                <div class="col-sm-10">
+                    <input type="text" name="name" class="form-control" id="inputEmail3">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="inputPassword3" class="col-sm-2 col-form-label">나이</label>
+                <div class="col-sm-10">
+                    <input type="text" name="age" class="form-control" id="inputPassword3">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="formFile" class="col-sm-2 col-form-label">사진</label>
+                <div class="col-sm-10 "><input class="form-control" type="file" id="formFile" name="file"></div>
+            </div>
+            <button type="submit" class="btn btn-primary">등록</button>
+        </form>
+    </div>
 </div>
 </html>

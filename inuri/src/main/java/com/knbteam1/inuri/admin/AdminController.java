@@ -24,5 +24,8 @@ public class AdminController {
         return "admin/child/readChildren";
     }
 
-
+    @GetMapping("/children/add")
+    public String addChild(){
+        return "admin/child/addChild";
+    }
 }
