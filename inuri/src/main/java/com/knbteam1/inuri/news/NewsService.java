@@ -56,8 +56,8 @@ public class NewsService {
 		
 		
 		// readlist
-		public List<News> readlist() {
-			return newsRepository.findAll();
+		public List<News> readlist(String cate) {
+			return newsRepository.findByNcate(cate);
 		}
 		
 		// readdetail

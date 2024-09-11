@@ -30,11 +30,9 @@ public class News {
 	private String ndesc;
 	
 	private String ncate;
-	
-	//@ManyToOne
-	//private  
-	
-	
-	
+	//notice, info, 
+
+
+	private String nimg;
 	
 }
