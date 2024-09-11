@@ -44,9 +44,9 @@ public class NewsController {
 	
 	
 	@PostMapping("/{cate}/create")
-	public String create(@ModelAttribute News news, @PathVariable("cate") String cate) {
+	public String create(@ModelAttribute News news) {
 		newsService.create(news);
-		return "redirect:/news/" + cate; //카테고리에 따른 리턴 차이 필요
+		return "redirect:/news/" + news.getNcate(); //카테고리에 따른 리턴 차이 필요
 	}
 	
 	
@@ -67,10 +67,10 @@ public class NewsController {
 
 	
 	//소식탭
-	@GetMapping("/info")
+	@GetMapping({"/info" , "/info1"})
 	public String companyNews(Model model) {
 		
-		model.addAttribute("newsl", newsService.readlist("info")); //카테고리만
+		model.addAttribute("newsl", newsService.readlist("info1")); //카테고리만
 		return "news/info/companyNews";
 		
 	}

@@ -25,9 +25,10 @@ newsCreate.html
         
         
         
-        <form th:action="@{|/${cateKey}/create|}" method = "post">
+        <form th:action="@{|/news/${cateKey}/create|}" method = "post">
                                 <h4 class="mb-5 fw-bold">아이누리 글 쓰기 [[${cateKey}]]</h4>
                                 <div class="row g-4">
+
                                     <div class="col-lg-6">
                                         <div class="border-bottom rounded">
                                             <input name = "ntitle" type="text" class="form-control border-0 me-4" placeholder="제목을 입력하세요">
@@ -62,7 +63,7 @@ newsCreate.html
                                             <textarea name="ndesc" id="" class="form-control border-0" cols="30" rows="10" placeholder="내용" spellcheck="false"></textarea>
                                         </div>
                                     </div>
-                                    
+                                     -->
 
                                     
                                     
@@ -71,15 +72,15 @@ newsCreate.html
                                             <div class="d-flex align-items-center">
                                                 <p class="mb-0 me-3">감사합니다</p>
                                                 <div class="d-flex align-items-center" style="font-size: 12px;">
-                                                    <!-- <i class="fa fa-star text-muted"></i>
+                                                    <i class="fa fa-star text-muted"></i>
                                                     <i class="fa fa-star"></i>
                                                     <i class="fa fa-star"></i>
                                                     <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i> -->
+                                                    <i class="fa fa-star"></i>
                                                     
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn border border-secondary text-primary rounded-pill px-4 py-3"> 발행</button>
+                                            <button type="submit" class="btn border border-secondary text-primary rounded-pill px-4 py-3"> 발행</button> 
                                         </div>
                                     </div>
                                 </div>
