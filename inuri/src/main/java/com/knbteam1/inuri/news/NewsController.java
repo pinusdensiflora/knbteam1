@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.RequiredArgsConstructor;
 
@@ -42,7 +43,7 @@ public class NewsController {
 	
 	private final NewsService newsService;
 	
-	//news생성
+	//news CREATE
 	@GetMapping("/{cate}/create")
 	public String create(Model model, @PathVariable("cate") String cate) {
 		model.addAttribute("cateKey", cate);
@@ -62,6 +63,34 @@ public class NewsController {
 			 	return "redirect:/news/info/" + news.getNcate().charAt(4);
 	     } 
 		return "redirect:/news/" + news.getNcate(); //카테고리에 따른 리턴 차이 필요
+	}
+	
+	
+	@GetMapping("/{id}")
+	public String readdetail(Model model, @PathVariable("id") Integer id) {
+		
+		return "news/readdetail";
+	}
+	
+	
+	//UPDATE
+	
+	
+	
+	
+	
+	//DELETE
+	@PostMapping("/news/{cate}/delete/{id}")
+	public String delete(@PathVariable("id") Integer id,@PathVariable("cate") String cate) {
+		newsService.delete(id);
+		
+		if (cate.matches("info\\d{1}")) {
+            // info 카테고리의 경우 조건문을 실행
+            //System.out.println("문자열이 'info'와 1자리 숫자로 이루어져 있습니다.");
+		 	return "redirect:/news/info/" + cate.charAt(4);
+     } 
+		
+		return "redirect:/news/" + cate;
 	}
 	
 	
@@ -97,18 +126,11 @@ public class NewsController {
 		return "news/info/info"+ cateNum;
 		
 	}
-	
 
 	
 	
-	
-	
-	
-	
-	
-	
 	//고객지원탭
-	@GetMapping("/assist")
+	@GetMapping({"/assist","/faq"})
 	public String assist() {
 		return "news/assist/FAQ";
 	}

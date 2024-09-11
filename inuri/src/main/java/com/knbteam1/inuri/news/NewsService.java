@@ -62,7 +62,7 @@ public class NewsService {
 		}
 		
 		
-		// readlist
+		// readlist 카테고리별
 		public List<News> readlist(String cate) {
 			return newsRepository.findByNcate(cate);
 		}
