@@ -1,7 +1,9 @@
 package com.knbteam1.inuri.news;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -13,6 +15,8 @@ import lombok.RequiredArgsConstructor;
 public class NewsController {
 	
 	
+	private final NewsService newsService;
+	
 	//news생성
 	@GetMapping("/create")
 	public String create() {
@@ -22,29 +26,25 @@ public class NewsController {
 	
 	
 	@PostMapping("/create")
-	public String create(News news) {
+	public String create(@ModelAttribute News news) {
 		
-		
+		return "redirect:/news/"; //카테고리에 따른 리턴 차이 필요
 	}
-	
-	
-	
-	
-	
 	
 	
 	//공지사항탭
 	@GetMapping("")
-	public String notice() {
-		
+	public String notice(Model model) {
+		model.addAttribute("newsl", newsService.readlist("notice")); //notice 카테고리
 		return "news/notice";
 		
 	}
 	
 	//소식탭
 	@GetMapping("/info")
-	public String companyNews() {
+	public String companyNews(Model model) {
 		
+		model.addAttribute("newsl", newsService.readlist("info")); //카테고리만
 		return "news/info/companyNews";
 		
 	}
