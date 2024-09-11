@@ -56,25 +56,27 @@ admin/main.html
         <div class="bg-light text-center rounded p-4">
             <div class="d-flex align-items-center justify-content-between mb-4">
                 <h6 class="mb-0">공지사항 관리</h6>
-                <a href="" >글 작성</a>
+                <a href="">글 작성</a>
             </div>
             <div class="table-responsive">
                 <table class="table text-start align-middle table-bordered table-hover mb-0">
                     <thead>
                     <tr class="text-dark">
-                        <th scope="col"><input class="form-check-input" type="checkbox"></th>
+                        <th scope="col"></th>
                         <th scope="col">제목</th>
                         <th scope="col">카테고리</th>
                         <th scope="col">작성일</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td><input class="form-check-input" type="checkbox"></td>
-                        <td>title</td>
-                        <td>Category</td>
-                        <td>date</td>
-                    </tr>
+                    <th:block th:each="news:${newsList}">
+                        <tr>
+                            <td><input class="form-check-input" type="checkbox"></td>
+                            <td>[[${news.ntitle}]]</td>
+                            <td>[[${news.ncate}]]</td>
+                            <td>[[${news.ndate.toLocalDate()}]]</td>
+                        </tr>
+                    </th:block>
                     </tbody>
                 </table>
             </div>
