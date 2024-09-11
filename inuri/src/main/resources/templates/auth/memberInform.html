@@ -1,7 +1,7 @@
 <!-- 
-loginForm.html
+memberInform.html
 생성자: 김가은
-생성날짜: 9.10
+생성날짜: 9.11
 연락처: kkydu007@naver.com
 
  -->
@@ -123,8 +123,12 @@ loginForm.html
 
         <!-- Single Page Header start -->
         <div class="container-fluid page-header py-5">
-            <h1 class="text-center text-white display-6">어린이들 사진 들어갈 예정</h1>
-            
+            <h1 class="text-center text-white display-6">404 Error</h1>
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                <li class="breadcrumb-item active text-white">404</li>
+            </ol>
         </div>
         <!-- Single Page Header End -->
 
@@ -135,26 +139,31 @@ loginForm.html
                 <div class="row justify-content-center">
                     <div class="col-lg-6">
                         
-                        <h1 class="display-1">로그인</h1>
-                        <form>
+                        <h1 class="display-1">회원가입</h1>
+                        <h2 class="mb-4">일반 회원가입</h2>
+                        
+              <form>
                 <div class="form-group">
                     <label for="username"></label>
-                    <input type="text" class="form-control" id="username" placeholder="이메일을 입력해주세요">
+                    <input type="text" class="form-control" id="username" placeholder="이름">
+                </div>
+                 <div class="form-group">
+                    <label for="email"></label>
+                    <input type="text" class="form-control" id="email" placeholder="이메일">
                 </div>
                 <div class="form-group">
                     <label for="password"></label>
                     <input type="password" class="form-control" id="password" placeholder="비밀번호를 입력해주세요">
                 </div>
-                <button type="submit" class="btn btn-primary btn-block mt-3">로그인</button>
+                <div class="form-group">
+                <input type="password" class="form-control" id="confirmPassword" placeholder="비밀번호를 한 번 더 입력해 주세요" required>
+                </div>
+                <p class="mb-4 mt-3">※8자 이상 대문자,소문자,숫자,특수문자 중 3가지 이상을 사용해 주세요.</p>
+                <button type="submit" class="btn btn-primary btn-block mt-3">이메일로 가입</button>
             </form>
-                        <ol class="breadcrumb justify-content-center mb-0 mt-3">
-                <li class="breadcrumb-item"><a href="#">비밀번호 찾기</a></li>
-                <li class="breadcrumb-item"><a href="#">회원가입</a></li>
-            </ol>
-                        <h1 class="mb-4"></h1>
                         
-                        <a class="btn border-secondary rounded-pill py-3 px-5" href="index.html">네이버 로그인</a>
-                        <a class="btn border-secondary rounded-pill py-3 px-5" href="index.html">카카오 로그인</a>
+                        
+                        <a class="btn border-secondary rounded-pill py-3 px-5" href="index.html">Go Back To Home</a>
                     </div>
                 </div>
             </div>
