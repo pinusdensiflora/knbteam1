@@ -27,9 +27,7 @@
 
 - Github Flow 전략 채택
 - main 브랜치는 안정된 코드 조각의 모음
-- **feature/이슈번호-기능이름** 형식의 브랜치 사용
-  - ex) feature/GJNS-7-user-entity
-  - 하위 이슈 번호 사용
+- **기능이름** 형식의 브랜치 사용
 - **기능 단위의 커밋 필수**
   - 몰아서 커밋 지양하기
 - 브랜치 push 후 main 브랜치로 pull request
