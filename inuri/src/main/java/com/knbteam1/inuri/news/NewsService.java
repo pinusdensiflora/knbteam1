@@ -25,7 +25,8 @@ public class NewsService {
 	
 	
 	//작성자 기입하기
-		public void create(News news, MultipartFile file) throws IOException {
+		//public void create(News news, MultipartFile file) throws IOException {
+		public void create(News news){
 			//s3Service의 uploadFile 메서드를 사용하기 위해 파일 이름이 필요한데, 이때 uuid 를 추가해서 쓴다.
 			
 //			//기본 사진이름을 uuid 처리 후 aws에 저장
