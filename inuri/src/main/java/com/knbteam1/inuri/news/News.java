@@ -1,5 +1,4 @@
 /*
- Notice.java
  생산자: 배다원
  생산날짜: 9.10
  연락처: dawnzeze@gmail.com
