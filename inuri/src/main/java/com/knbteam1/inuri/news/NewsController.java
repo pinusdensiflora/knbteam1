@@ -24,7 +24,9 @@ import lombok.RequiredArgsConstructor;
 public class NewsController {
 	
 	private final Map<String, String> cateMap = Map.of(
-            "notice", "공지사항",
+
+			"notice", "공지사항",
+			
             "info1", "기업소식",
             "info2", "후원금 사용내역",
             "info3", "진행프로젝트",
@@ -32,6 +34,7 @@ public class NewsController {
             "info5", "명예후원자",
             "info6", "인재 채용",
             "info7", "보도자료",
+            
             "terms", "이용약관",
             "faq", "FAQ"
         );
@@ -52,6 +55,12 @@ public class NewsController {
 	@PostMapping("/{cate}/create")
 	public String create(@ModelAttribute News news) {
 		newsService.create(news);
+		
+		 if (news.getNcate().matches("info\\d{1}")) {
+	            // info 카테고리의 경우 조건문을 실행
+	            //System.out.println("문자열이 'info'와 1자리 숫자로 이루어져 있습니다.");
+			 	return "redirect:/news/info/" + news.getNcate().charAt(4);
+	     } 
 		return "redirect:/news/" + news.getNcate(); //카테고리에 따른 리턴 차이 필요
 	}
 	
@@ -73,13 +82,29 @@ public class NewsController {
 
 	
 	//소식탭
-	@GetMapping({"/info" , "/info1"})
-	public String companyNews(Model model) {
+	@GetMapping("/info")
+	public String infoMain(Model model) {
 		
 		model.addAttribute("newsl", newsService.readlist("info1")); //카테고리만
-		return "news/info/companyNews";
+		return "news/info/info1";
 		
 	}
+	
+	@GetMapping("/info/{cateNum}")
+	public String info(Model model, @PathVariable("cateNum") String cateNum) {
+		
+		model.addAttribute("newsl", newsService.readlist("info"+ cateNum)); //카테고리만
+		return "news/info/info"+ cateNum;
+		
+	}
+	
+
+	
+	
+	
+	
+	
+	
 	
 	
 	//고객지원탭
