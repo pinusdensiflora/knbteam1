@@ -41,7 +41,7 @@
                                     <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
                                 </div>
                             </div>
-                            <div class="col-6"><p>기업정보 > <a href = "/news">공지사항</a> <a href = "/news/create"> 글작성</a></div>
+                            <div class="col-6"><p>기업정보 > <a href = "/news">공지사항</a> <a href = "/news/notice/create"> 글작성</a></div>
                             <div class="col-xl-3">
                                 <div class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4">
                                     <label for="fruits">Default Sorting:</label>
@@ -63,12 +63,7 @@
  				<div class="table-responsive">
  				
  				
-<th:block th:each = "news:${newsl}">
-
-제목 : [[${news.ntitle}]] <br>
-
-
-</th:block> 				
+ 				
 <table class="table">
     <thead>
         <tr>
@@ -79,18 +74,24 @@
     </thead>
     <tbody>
     
+    
+    
+<th:block th:each = "news:${newsl}">
+
+
+
         <tr>
             <td>
-                <p class="mb-0 mt-4">1002</p>
+                <p class="mb-0 mt-4">[[${news.nid}]]</p>
             </td>
             <td>
-                <p class="mb-0 mt-4">2.99 $</p> <!-- 제목 예시 텍스트 -->
+                <p class="mb-0 mt-4"><a th:href = "@{|/news/notice/${news.nid}|}">[[${news.ntitle}]]</a></p> <!-- 제목 예시 텍스트 -->
             </td>
             <td>
-                <p class="mb-0 mt-4">2020.10.05</p>
+                <p class="mb-0 mt-4">[[${news.ndate}]]</p>
             </td>
         </tr>
-
+</th:block>
     </tbody>
 </table>
 

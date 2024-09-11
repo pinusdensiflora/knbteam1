@@ -33,6 +33,6 @@ public class News {
 	//notice, info, 
 
 
-	private String nimg;
+	//private String nimg;
 	
 }
