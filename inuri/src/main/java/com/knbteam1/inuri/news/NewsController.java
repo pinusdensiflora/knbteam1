@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequestMapping("/news")
 @Controller
-public class NoticeController {
+public class NewsController {
 	
 	
 	//news생성
