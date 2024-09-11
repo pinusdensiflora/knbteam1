@@ -1,0 +1,95 @@
+<!-- 
+newsCreate.html
+생산자: 배다원
+생성날짜: 9.10
+연락처: dawnzeze@gmail.com
+ -->
+<html layout:decorate="~{layout}">
+<div layout:fragment="content">
+   
+
+   
+   
+   <div class="container-fluid page-header py-5">
+            <h1 class="text-center text-white display-6">기업정보</h1>
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="/news">공지사항</a></li>
+                <li class="breadcrumb-item"><a href="/news/info">소식</a></li>
+                <li class="breadcrumb-item"><a href="/news/assist">고객지원</a></li>
+                <li class="breadcrumb-item"><a href="/news/address">찾아오시는 길</a></li>
+            </ol>
+        </div>
+        
+        
+        <div class="container-fluid fruite py-5">
+        
+        
+        
+        <form th:action="@{|/${cateKey}/create|}" method = "post">
+                                <h4 class="mb-5 fw-bold">아이누리 글 쓰기 [[${cateKey}]]</h4>
+                                <div class="row g-4">
+                                    <div class="col-lg-6">
+                                        <div class="border-bottom rounded">
+                                            <input name = "ntitle" type="text" class="form-control border-0 me-4" placeholder="제목을 입력하세요">
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    <div class="col-lg-6">
+                                        <div class="border-bottom rounded">
+<select name = "ncate" class="form-select" aria-label="Default select example" >
+  <option th:value = "${cateKey}" selected>[[${cateValue}]]</option>
+  <option value="notice">공지사항</option>
+  <hr>
+  <option value="info1">기업소식</option>
+  <option value="info2">후원금사용내역</option>
+  <option value="info3">진행프로젝트</option>
+  <option value="info4">피후원자 추가안내</option>
+  <option value="info5">명예후원자</option>
+  <option value="info6">인재채용</option>
+  <option value="info7">보도자료</option>
+  <hr>
+  <option value="terms">이용약관</option>
+  <option value="faq">FAQ</option>
+  
+</select>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    <div class="col-lg-12">
+                                        <div class="border-bottom rounded my-4">
+                                            <textarea name="ndesc" id="" class="form-control border-0" cols="30" rows="10" placeholder="내용" spellcheck="false"></textarea>
+                                        </div>
+                                    </div>
+                                    
+
+                                    
+                                    
+                                    <div class="col-lg-12">
+                                        <div class="d-flex justify-content-between py-3 mb-5">
+                                            <div class="d-flex align-items-center">
+                                                <p class="mb-0 me-3">감사합니다</p>
+                                                <div class="d-flex align-items-center" style="font-size: 12px;">
+                                                    <!-- <i class="fa fa-star text-muted"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i> -->
+                                                    
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn border border-secondary text-primary rounded-pill px-4 py-3"> 발행</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            
+                            
+                            
+        
+        </div>
+        
+        
+        
+</div></html>
