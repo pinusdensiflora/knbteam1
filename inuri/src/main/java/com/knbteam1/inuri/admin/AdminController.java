@@ -25,6 +25,7 @@ public class AdminController {
     @GetMapping("")
     public String index(Model model) {
         model.addAttribute("newsList", adminService.readAllNews());
+        model.addAttribute("patronsCount", adminService.readAllCustomers().toArray().length);
         return "admin/main";
     }
 
