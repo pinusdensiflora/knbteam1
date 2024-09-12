@@ -1,10 +1,10 @@
 /*
  생산자: 배다원
- 생산날짜: 9.10
+ 생산날짜: 9.12
  연락처: dawnzeze@gmail.com
  
  */
-package com.knbteam1.inuri.news;
+package com.knbteam1.inuri.qna;
 
 import java.time.LocalDateTime;
 
@@ -12,28 +12,23 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
 @Data
 @Entity
-public class News {
+public class Answer {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer nid;
-
-	private LocalDateTime ndate;
+	private Integer aid;
+	private LocalDateTime adate;
 	
-	private String ntitle;
+//	@ManyToOne
+//	private Customer aauthor;
 	
-	private String ndesc;
-	
-	private String ncate;
-
-	private Integer nhit;
-	
-	private String nimg1;
-	//private String nimg2;
+	@ManyToOne
+	private Question question;
 	
 	
 	

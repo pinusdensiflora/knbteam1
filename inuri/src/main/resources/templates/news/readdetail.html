@@ -24,141 +24,46 @@
 
 	<div class="container-fluid fruite py-5">
 		<div class="container py-5">
-			<h1 class="mb-4">소식</h1>
+			<h1 class="mb-4">[[${cateValue}]]</h1>
 			<div class="row g-4">
-				<div class="col-lg-12">
-					<div class="row g-4">
-						<div class="col-xl-3">
-							<div class="input-group w-100 mx-auto d-flex">
-								<input type="search" class="form-control p-3"
-									placeholder="keywords" aria-describedby="search-icon-1">
-								<span id="search-icon-1" class="input-group-text p-3"><i
-									class="fa fa-search"></i></span>
-							</div>
-						</div>
-						<div class="col-6">
-							<p>
-								기업정보 > 소식 > <a href="/news/info">기업소식</a>
-						</div>
-						<div class="col-xl-3">
-							<div
-								class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4">
-								<label for="fruits">Default Sorting:</label> <select id="fruits"
-									name="fruitlist" class="border-0 form-select-sm bg-light me-3"
-									form="fruitform">
-									<option value="volvo">Nothing</option>
-									<option value="saab">Popularity</option>
-									<option value="opel">Organic</option>
-									<option value="audi">Fantastic</option>
-								</select>
-							</div>
-						</div>
-					</div>
-					<div class="row g-4 ">
-						<div class="col-lg-3 bg-light rounded p-4">
-							<div class="row g-4">
-								<div class="col-lg-12">
-									<div class="mb-3">
-										<h4>Categories</h4>
-										<ul class="list-unstyled fruite-categorie">
-											<li>
-												<div class="d-flex justify-content-between fruite-name">
-													<a href="/news/info/1"><i class="fas fa-apple-alt me-2"></i>기업소식</a>
-													<span>(3)</span>
-												</div>
-											</li>
-											<li>
-												<div class="d-flex justify-content-between fruite-name">
-													<a href="/news/info/2"><i class="fas fa-apple-alt me-2"></i>후원금
-														사용내역</a> <span>(5)</span>
-												</div>
-											</li>
-											<li>
-												<div class="d-flex justify-content-between fruite-name">
-													<a href="/news/info/3"><i class="fas fa-apple-alt me-2"></i>진행
-														프로젝트</a> <span>(2)</span>
-												</div>
-											</li>
-											<li>
-												<div class="d-flex justify-content-between fruite-name">
-													<a href="/news/info/4"><i class="fas fa-apple-alt me-2"></i>피후원자
-														추가안내</a> <span>(8)</span>
-												</div>
-											</li>
-											<li>
-												<div class="d-flex justify-content-between fruite-name">
-													<a href="/news/info/5"><i class="fas fa-apple-alt me-2"></i>명예후원자</a>
-													<span>(5)</span>
-												</div>
-											</li>
-											<li>
-												<div class="d-flex justify-content-between fruite-name">
-													<a href="/news/info/6"><i class="fas fa-apple-alt me-2"></i>인재채용</a>
-													<span>(5)</span>
-												</div>
-											</li>
-											<li>
-												<div class="d-flex justify-content-between fruite-name">
-													<a href="/news/info/7"><i class="fas fa-apple-alt me-2"></i>보도자료</a>
-													<span>(8)</span>
-												</div>
-											</li>
-										</ul>
-									</div>
-								</div>
-
-
-							</div>
-
-
-						</div>
-						<div class="col-lg-9">
-
-
-							<div class="justify-content-center">
+			
 							
-							
-							
-							
-							
-				<div class="p-5 bg-light rounded">
+				<div class="p-5">
                     <div class="row g-4">
                         <div class="col-12">
-                            <div class="text-center mx-auto" style="max-width: 700px;">
-                                <h1 class="text-primary">1:1 문의</h1>
-                                <p class="mb-4">FAQ로 해결하기 어려운 문제를 전달해 주시면 빠른 시일 내에 확인 해 드리겠습니다. <br> <a href="/news/assist">자주묻는 질문</a></p>
+                            <div class="mx-auto" >
+                                <h1 class="text-primary">[[${news.ntitle}]]</h1>
+                                <p class="mb-4"> <a th:href="@{|/news/${news.ncate}|}">[[${cateValue}]]</a><br> 작성일 : [[${news.ndate}]]</p>
+                            	<hr>
                             </div>
                         </div>
                        
                         <div class="">
-                            <form action="" class="">
-                                <input type="text" class="w-100 form-control border-0 py-3 mb-4" placeholder="Your Name">
-                                <input type="email" class="w-100 form-control border-0 py-3 mb-4" placeholder="Enter Your Email">
-                                <textarea class="w-100 form-control border-0 mb-4" rows="5" cols="10" placeholder="Your Message"></textarea>
-                                <button class="w-100 btn form-control border-secondary py-3 bg-white text-primary " type="submit">Submit</button>
-                            </form>
+                           
+                                	<div style = "height : 50vh;">[[${news.ndesc}]]</div>
+<!--                                 <textarea class="w-100 form-control border-0 mb-4" rows="30" cols="10" placeholder="내용 없음">[[${news.ndesc}]]</textarea>
+ -->     
                         </div>
                         
+                        
+                        <div class="d-flex justify-content-between py-3 mb-5">
+                         	<a th:href="@{|/news/${news.ncate}|}" class="btn border border-secondary text-primary px-4 py-2"> 목록보기</a> 
+                         	<div>
+                         		<a th:href = "@{|/news/${news.ncate}/update/${news.nid}|}" class="btn btn-success px-4 py-2"> 수정</a>  
+                            	<a th:href = "@{|/news/${news.ncate}/delete/${news.nid}|}" class="btn btn-danger px-4 py-2"> 삭제</a> 
+                         	</div>
+                            
+                        </div>
                     </div>
                 
                 
                 
                 </div>
 							
-							
-							
-							
-							
-							
-							
-							</div>
 
-
-
-
-						</div>
-					</div>
-				</div>
+				
+				
+				
 			</div>
 		</div>
 	</div>
