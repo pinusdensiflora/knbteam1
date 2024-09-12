@@ -8,11 +8,17 @@ Customer.java
 package com.knbteam1.inuri.auth;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
+import com.knbteam1.inuri.qna.Answer;
+import com.knbteam1.inuri.qna.Question;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 @Entity
@@ -31,4 +37,11 @@ public class Customer {
 	
 	private String name;
 
+	
+	@OneToMany(mappedBy = "aauthor", cascade = CascadeType.REMOVE)
+	private List<Answer> answers;
+	@OneToMany(mappedBy = "qauthor", cascade = CascadeType.REMOVE)
+	private List<Question> questions;
+	
+	
 }

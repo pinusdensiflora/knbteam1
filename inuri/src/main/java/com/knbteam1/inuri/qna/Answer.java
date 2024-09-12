@@ -8,6 +8,8 @@ package com.knbteam1.inuri.qna;
 
 import java.time.LocalDateTime;
 
+import com.knbteam1.inuri.auth.Customer;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,8 +26,8 @@ public class Answer {
 	private Integer aid;
 	private LocalDateTime adate;
 	
-//	@ManyToOne
-//	private Customer aauthor;
+	@ManyToOne
+	private Customer aauthor;
 	
 	@ManyToOne
 	private Question question;
