@@ -29,10 +29,6 @@ public class News {
 	private String ndesc;
 	
 	private String ncate;
-	
-	private String nsubcate;
-	//notice, info, 
-
 
 	//private String nimg;
 	

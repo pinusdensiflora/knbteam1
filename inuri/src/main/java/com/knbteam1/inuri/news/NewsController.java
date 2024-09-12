@@ -59,18 +59,21 @@ public class NewsController {
 	public String create(@ModelAttribute News news) {
 		newsService.create(news);
 		
-		 if (news.getNcate().matches("info\\d{1}")) {
-	            // info 카테고리의 경우 조건문을 실행
-	            //System.out.println("문자열이 'info'와 1자리 숫자로 이루어져 있습니다.");
-			 	return "redirect:/news/article/" + news.getNcate().charAt(4);
-	     } 
+	
+//		 if (news.getNcate().matches("info\\d{1}")) {
+//	            // info 카테고리의 경우 조건문을 실행
+//	            //System.out.println("문자열이 'info'와 1자리 숫자로 이루어져 있습니다.");
+//			 	return "redirect:/news/article/" + news.getNcate().charAt(4);
+//	     } 
 		return "redirect:/news/" + news.getNcate(); //카테고리에 따른 리턴 차이 필요
 	}
 	
 	
+	//readdetail
 	@GetMapping("/article/{id}")
 	public String readdetail(Model model, @PathVariable("id") Integer id) {
 		model.addAttribute("news", newsService.readdetail(id));
+		model.addAttribute("cateValue", cateMap.get(newsService.readdetail(id).getNcate()));
 		return "news/readdetail";
 	}
 	
