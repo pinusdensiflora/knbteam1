@@ -36,6 +36,9 @@ public class Customer {
 	private String role;
 	
 	private String name;
+	
+	@OneToMany
+	private Donation donation;
 
 	
 	@OneToMany(mappedBy = "aauthor", cascade = CascadeType.REMOVE)
