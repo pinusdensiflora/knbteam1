@@ -8,6 +8,8 @@ package com.knbteam1.inuri.news;
 
 import java.util.Map;
 
+import org.aspectj.weaver.patterns.TypePatternQuestions.Question;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.RequiredArgsConstructor;
 
@@ -100,12 +102,32 @@ public class NewsController {
 	
 	
 	
-	
-	
-	@GetMapping("/{cate}")
-	public String cate(Model model, @PathVariable("cate") String cate) {
+	/*@GetMapping("/{cate}")
+	public String cate(Model model, @PathVariable("cate") String cate ) {
+		
 		model.addAttribute("newsl", newsService.readlist(cate));
 		
+		if(cate.equals("notice")) {
+			return "news/notice";
+			
+		} else if(cate.substring(0, 4).equals("info")) {
+			
+			return "news/info/"+cate;
+		}
+		return "news/assist/"+ cate;
+	}
+	*/
+	
+	@GetMapping("/{cate}")
+	public String cate(Model model, @PathVariable("cate") String cate, 
+			@RequestParam(value="page", defaultValue="0") int page) {
+		
+		Page<News> paging = newsService.readlistpage(cate, page);
+	    model.addAttribute("paging", paging);
+		
+		
+		//model.addAttribute("newsl", newsService.readlist(cate));
+
 		if(cate.equals("notice")) {
 			return "news/notice";
 			
@@ -121,8 +143,9 @@ public class NewsController {
 	//공지사항탭
 	@GetMapping("")
 	public String notice(Model model) {
-		model.addAttribute("newsl", newsService.readlist("notice")); //notice 카테고리
-		return "news/notice";
+//		model.addAttribute("newsl", newsService.readlist("notice")); //notice 카테고리
+//		return "news/notice";
+		return "redirect:/news/notice";
 		
 	}
 
@@ -131,8 +154,10 @@ public class NewsController {
 	@GetMapping("/info")
 	public String infoMain(Model model) {
 		
-		model.addAttribute("newsl", newsService.readlist("info1")); //카테고리만
-		return "news/info/info1";
+//		model.addAttribute("newsl", newsService.readlist("info1")); //카테고리만
+//		return "news/info/info1";
+		
+		return "redirect:/news/info1";
 		
 	}
 	
