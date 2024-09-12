@@ -6,18 +6,15 @@
  */
 package com.knbteam1.inuri.news;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 
 import lombok.RequiredArgsConstructor;
 
@@ -66,6 +63,17 @@ public class NewsService {
 		public List<News> readlist(String cate) {
 			return newsRepository.findByNcate(cate);
 		}
+		// readlist 페이징
+		public Page<News> readlistpage(String cate, int page) {
+			Pageable pageable = PageRequest.of(page, 10);
+			
+			return newsRepository.findByNcate(cate, pageable);
+			//return newsRepository.findAll(pageable);
+			
+			//return newsRepository.findByNcate(cate);
+		}
+		
+		
 		
 		// readdetail
 		public News readdetail(Integer id) {
