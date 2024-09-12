@@ -18,18 +18,20 @@ admin/readPatronList.html
                         <th scope="col"><input class="form-check-input" type="checkbox"></th>
                         <th scope="col">이름</th>
                         <th scope="col">메일</th>
-                        <th scope="col">연락처</th>
+                        <th scope="col">가입일</th>
                         <th scope="col">누적 후원금</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td><input class="form-check-input" type="checkbox"></td>
-                        <td>01 Jan 2045</td>
-                        <td>INV-0123</td>
-                        <td>Jhon Doe</td>
-                        <td>$123</td>
-                    </tr>
+                    <th:block th:each="patron:${patrons}">
+                        <tr>
+                            <td><input class="form-check-input" type="checkbox"></td>
+                            <td>[[${patron.name}]]</td>
+                            <td>[[${patron.username}]]</td>
+                            <td>[[${patron.cdate.toLocalDate()}]]</td>
+                            <td>$123</td>
+                        </tr>
+                    </th:block>
                     </tbody>
                 </table>
             </div>

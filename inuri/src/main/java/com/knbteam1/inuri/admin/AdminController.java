@@ -1,13 +1,16 @@
-// 이강혁 4
+/*
+admin/leftNav.html
+생산자: 이강혁
+생성날짜: 9.10
+연락처: rkdgur5381@gmail.com
+*/
 package com.knbteam1.inuri.admin;
 
-import com.knbteam1.inuri.news.News;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
 
 @RequestMapping("/admin")
 @Controller
@@ -26,8 +29,9 @@ public class AdminController {
     }
 
     @GetMapping("/patrons")
-    public String readPatron() {
-        return "admin/patron/readPatronList";
+    public String readPatron(Model model) {
+        model.addAttribute("patrons", adminService.readAllCustomers());
+        return "admin/patrons/readPatronList";
     }
 
     @GetMapping("/children")
