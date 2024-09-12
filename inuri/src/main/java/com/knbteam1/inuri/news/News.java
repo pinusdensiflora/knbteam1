@@ -12,6 +12,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 @Data
@@ -24,6 +25,7 @@ public class News {
 
 	private LocalDateTime ndate;
 	
+	@NotEmpty(message ="제목은 필수힝목입니다.")
 	private String ntitle;
 	
 	private String ndesc;

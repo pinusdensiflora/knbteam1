@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -59,7 +60,7 @@ public class NewsController {
 	
 	
 	@PostMapping("/{cate}/create")
-	public String create(@ModelAttribute News news) {
+	public String create(@ModelAttribute @Valid News news) {
 		newsService.create(news);
 		
 		return "redirect:/news/" + news.getNcate(); //카테고리에 따른 리턴 차이 필요
