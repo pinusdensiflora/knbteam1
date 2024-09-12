@@ -33,7 +33,7 @@
                         <div class="col-12">
                             <div class="mx-auto" >
                                 <h1 class="text-primary">[[${news.ntitle}]]</h1>
-                                <p class="mb-4">작성일 : [[${news.ndate}]]<br> <a href="/news/assist">자주묻는 질문</a></p>
+                                <p class="mb-4"> <a th:href="@{|/news/${news.ncate}|}">[[${cateValue}]]</a><br> 작성일 : [[${news.ndate}]]</p>
                             	<hr>
                             </div>
                         </div>
