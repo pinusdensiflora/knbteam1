@@ -1,143 +1,224 @@
-<html>
-<!-- 김근환 -->
-<!-- <html layout:decorate="~{layout}">
-<div layout:fragment="content" class="container"> -->
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
+<!-- 
+생성자 : 김근환 
+생성일 : 9.11
+연락처 : ghwan07@gmail.com
+-->
+<html layout:decorate="~{layout}">
+<div layout:fragment="content">
 
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet">
+<!-- Spinner Start -->
+        <div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
+            <div class="spinner-grow text-primary" role="status"></div>
+        </div>
+        <!-- Spinner End -->
+<div class="container-fluid page-header py-5" style="padding-bottom: 30px;">
+    <!-- 상단 헤더 -->
+    <h1 class="text-center text-white display-6">후원</h1>
+    
+    <ol class="breadcrumb justify-content-center mb-0">
+        <li class="breadcrumb-item"><a href="/news">공지사항</a></li>
+        <li class="breadcrumb-item"><a href="/news/info">소식</a></li>
+        <li class="breadcrumb-item"><a href="/news/assist">고객지원</a></li>
+        <li class="breadcrumb-item"><a href="/news/address">찾아오시는 길</a></li>
+    </ol>
+</div>
 
-    <!-- Icon Font Stylesheet -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+<!-- hr 줄의 길이를 50%로 조정하고 위아래 여백을 추가 (20px) -->
+<hr style="width: 50%; margin: 20px auto;">
 
-    <!-- Libraries Stylesheet -->
-    <link href="/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
-    <link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-
-
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Template Stylesheet -->
-    <link href="/css/style.css" rel="stylesheet">
-
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-    <!-- 카드 결제사 JS -->
-    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
-<body>
+<div class="container-fluid fruite py-1">
 <div class="container text-center">
+    
+    <!-- 후원 방법 -->
+    
 <div>
-<h2><strong>후원 방법</strong></h2>
+    <h2><strong>후원 방법</strong></h2>
 </div>
-<div>
-</div>
-<div>
-</div>
-<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-  <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
-  <label class="btn btn-outline-primary" for="btnradio1">정기 후원</label>
-
-  <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-  <label class="btn btn-outline-primary" for="btnradio2">일시 후원</label>
-
-</div>
-
-<div>
-<h2><strong>후원 분야</strong></h2>
-</div>
-
-<div>
-<select class="form-select" aria-label="Default select example">
-  <option selected>후원 분야 선택</option>
-  <option value="1">세계 어린이 돕기</option>
-  <option value="2">난민 어린이 돕기</option>
-  <option value="3">긴급구호(수단 기근 피해 어린이 돕기) </option>
-</select>
-</div>
-
-<div>
-<h2><strong>후원 금액</strong></h2>
-</div>
-
-<div>
 
 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-  <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-  <label class="btn btn-outline-primary" for="btnradio3">30,000</label>
+    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" onclick="showRegularOptions()" checked>
+    <label class="btn btn-outline-primary" for="btnradio1">정기 후원</label>
 
-  <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
-  <label class="btn btn-outline-primary" for="btnradio4">50,000</label>
-
-
-
-  <input type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off">
-  <label class="btn btn-outline-primary" for="btnradio5">100,000</label>
-
-  <input type="radio" class="btn-check" name="btnradio" id="btnradio6" autocomplete="off">
-  <label class="btn btn-outline-primary" for="btnradio6">직접 입력</label>
+    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" onclick="showOneTimeOptions()">
+    <label class="btn btn-outline-primary" for="btnradio2">일시 후원</label>
 </div>
 
+    <!-- hr 줄의 길이를 50%로 조정하고 위아래 여백을 추가 (20px) -->
+    <hr style="width: 50%; margin: 20px auto;">
+
+    <!-- 후원 분야 -->
+    <div>
+        <h2><strong>후원 분야</strong></h2>
+    </div>
+ 
+    <div>
+    <select class="form-select" aria-label="Default select example" id="donationField" style="width: 30%; margin: 0 auto;">
+        <option selected>후원 분야 선택</option>
+        <option value="세계 어린이 돕기">세계 어린이 돕기</option>
+        <option value="난민 어린이 돕기">난민 어린이 돕기</option>
+        <option value="긴급구호(수단 기근 피해 어린이 돕기)">긴급구호(수단 기근 피해 어린이 돕기)</option>
+    </select>
 </div>
-<div>
-<h2><strong>총 후원 금액</strong></h2>
 
+    <!-- hr 줄의 길이를 50%로 조정하고 위아래 여백을 추가 (20px) -->
+    <hr style="width: 50%; margin: 20px auto;">
 
+    <!-- 후원 금액 -->
+    <div>
+    <h2><strong>후원 금액</strong></h2>
 </div>
-<div>
 
+<!-- 후원 금액 선택 -->
+<div id="donationAmount">
+    <!-- 후원 금액 옵션이 여기에 동적으로 추가됩니다 -->
+</div>
 
+<!-- 직접 입력 필드 -->
+<div id="customAmountField" style="display:none; width: 50%; margin: 0 auto; padding-top: 10px;">
+    <input type="number" id="customAmountInput" placeholder="금액 입력" class="form-control">
+</div>
 
 <script>
-IMP.init("imp27761772");
+//후원 금액 선택
+function showRegularOptions() {
+    const donationAmountDiv = document.getElementById('donationAmount');
+    donationAmountDiv.innerHTML = `
+        <input type="radio" class="btn-check" name="donation" id="donation1" value="30000" autocomplete="off" onclick="updateTotalAmount(); hideCustomAmount()">
+        <label class="btn btn-outline-primary" for="donation1">30,000</label>
 
-function requestpay(){
+        <input type="radio" class="btn-check" name="donation" id="donation2" value="50000" autocomplete="off" onclick="updateTotalAmount(); hideCustomAmount()">
+        <label class="btn btn-outline-primary" for="donation2">50,000</label>
 
-IMP.request_pay(
-  {
-    pg: "danal_tpay",
-    pay_method: "card",
-    merchant_uid: `123123as21q`, // 주문 고유 번호
-    name: "후원결제",
-    amount: 30000,
-    buyer_email: "gildong@gmail.com",
-    buyer_name: "홍길동",
-    buyer_tel: "010-4242-4242",
-    buyer_addr: "서울특별시 강남구 신사동",
-    buyer_postcode: "01181",
-  },
-  function (response) {
-	  alert("결제 성공")
-    // 결제 종료 시 호출되는 콜백 함수
-    // response.imp_uid 값으로 결제 단건조회 API를 호출하여 결제 결과를 확인하고,
-    // 결제 결과를 처리하는 로직을 작성합니다.
-  },
-);
+        <input type="radio" class="btn-check" name="donation" id="donation3" value="100000" autocomplete="off" onclick="updateTotalAmount(); hideCustomAmount()">
+        <label class="btn btn-outline-primary" for="donation3">100,000</label>
+
+        <input type="radio" class="btn-check" name="donation" id="customDonation" value="custom" autocomplete="off" onclick="showCustomAmount()">
+        <label class="btn btn-outline-primary" for="customDonation">직접 입력</label>
+    `;
+    document.getElementById('customAmountField').style.display = 'none'; // 직접 입력 필드는 숨김
+    updateTotalAmount(); // 총 후원 금액 업데이트
 }
 
+//일시 후원 클릭 시
+function showOneTimeOptions() {
+    const donationAmountDiv = document.getElementById('donationAmount');
+    donationAmountDiv.innerHTML = `
+        <input type="radio" class="btn-check" name="donation" id="donation1" value="50000" autocomplete="off" onclick="updateTotalAmount(); hideCustomAmount()">
+        <label class="btn btn-outline-primary" for="donation1">50,000</label>
 
+        <input type="radio" class="btn-check" name="donation" id="donation2" value="100000" autocomplete="off" onclick="updateTotalAmount(); hideCustomAmount()">
+        <label class="btn btn-outline-primary" for="donation2">100,000</label>
+
+        <input type="radio" class="btn-check" name="donation" id="donation3" value="200000" autocomplete="off" onclick="updateTotalAmount(); hideCustomAmount()">
+        <label class="btn btn-outline-primary" for="donation3">200,000</label>
+
+        <input type="radio" class="btn-check" name="donation" id="customDonation" value="custom" autocomplete="off" onclick="showCustomAmount()">
+        <label class="btn btn-outline-primary" for="customDonation">직접 입력</label>
+    `;
+    document.getElementById('customAmountField').style.display = 'none'; // 직접 입력 필드는 숨김
+    updateTotalAmount(); // 총 후원 금액 업데이트
+}
+
+//직접 입력 필드 표시
+function showCustomAmount() {
+    document.getElementById('customAmountField').style.display = 'block';
+    document.getElementById('customAmountInput').value = ''; // 입력 값 초기화
+    document.getElementById('customAmountInput').addEventListener('input', updateTotalAmount);
+}
+
+//직접 입력 필드를 숨기는 함수
+function hideCustomAmount() {
+    document.getElementById('customAmountField').style.display = 'none'; // 직접 입력 필드 숨김
+    document.getElementById('customAmountInput').value = ''; // 입력 값 초기화
+}
+//총 후원 금액 업데이트
+function updateTotalAmount() {
+    const selectedDonation = document.querySelector('input[name="donation"]:checked');
+    const customAmountInput = document.getElementById('customAmountInput');
+    let totalAmount = 0;
+
+    if (selectedDonation) {
+        if (selectedDonation.value === 'custom') {
+            totalAmount = parseInt(customAmountInput.value) || 0;
+        } else {
+            totalAmount = parseInt(selectedDonation.value);
+        }
+    }
+
+    document.getElementById('totalAmountValue').innerText = totalAmount.toLocaleString();
+}
+
+    // 페이지 로드 시 정기 후원 옵션 표시
+    window.onload = function() {
+        showRegularOptions();
+    };
 </script>
-<button type="button" class="btn btn-secondary" onclick="requestpay()">다음</button>
+
+    <!-- hr 줄의 길이를 50%로 조정하고 위아래 여백을 추가 (20px) -->
+    <hr style="width: 50%; margin: 20px auto;">
+
+    <!-- 총 후원 금액 표시 -->
+<div id="totalAmount" style="padding-top: 20px;">
+    <h3>총 후원 금액: <span id="totalAmountValue">0</span> 원</h3>
 </div>
 
+    <!-- hr 줄의 길이를 50%로 조정하고 위아래 여백을 추가 (20px) -->
+    <hr style="width: 50%; margin: 20px auto;">
+
+    <!-- 결제 버튼 -->
+    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+<script>
+    IMP.init("imp27761772");
+
+    function requestpay() {
+        const selectedDonation = document.querySelector('input[name="btnradio"]:checked'); // 선택된 후원 방법
+        const selectedField = document.getElementById('donationField').value; // 선택한 후원 분야
+        const totalAmount = document.getElementById('totalAmountValue').innerText.replace(/,/g, ''); // 총 후원 금액
+
+        if (!selectedDonation) {
+            alert("후원 금액을 선택해 주세요.");
+            return;
+        }
+        
+        if (selectedField === "후원 분야 선택") {
+            alert("후원 분야를 선택해 주세요.");
+            return;
+        }
+
+        // 후원 방법에서 텍스트 가져오기
+        const donationMethod = selectedDonation.nextElementSibling.innerText; // "정기 후원" 또는 "일시 후원"
+
+        // 결제 요청 시 name에 후원 방법과 후원 분야 결합
+        const paymentName = `${donationMethod}: ${selectedField}`; // "정기 후원: 세계 어린이 돕기" 형태
+
+        IMP.request_pay(
+            {
+                pg: "danal_tpay",
+                pay_method: "card",
+                merchant_uid: `123123as21q`,
+                name: paymentName, // 후원 방법과 후원 분야 결합
+                amount: totalAmount, // 총 후원 금액
+                buyer_email: "gildong@gmail.com",
+                buyer_name: "홍길동",
+                buyer_tel: "010-4242-4242",
+                buyer_addr: "서울특별시 강남구 신사동",
+                buyer_postcode: "01181",
+            },
+            function (response) {
+                if (response.success) {
+                    alert("결제 성공");
+                } else {
+                    alert("결제 실패: " + response.error_msg);
+                }
+            },
+        );
+    }
+</script>
+
+    <button type="button" class="btn btn-secondary" style="margin-top: 20px;" onclick="requestpay()">다음</button>
+    <div style="margin-bottom: 100px;"></div>
 </div>
-</body>
-<!-- JavaScript Libraries -->
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/lib/easing/easing.min.js"></script>
-<script src="/lib/waypoints/waypoints.min.js"></script>
-<script src="/lib/lightbox/js/lightbox.min.js"></script>
-<script src="/lib/owlcarousel/owl.carousel.min.js"></script>
-
-<!-- Template Javascript -->
-<script src="/js/main.js"></script>
+</div>
+</div>
 
 </html>
