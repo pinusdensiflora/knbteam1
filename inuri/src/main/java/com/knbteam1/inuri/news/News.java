@@ -31,7 +31,9 @@ public class News {
 	private String ndesc;
 	
 	private String ncate;
-
+	
+    private Integer nkind; // 게시판의 종류를 숫자로 부여하게 되면 쉽게 관리 할수 있다. 
+	
 	private Integer nhit;
 	
 	private String nimg1;

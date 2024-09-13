@@ -8,19 +8,18 @@ package com.knbteam1.inuri.news;
 
 import java.util.Map;
 
-import org.aspectj.weaver.patterns.TypePatternQuestions.Question;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ch.qos.logback.core.util.SystemInfo;
+import com.knbteam1.inuri.admin.BoardService;
+
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -49,15 +48,27 @@ public class NewsController {
 	
 	
 	private final NewsService newsService;
+	private final BoardService boardService;
 	
 	//news CREATE ==================================================================================
 	//관리자만접근
-	@GetMapping("/{cate}/create")
+	
+
+	/*@GetMapping("/{kind)/creat") // board를 이용한 creat로 추후 변경하기
+	 * public String create(){
+	 * 
+	 * 
+	 * }
+	 */
+	
+	
+	
+		@GetMapping("/{cate}/create")
 	//public String create(Model model, @PathVariable("cate") String cate) {
 	public String create(NewsForm newsForm, Model model,@PathVariable("cate") String cate) {
 		model.addAttribute("cateKey", cate);
 		model.addAttribute("cateValue", cateMap.get(cate));
-		
+		model.addAttribute("boards", boardService.readlist());
 		return "news/newsCreate";
 	}
 	
@@ -72,7 +83,7 @@ public class NewsController {
 		
 		//newsService.create(news);
 		News news = new News();
-		news.setNcate(newsForm.getNcate());
+		news.setNkind(newsForm.getNcate());
 		news.setNtitle(newsForm.getNtitle());
 		news.setNdesc(newsForm.getNdesc());
 		newsService.create(news);
@@ -112,7 +123,8 @@ public class NewsController {
 		
 		//newsService.create(news);
 		News news = newsService.readdetail(newsForm.getNid());
-		news.setNcate(newsForm.getNcate());
+		//news.setNcate(newsForm.getNcate());
+		news.setNkind(newsForm.getNcate());
 		news.setNtitle(newsForm.getNtitle());
 		news.setNdesc(newsForm.getNdesc());
 		newsService.create(news);//임시

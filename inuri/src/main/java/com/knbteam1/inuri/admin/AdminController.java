@@ -28,4 +28,6 @@ public class AdminController {
     public String addChild(){
         return "admin/child/addChild";
     }
+    
+    
 }

@@ -2,6 +2,8 @@ package com.knbteam1.inuri.patron;
 
 import java.time.LocalDateTime;
 
+import com.knbteam1.inuri.auth.Customer;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -32,7 +34,8 @@ public class Donation {
 	@ManyToOne
     private Child child; // 후원 아동 정보
 
-	/*
-	 * @ManyToOne private Customer customer; // 후원자 정보
-	 */
+	
+	@ManyToOne 
+	private Customer customer; // 후원자 정보
+	
 }

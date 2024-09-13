@@ -45,8 +45,10 @@
                                         <div class="border-bottom rounded">
 <!--validation 적용전 <select name = "ncate" class="form-select" aria-label="Default select example" > -->
 <select th:field="*{ncate}" class="form-select" aria-label="Default select example" >
+
+
   <option th:value = "${cateKey}" selected>[[${cateValue}]]</option>
-  <option value="notice">공지사항</option>
+ <!-- <option value="notice">공지사항</option>
   <hr>
   <option value="info1">기업소식</option>
   <option value="info2">후원금사용내역</option>
@@ -55,9 +57,14 @@
   <option value="info5">명예후원자</option>
   <option value="info6">인재채용</option>
   <option value="info7">보도자료</option>
-  <hr>
+  <hr> -->
+   <hr>
+<th:block th:each="board : ${boards}">
+  <option th:value="${board.bid}">[[${board.bname}]]</option>
+</th:block>
+  <hr> 
 <!--   <option value="terms">이용약관</option> -->
-  <option value="faq">FAQ</option>
+  <option value="9">FAQ</option>
   
 </select>
                                         </div>
