@@ -9,11 +9,14 @@ package com.knbteam1.inuri.qna;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.knbteam1.inuri.auth.Customer;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
 
@@ -28,8 +31,8 @@ public class Question {
 	
 	
 
-//	@ManyToOne
-//	private Customer qauthor;
+	@ManyToOne
+	private Customer qauthor;
 	 
 	
 	@OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)

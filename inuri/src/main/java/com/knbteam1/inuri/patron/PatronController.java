@@ -26,4 +26,9 @@ public class PatronController {
 		return "patron/patron_detail";
 	}
 	
+	@GetMapping("/patron_search")
+	public String patronsearch() {
+		return "patron/patron_search";
+	}
+	
 }
