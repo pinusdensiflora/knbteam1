@@ -47,7 +47,7 @@ public class NewsService {
 			//객체에 저장
 			//news.setImg(fileName);
 			news.setNdate(LocalDateTime.now());
-		
+			news.setNhit(0);
 			
 			//접속자(작성자) 정보 저장
 			//news.setAuthor(oc.get());
@@ -108,6 +108,12 @@ public class NewsService {
 		}
 	
 	
+		public void hit(Integer id) {
+//			Optional<News> ob = newsRepository.findById(id);
+//			Integer hit = ob.get().getNhit() + 1;
+//			ob.get().setNhit(hit);
+//			newsRepository.save(ob.get());
+		}
 	
 	
 }

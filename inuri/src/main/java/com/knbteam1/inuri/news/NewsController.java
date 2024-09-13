@@ -84,6 +84,7 @@ public class NewsController {
 	//readdetail==================================================================================
 	@GetMapping("/article/{id}")
 	public String readdetail(Model model, @PathVariable("id") Integer id) {
+		newsService.hit(id);
 		model.addAttribute("news", newsService.readdetail(id));
 		model.addAttribute("cateValue", cateMap.get(newsService.readdetail(id).getNcate()));
 		return "news/readdetail";
