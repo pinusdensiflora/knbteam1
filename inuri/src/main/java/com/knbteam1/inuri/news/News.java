@@ -36,6 +36,7 @@ public class News {
 	private String nimg1;
 	//private String nimg2;
 	
+	//news는 관리자만이 생성하기 떄문에 작성자를 넣지 않음
 	
 	
 }

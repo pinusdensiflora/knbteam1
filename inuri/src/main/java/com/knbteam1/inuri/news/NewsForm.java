@@ -1,3 +1,9 @@
+/*
+ 생산자: 배다원
+ 생산날짜: 9.13
+ 연락처: dawnzeze@gmail.com
+ 
+ */
 package com.knbteam1.inuri.news;
 
 import jakarta.validation.constraints.NotEmpty;
@@ -14,9 +20,8 @@ public class NewsForm {
 	@Size(max = 200)
 	private String ntitle;
 
-	@NotEmpty(message = "내용은 필수항목입니다.")
 	private String ndesc;
 	
-	@NotEmpty(message = "카테고리는 필수항목입니다.")
+	@NotEmpty(message = "카테고리를 설정해주세요")
 	private String ncate;
 }
