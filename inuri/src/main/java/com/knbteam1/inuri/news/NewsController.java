@@ -12,12 +12,14 @@ import org.aspectj.weaver.patterns.TypePatternQuestions.Question;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -51,7 +53,8 @@ public class NewsController {
 	//news CREATE 
 	//관리자만접근
 	@GetMapping("/{cate}/create")
-	public String create(Model model, @PathVariable("cate") String cate) {
+	//public String create(Model model, @PathVariable("cate") String cate) {
+	public String create(NewsForm newsForm, Model model,@PathVariable("cate") String cate) {
 		model.addAttribute("cateKey", cate);
 		model.addAttribute("cateValue", cateMap.get(cate));
 		
@@ -60,7 +63,18 @@ public class NewsController {
 	
 	
 	@PostMapping("/{cate}/create")
-	public String create(@ModelAttribute @Valid News news) {
+	public String create(@Valid NewsForm newsForm, BindingResult bindingResult
+						//@ModelAttribute @Valid News news, BindingResult bindingResult,
+						) {
+		if (bindingResult.hasErrors()) {
+			return "news/newsCreate";
+		}
+		
+		//newsService.create(news);
+		News news = new News();
+		news.setNcate(newsForm.getNcate());
+		news.setNtitle(newsForm.getNtitle());
+		news.setNdesc(newsForm.getNdesc());
 		newsService.create(news);
 		
 		return "redirect:/news/" + news.getNcate(); //카테고리에 따른 리턴 차이 필요
