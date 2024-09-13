@@ -1,6 +1,6 @@
 <!-- 
 생성자: 배다원
-생성날짜: 9.10
+생성날짜: 9.13
 연락처: dawnzeze@gmail.com
  -->
 <html layout:decorate="~{layout}">
@@ -38,7 +38,8 @@
                                     <div class="col-lg-6">
                                         <div class="border-bottom rounded">
                                             <!--validation 적용전 <input name = "ntitle" type="text" class="form-control border-0 me-4" placeholder="제목을 입력하세요"> -->
-                                            <input th:field="*{ntitle}" type="text" class="form-control border-0 me-4">
+                                            <!--?? <input th:field="*{ntitle}" type="text" class="form-control border-0 me-4"> -->
+                                            <input name="ntitle" type="text" class="form-control border-0 me-4" th:value="${news.ntitle}">
                                         </div>
                                     </div>
                                     
@@ -46,8 +47,8 @@
                                     <div class="col-lg-6">
                                         <div class="border-bottom rounded">
 <!--validation 적용전 <select name = "ncate" class="form-select" aria-label="Default select example" > -->
-<select th:field="*{ncate}" class="form-select" aria-label="Default select example" >
-  <option th:value = "${news.ncate}" selected>[[${news.ncate}]]</option>
+<select name="ncate" class="form-select" aria-label="Default select example" >
+  <option th:value = "${news.ncate}" selected>[[${cateValue}]]</option>
   <option value="notice">공지사항</option>
   <hr>
   <option value="info1">기업소식</option>
@@ -70,7 +71,7 @@
                                         <div class="border-bottom rounded my-4">
 <!--validation 적용전                                             <textarea name="ndesc" id="" class="form-control border-0" cols="30" rows="10" placeholder="내용" spellcheck="false"></textarea> -->
                                             <!-- <textarea th:field="*{ndesc}" id="" class="form-control border-0" cols="30" rows="10" placeholder="내용" spellcheck="false"></textarea> -->
-                                        	<textarea id="summernote" th:field="*{ndesc}">[[${news.ndesc}]]</textarea>
+                                        	<textarea id="summernote" name="ndesc">[[${news.ndesc}]]</textarea>
                                         </div>
                                     </div>
                                     
