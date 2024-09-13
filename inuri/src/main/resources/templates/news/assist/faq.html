@@ -87,57 +87,76 @@
                             <div class="col-lg-9">
                             
                             
-                                <div class="p-5 bg-light rounded">
-                    <div class="row g-4">
-                        <div class="col-12">
-                            <div class="text-center mx-auto" style="max-width: 700px;">
-                                <h1 class="text-primary">1:1 문의</h1>
-                                <p class="mb-4">FAQ로 해결하기 어려운 문제를 전달해 주시면 빠른 시일 내에 확인 해 드리겠습니다. <br> <a href="/news/assist">자주묻는 질문</a></p>
-                            </div>
-                        </div>
-                       
-                        <div class="">
-                            <form action="" class="">
-                                <input type="text" class="w-100 form-control border-0 py-3 mb-4" placeholder="Your Name">
-                                <input type="email" class="w-100 form-control border-0 py-3 mb-4" placeholder="Enter Your Email">
-                                <textarea class="w-100 form-control border-0 mb-4" rows="5" cols="10" placeholder="Your Message"></textarea>
-                                <button class="w-100 btn form-control border-secondary py-3 bg-white text-primary " type="submit">Submit</button>
-                            </form>
-                        </div>
-                        
-                    </div>
-                
-                
-                
-                </div>
-           	
-          
-      
-                <div class="col-lg-5">
-                <br>
-                            <div class="d-flex p-4 rounded mb-4 bg-white">
-                                <i class="fas fa-map-marker-alt fa-2x text-primary me-4"></i>
-                                <div>
-                                    <h4>Address</h4>
-                                    <p class="mb-2">123 Street New York.USA</p>
+                                <div class="justify-content-center">
+                                
+                                
+<div class="table-responsive">
+ 				
+ 				
+ 				
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col" style="width: 10%;">번호</th>
+            <th scope="col" style="width: 70%;">제목</th>  <!-- 제목의 가로폭을 70%로 설정 -->
+            <th scope="col" style="width: 20%;">작성일</th>
+        </tr>
+    </thead>
+    <tbody>
+    
+    
+    
+<th:block th:each = "news:${paging}">
+
+
+
+        <tr>
+            <td>
+                <p class="mb-0 mt-4">[[${news.nid}]]</p>
+            </td>
+            <td>
+                <p class="mb-0 mt-4"><a th:href = "@{|/news/article/${news.nid}|}">[[${news.ntitle}]]</a></p> <!-- 제목 예시 텍스트 -->
+            </td>
+            <td>
+                <p class="mb-0 mt-4">[[${news.ndate}]]</p>
+            </td>
+        </tr>
+</th:block>
+    </tbody>
+</table>
+
+
+                </div> 
+                                    
+                                    
+                                    
+<div th:if="${!paging.isEmpty()}">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
+                <a class="page-link"
+                    th:href="@{|?page=${paging.number-1}|}">
+                    <span>이전</span>
+                </a>
+            </li>
+            <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
+            	th:if="${page >= paging.number-5 and page <= paging.number+5}"
+                th:classappend="${page == paging.number} ? 'active'" 
+                class="page-item">
+                <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
+            </li>
+            <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
+                <a class="page-link" th:href="@{|?page=${paging.number+1}|}">
+                    <span>다음</span>
+                </a>
+            </li>
+        </ul>
+</div>
+
                                 </div>
-                            </div>
-                            <div class="d-flex p-4 rounded mb-4 bg-white">
-                                <i class="fas fa-envelope fa-2x text-primary me-4"></i>
-                                <div>
-                                    <h4>Mail Us</h4>
-                                    <p class="mb-2">info@example.com</p>
-                                </div>
-                            </div>
-                            <div class="d-flex p-4 rounded bg-white">
-                                <i class="fa fa-phone-alt fa-2x text-primary me-4"></i>
-                                <div>
-                                    <h4>Telephone</h4>
-                                    <p class="mb-2">(+012) 3456 7890</p>
-                                </div>
-                            </div>
-                        </div>
-            </div>
+                                
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  									<a href ="/news/faq/create" class="btn btn-primary" type="button">글쓰기</a>
+								</div>
                                 
 
                                           

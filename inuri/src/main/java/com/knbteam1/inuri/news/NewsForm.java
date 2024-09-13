@@ -24,4 +24,7 @@ public class NewsForm {
 	
 	@NotEmpty(message = "카테고리를 설정해주세요")
 	private String ncate;
+	
+	private Integer nid;
+	
 }

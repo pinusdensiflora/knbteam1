@@ -8,11 +8,11 @@ package com.knbteam1.inuri.news;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 @Data
@@ -27,6 +27,7 @@ public class News {
 	
 	private String ntitle;
 	
+	@Column(columnDefinition = "TEXT")//썸머노트
 	private String ndesc;
 	
 	private String ncate;

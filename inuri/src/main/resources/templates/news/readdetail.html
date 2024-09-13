@@ -40,7 +40,7 @@
                        
                         <div class="">
                            
-                                	<div style = "height : 50vh;">[[${news.ndesc}]]</div>
+                                	<div style = "height : 50vh;" th:utext="${news.ndesc}"></div>
 <!--                                 <textarea class="w-100 form-control border-0 mb-4" rows="30" cols="10" placeholder="내용 없음">[[${news.ndesc}]]</textarea>
  -->     
                         </div>
@@ -49,7 +49,7 @@
                         <div class="d-flex justify-content-between py-3 mb-5">
                          	<a th:href="@{|/news/${news.ncate}|}" class="btn border border-secondary text-primary px-4 py-2"> 목록보기</a> 
                          	<div>
-                         		<a th:href = "@{|/news/${news.ncate}/update/${news.nid}|}" class="btn btn-success px-4 py-2"> 수정</a>  
+                         		<a th:href = "@{|/news/update/${news.nid}|}" class="btn btn-success px-4 py-2"> 수정</a>  
                             	<a th:href = "@{|/news/${news.ncate}/delete/${news.nid}|}" class="btn btn-danger px-4 py-2"> 삭제</a> 
                          	</div>
                             
