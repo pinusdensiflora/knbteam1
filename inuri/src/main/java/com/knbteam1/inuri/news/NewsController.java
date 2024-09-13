@@ -61,7 +61,10 @@ public class NewsController {
 	@PostMapping("/{cate}/create")
 	public String create(@ModelAttribute News news) {
 		newsService.create(news);
-		
+		/*faq 작성 시 admin 페이지로 이동하도록 설정 - 이강혁/0913*/
+		if (news.getNcate().equals("faq")) {
+			return "redirect:/admin/faq";
+		}
 		return "redirect:/news/" + news.getNcate(); //카테고리에 따른 리턴 차이 필요
 	}
 	

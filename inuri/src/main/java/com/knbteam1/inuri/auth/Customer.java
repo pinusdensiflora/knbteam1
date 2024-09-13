@@ -10,6 +10,7 @@ package com.knbteam1.inuri.auth;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.knbteam1.inuri.patron.Donation;
 import com.knbteam1.inuri.qna.Answer;
 import com.knbteam1.inuri.qna.Question;
 
