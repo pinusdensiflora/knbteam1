@@ -36,15 +36,13 @@ public class Customer {
 	private String role;
 	
 	private String name;
-	
-	@OneToMany
-	private Donation donation;
 
+	@OneToMany
+	private List<Donation> donations;
 	
 	@OneToMany(mappedBy = "aauthor", cascade = CascadeType.REMOVE)
 	private List<Answer> answers;
+
 	@OneToMany(mappedBy = "qauthor", cascade = CascadeType.REMOVE)
 	private List<Question> questions;
-	
-	
 }
