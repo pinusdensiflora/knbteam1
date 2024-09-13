@@ -12,6 +12,7 @@ import org.aspectj.weaver.patterns.TypePatternQuestions.Question;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ch.qos.logback.core.util.SystemInfo;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -47,10 +50,11 @@ public class NewsController {
 	
 	private final NewsService newsService;
 	
-	//news CREATE 
+	//news CREATE ==================================================================================
 	//관리자만접근
 	@GetMapping("/{cate}/create")
-	public String create(Model model, @PathVariable("cate") String cate) {
+	//public String create(Model model, @PathVariable("cate") String cate) {
+	public String create(NewsForm newsForm, Model model,@PathVariable("cate") String cate) {
 		model.addAttribute("cateKey", cate);
 		model.addAttribute("cateValue", cateMap.get(cate));
 		
@@ -59,53 +63,76 @@ public class NewsController {
 	
 	
 	@PostMapping("/{cate}/create")
-	public String create(@ModelAttribute News news) {
+	public String create(@Valid NewsForm newsForm, BindingResult bindingResult
+						//@ModelAttribute @Valid News news, BindingResult bindingResult,
+						) {
+		if (bindingResult.hasErrors()) {
+			return "news/newsCreate";
+		}
+		
+		//newsService.create(news);
+		News news = new News();
+		news.setNcate(newsForm.getNcate());
+		news.setNtitle(newsForm.getNtitle());
+		news.setNdesc(newsForm.getNdesc());
 		newsService.create(news);
 		
 		return "redirect:/news/" + news.getNcate(); //카테고리에 따른 리턴 차이 필요
 	}
 	
 	
-	//readdetail
+	//readdetail==================================================================================
 	@GetMapping("/article/{id}")
 	public String readdetail(Model model, @PathVariable("id") Integer id) {
+		newsService.hit(id);
 		model.addAttribute("news", newsService.readdetail(id));
 		model.addAttribute("cateValue", cateMap.get(newsService.readdetail(id).getNcate()));
 		return "news/readdetail";
 	}
 	
 	
-	//UPDATE
+	//UPDATE==================================================================================
+	
+	@GetMapping("/update/{id}")
+	public String update(NewsForm newsForm, Model model, @PathVariable("id") Integer id){
+		News news = newsService.readdetail(id);
+		model.addAttribute("cateValue", cateMap.get(news.getNcate()));
+		model.addAttribute("news", news);
+		
+		return "news/newsUpdate";
+	}
+
+	@PostMapping("/update")
+	public String update(NewsForm newsForm, BindingResult bindingResult,
+						 Model model){
+		
+		if (bindingResult.hasErrors()) {
+			return "news/newsUpdate";
+		}
+		
+		//newsService.create(news);
+		News news = newsService.readdetail(newsForm.getNid());
+		news.setNcate(newsForm.getNcate());
+		news.setNtitle(newsForm.getNtitle());
+		news.setNdesc(newsForm.getNdesc());
+		newsService.create(news);//임시
+		
+		return "redirect:/news/article/"+news.getNid();
+	}
 	
 	
 	
-	
-	
-	//DELETE
-	@PostMapping("/news/{cate}/delete/{id}")
-	public String delete(@PathVariable("id") Integer id,@PathVariable("cate") String cate) {
-		newsService.delete(id);		
+	//DELETE==================================================================================
+	@GetMapping("/{cate}/delete/{id}")
+	public String delete(@PathVariable("id") Integer id, 
+						 @PathVariable("cate") String cate) {
+		newsService.delete(id);	
 		return "redirect:/news/" + cate;
 	}
 	
 	
-	
-	/*@GetMapping("/{cate}")
-	public String cate(Model model, @PathVariable("cate") String cate ) {
-		
-		model.addAttribute("newsl", newsService.readlist(cate));
-		
-		if(cate.equals("notice")) {
-			return "news/notice";
-			
-		} else if(cate.substring(0, 4).equals("info")) {
-			
-			return "news/info/"+cate;
-		}
-		return "news/assist/"+ cate;
-	}
-	*/
-	
+
+	//==================================================================================
 	@GetMapping("/{cate}")
 	public String cate(Model model, @PathVariable("cate") String cate, 
 			@RequestParam(value="page", defaultValue="0") int page) {
@@ -116,23 +143,30 @@ public class NewsController {
 		
 		//model.addAttribute("newsl", newsService.readlist(cate));
 
-		if(cate.equals("notice")) {
+	    if(cate.equals("faq")) {
+	    	System.out.println("faq 들어옴");
+	    	return "news/assist/faq";
+	    	
+	    }else if(cate.equals("notice")) {
 			return "news/notice";
 			
-		} else if(cate.substring(0, 4).equals("info")) {
+		}else if(cate.substring(0, 4).equals("info")) {
 			
 			return "news/info/"+cate;
 		}
-		return "news/assist/"+ cate;
+		return "redirect:/news";
+		
+		
+				
+		
 	}
 	
-	
+
 	
 	//공지사항탭
 	@GetMapping("")
 	public String notice(Model model) {
-//		model.addAttribute("newsl", newsService.readlist("notice")); //notice 카테고리
-//		return "news/notice";
+		
 		return "redirect:/news/notice";
 		
 	}
@@ -142,37 +176,16 @@ public class NewsController {
 	@GetMapping("/info")
 	public String infoMain(Model model) {
 		
-//		model.addAttribute("newsl", newsService.readlist("info1")); //카테고리만
-//		return "news/info/info1";
-		
 		return "redirect:/news/info1";
 		
 	}
 	
-//	@GetMapping("/article/{cateNum}")
-//	public String info(Model model, @PathVariable("cateNum") String cateNum) {
-//		
-//		model.addAttribute("newsl", newsService.readlist("info"+ cateNum)); //카테고리만
-//		return "news/info/info"+ cateNum;
-//		
-//	}
-	
-//	@GetMapping("/article/{cate}")
-//	public String info(Model model, @PathVariable("cate") String cate) {
-//		//info 조건문 넣어서 전체 가능하게 변경하기
-//		model.addAttribute("newsl", newsService.readlist(cate); //카테고리만
-//		return "news/info/info"+ cate.charAt(4);
-//		
-//	}
-	
 
-
-	
 	
 	//고객지원탭
 	@GetMapping("/assist")
 	public String assist() {
-		return "news/assist/FAQ";
+		return "redirect:/news/faq";
 	}
 	
 	@GetMapping("/assist/inquiry")

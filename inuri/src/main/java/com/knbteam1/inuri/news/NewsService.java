@@ -27,7 +27,7 @@ public class NewsService {
 	
 	
 	
-	//작성자 기입하기
+
 		//public void create(News news, MultipartFile file) throws IOException {
 		public void create(News news){
 			//s3Service의 uploadFile 메서드를 사용하기 위해 파일 이름이 필요한데, 이때 uuid 를 추가해서 쓴다.
@@ -47,7 +47,7 @@ public class NewsService {
 			//객체에 저장
 			//news.setImg(fileName);
 			news.setNdate(LocalDateTime.now());
-		
+			news.setNhit(0);
 			
 			//접속자(작성자) 정보 저장
 			//news.setAuthor(oc.get());
@@ -108,6 +108,12 @@ public class NewsService {
 		}
 	
 	
+		public void hit(Integer id) {
+//			Optional<News> ob = newsRepository.findById(id);
+//			Integer hit = ob.get().getNhit() + 1;
+//			ob.get().setNhit(hit);
+//			newsRepository.save(ob.get());
+		}
 	
 	
 }

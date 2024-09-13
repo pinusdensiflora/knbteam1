@@ -37,12 +37,12 @@ public class Customer {
 	
 	private String name;
 	
-	@OneToMany
-	private Donation donation;
-
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE)
+	private List<Donation> donation;
 	
 	@OneToMany(mappedBy = "aauthor", cascade = CascadeType.REMOVE)
 	private List<Answer> answers;
+	
 	@OneToMany(mappedBy = "qauthor", cascade = CascadeType.REMOVE)
 	private List<Question> questions;
 	
