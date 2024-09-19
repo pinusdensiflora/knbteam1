@@ -117,10 +117,10 @@ public class NewsService {
 	
 	
 		public void hit(Integer id) {
-//			Optional<News> ob = newsRepository.findById(id);
-//			Integer hit = ob.get().getNhit() + 1;
-//			ob.get().setNhit(hit);
-//			newsRepository.save(ob.get());
+			Optional<News> ob = newsRepository.findById(id);
+			Integer hit = ob.get().getNhit() + 1;
+			ob.get().setNhit(hit);
+			newsRepository.save(ob.get());
 		}
 	
 	
