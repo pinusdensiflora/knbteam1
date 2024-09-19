@@ -252,7 +252,7 @@ public class NewsController {
 		
 	    
 	    if(bcate.equals(1)) {
-	    	return "news/notice";
+	    	return "news/bid"+bid;
 	    	
 	    }
 	    else if(bcate.equals(2)) {
@@ -260,7 +260,7 @@ public class NewsController {
 	    	
 	    }
 	    else {
-	    	return "news/assist/faq";
+	    	return "news/assist/bid" + bid;
 	    }
 		
 				
