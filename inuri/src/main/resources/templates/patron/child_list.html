@@ -1,0 +1,152 @@
+<!-- 
+생성자 : 김근환 
+생성일 : 9.11
+연락처 : ghwan07@gmail.com
+-->
+<html layout:decorate="~{layout}">
+<div layout:fragment="content">
+
+	<div class="container-fluid page-header py-5"
+		style="padding-bottom: 30px;">
+		<!-- 상단 헤더 -->
+		<h1 class="text-center text-white display-6">후원받은 아동들</h1>
+
+		<ol class="breadcrumb justify-content-center mb-0">
+			<li class="breadcrumb-item"><a href="/news">공지사항</a></li>
+			<li class="breadcrumb-item"><a href="/news/info">소식</a></li>
+			<li class="breadcrumb-item"><a href="/news/assist">고객지원</a></li>
+			<li class="breadcrumb-item"><a href="/news/address">찾아오시는 길</a></li>
+		</ol>
+	</div>
+	<!-- Spinner Start -->
+	<div id="spinner"
+		class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
+		<div class="spinner-grow text-primary" role="status"></div>
+	</div>
+	<!-- Spinner End -->
+	<div style="display: flex; justify-content: flex-end; margin: 30px;">
+    <div style="width: 35%;">
+        <div class="input-group w-100">
+            <input type="search" class="form-control p-3" placeholder="keywords"
+                aria-describedby="search-icon-1"> 
+            <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
+        </div>
+    </div>
+</div>
+
+	<!-- Modal Search Start -->
+	<div class="modal fade" id="searchModal" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-fullscreen">
+			<div class="modal-content rounded-0">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Search by
+						keyword</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body d-flex align-items-center">
+					<div class="input-group w-75 mx-auto d-flex">
+						<input type="search" class="form-control p-3"
+							placeholder="keywords" aria-describedby="search-icon-1">
+						<span id="search-icon-1" class="input-group-text p-3"><i
+							class="fa fa-search"></i></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Modal Search End -->
+
+	<div class="container-fluid child">
+    <div class="container py-3">
+        <div class="tab-class text-center">
+            <div class="tab-content">
+                <div id="tab-1" class="tab-pane fade show p-0 active">
+                    <div class="row g-4">
+                        <div class="col-lg-12">
+                            <div class="row g-4">
+                                <!-- 아동 리스트 반복 시작 -->
+                                
+                                <!-- 문제 있을 수도 있으니 이전의 코드를 남김 -->
+                                <!-- <div th:each="child : ${children}" class="col-md-4 col-lg-4 col-sm-6"> -->
+                                <div th:each="child, loop : ${paging}" class="col-md-4 col-lg-4 col-sm-6">
+                                    <div class="rounded position-relative child-item">
+                                        <!-- 아동 이미지 -->
+                                        <div class="child-img">
+                                        
+                                        	<!-- 아동 이미지가 업로드 된다면 활성화 -->
+                                            <!-- <img th:src="${child.chimg}" class="img-fluid w-100 rounded-top" alt="아동 이미지"> -->
+                                            
+                                            <img src="img/best-product-1.jpg" class="img-fluid rounded-top" alt="">
+                                        </div>
+                                        <!-- 아동 정보 -->
+                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
+                                            <!-- 아동 이름 -->
+                                            <a th:href="@{/child_detail/{chid}(chid=${child.chid})}">
+                                                <h4 th:text="${child.chname}"></h4>
+                                            </a>
+                                            <!-- 아동 설명 -->
+                                            <!-- <p th:text="${child.chdesc}"></p> -->
+                                            
+                                            <!-- 아동 성별과 거주지 -->
+                                            <p>성별: <span th:text="${child.chgender}"></span></p>
+                                            <p>거주지: <span th:text="${child.chlocation}"></span></p>
+                                            
+                                            <!-- 후원 버튼 -->
+                                            <div class="d-flex justify-content-center flex-lg-wrap">
+                                                <a th:href="@{/child_detail/{chid}(chid=${child.chid})}" class="btn border border-secondary rounded-pill px-3 text-primary">
+                                                    <i class="text-primary"></i> 상세 정보
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- 아동 리스트 반복 끝 -->
+                            </div> <!-- row -->
+                        </div> <!-- col-lg-12 -->
+                    </div> <!-- row -->
+                </div> <!-- tab-1 -->
+            </div> <!-- tab-content -->
+        </div> <!-- tab-class -->
+    </div> <!-- container -->
+</div> <!-- container-fluid -->
+
+<!-- 페이징처리 시작 -->
+    <div th:if="${!paging.isEmpty()}">
+    <ul class="pagination justify-content-center">
+        <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
+            <a class="page-link" th:href="@{|?page=${paging.number-1}|}">
+                <span>이전</span>
+            </a>
+        </li>
+        <li th:each="page: ${#numbers.sequence(1, paging.totalPages)}"
+            th:if="${page >= paging.number and page <= paging.number+10}"
+            th:classappend="${page == paging.number+1} ? 'active'" 
+            class="page-item">
+            <a th:text="${page}" class="page-link" th:href="@{|?page=${page-1}|}"></a>
+        </li>
+        <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
+            <a class="page-link" th:href="@{|?page=${paging.number+1}|}">
+                <span>다음</span>
+            </a>
+        </li>
+    </ul>
+</div>
+    <!-- 페이징처리 끝 -->
+
+
+<div style="margin-bottom: 100px;"></div>
+
+
+
+
+
+	<!-- Back to Top -->
+	<a href="#"
+		class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i
+		class="fa fa-arrow-up"></i></a>
+
+</div>
+
+</html>

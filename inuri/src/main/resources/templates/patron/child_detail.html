@@ -1,0 +1,170 @@
+<!-- 
+생성자 : 김근환 
+생성일 : 9.11
+연락처 : ghwan07@gmail.com
+-->
+<html layout:decorate="~{layout}">
+<div layout:fragment="content">
+
+	<!-- Spinner Start -->
+	<div id="spinner"
+		class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
+		<div class="spinner-grow text-primary" role="status"></div>
+	</div>
+	<!-- Spinner End -->
+
+	<!-- Modal Search Start -->
+	<div class="modal fade" id="searchModal" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-fullscreen">
+			<div class="modal-content rounded-0">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Search by
+						keyword</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body d-flex align-items-center">
+					<div class="input-group w-75 mx-auto d-flex">
+						<input type="search" class="form-control p-3"
+							placeholder="keywords" aria-describedby="search-icon-1">
+						<span id="search-icon-1" class="input-group-text p-3"><i
+							class="fa fa-search"></i></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Modal Search End -->
+
+
+	<!-- Single Page Header start -->
+	<div class="container-fluid page-header py-5"
+		style="padding-bottom: 30px;">
+		<!-- 상단 헤더 -->
+		<h1 class="text-center text-white display-6">후원받은 아동</h1>
+
+		<ol class="breadcrumb justify-content-center mb-0">
+			<li class="breadcrumb-item"><a href="/news">공지사항</a></li>
+			<li class="breadcrumb-item"><a href="/news/info">소식</a></li>
+			<li class="breadcrumb-item"><a href="/news/assist">고객지원</a></li>
+			<li class="breadcrumb-item"><a href="/news/address">찾아오시는 길</a></li>
+		</ol>
+	</div>
+	<!-- Single Page Header End -->
+
+
+
+
+	<!-- Single Product Start -->
+	<div class="container-fluid py-3">
+		<div class="container py-5">
+			<div>
+				<div>
+					<div class="row g-4">
+						<div class="col-lg-6">
+							<div class="border rounded">
+								<a href="#"> <img src="img/single-item.jpg"
+									class="img-fluid rounded" alt="Image">
+								</a>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<h4 class="fw-bold mb-3" th:text="${child.chname}">아동 이름</h4>
+				<p><strong>생년월일:</strong> <span th:text="${child.chdob}">생년월일</span></p>
+                <p><strong>성별:</strong> <span th:text="${child.chgender}">성별</span></p>
+                <p><strong>거주지:</strong> <span th:text="${child.chlocation}">거주지</span></p>
+                </br>
+				<p th:text="${child.chdesc}"></p>
+							<div class="d-flex justify-content-center flex-lg-wrap">
+							<a href="/donate"
+								class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
+								class="fa fa-heart me-2 text-primary"></i> 후원하기</a>
+								</div>
+						</div>
+						<!-- <div class="col-lg-12">
+							<nav>
+								<div class="nav nav-tabs mb-3">
+									<button class="nav-link active border-white border-bottom-0"
+										type="button" role="tab" id="nav-about-tab"
+										data-bs-toggle="tab" data-bs-target="#nav-about"
+										aria-controls="nav-about" aria-selected="true">Description</button>
+									<button class="nav-link border-white border-bottom-0"
+										type="button" role="tab" id="nav-mission-tab"
+										data-bs-toggle="tab" data-bs-target="#nav-mission"
+										aria-controls="nav-mission" aria-selected="false">Reviews</button>
+								</div>
+							</nav>
+							<div class="tab-content mb-5">
+								<div class="tab-pane active" id="nav-about" role="tabpanel"
+									aria-labelledby="nav-about-tab">
+									<p>The generated Lorem Ipsum is therefore always free from
+										repetition injected humour, or non-characteristic words etc.
+										Susp endisse ultricies nisi vel quam suscipit</p>
+									<p>Sabertooth peacock flounder; chain pickerel hatchetfish,
+										pencilfish snailfish filefish Antarctic icefish goldeye
+										aholehole trumpetfish pilot fish airbreathing catfish,
+										electric ray sweeper.</p>
+
+								</div>
+								<div class="tab-pane" id="nav-mission" role="tabpanel"
+									aria-labelledby="nav-mission-tab">
+									<div class="d-flex">
+										<img src="img/avatar.jpg" class="img-fluid rounded-circle p-3"
+											style="width: 100px; height: 100px;" alt="">
+										<div class="">
+											<p class="mb-2" style="font-size: 14px;">April 12, 2024</p>
+											<div class="d-flex justify-content-between">
+												<h5>Jason Smith</h5>
+												<div class="d-flex mb-3">
+													<i class="fa fa-star text-secondary"></i> <i
+														class="fa fa-star text-secondary"></i> <i
+														class="fa fa-star text-secondary"></i> <i
+														class="fa fa-star text-secondary"></i> <i
+														class="fa fa-star"></i>
+												</div>
+											</div>
+											<p>The generated Lorem Ipsum is therefore always free
+												from repetition injected humour, or non-characteristic words
+												etc. Susp endisse ultricies nisi vel quam suscipit</p>
+										</div>
+									</div>
+									<div class="d-flex">
+										<img src="img/avatar.jpg" class="img-fluid rounded-circle p-3"
+											style="width: 100px; height: 100px;" alt="">
+										<div class="">
+											<p class="mb-2" style="font-size: 14px;">April 12, 2024</p>
+											<div class="d-flex justify-content-between">
+												<h5>Sam Peters</h5>
+												<div class="d-flex mb-3">
+													<i class="fa fa-star text-secondary"></i> <i
+														class="fa fa-star text-secondary"></i> <i
+														class="fa fa-star text-secondary"></i> <i
+														class="fa fa-star"></i> <i class="fa fa-star"></i>
+												</div>
+											</div>
+											<p class="text-dark">The generated Lorem Ipsum is
+												therefore always free from repetition injected humour, or
+												non-characteristic words etc. Susp endisse ultricies nisi
+												vel quam suscipit</p>
+										</div>
+									</div>
+								</div>
+								<div class="tab-pane" id="nav-vision" role="tabpanel">
+									<p class="text-dark">Tempor erat elitr rebum at clita. Diam
+										dolor diam ipsum et tempor sit. Aliqu diam amet diam et eos
+										labore. 3</p>
+									<p class="mb-0">Diam dolor diam ipsum et tempor sit. Aliqu
+										diam amet diam et eos labore. Clita erat ipsum et lorem et sit</p>
+								</div>
+							</div>
+						</div> -->
+
+
+					</div>
+
+				<!-- Back to Top -->
+					<a href="#"
+						class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i
+						class="fa fa-arrow-up"></i></a>
+</html>
