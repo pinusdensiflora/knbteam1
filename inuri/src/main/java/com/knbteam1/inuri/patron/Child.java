@@ -4,6 +4,7 @@
 package com.knbteam1.inuri.patron;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -20,6 +21,8 @@ public class Child {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer chid;
+    
+    private LocalDateTime chdate; // 생성날짜
 
     private LocalDate chdob; // 생년월일
 
@@ -30,6 +33,8 @@ public class Child {
     private String chgender; // 성별
 
     private String chlocation; // 거주지
+    
+    private String chdesc; // 아동 설명
 
     @OneToMany(mappedBy = "child")
     private List<Donation> donations; // 후원 내역
