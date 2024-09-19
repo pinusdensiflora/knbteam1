@@ -7,6 +7,7 @@
 package com.knbteam1.inuri.news;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,8 +23,10 @@ public class NewsForm {
 
 	private String ndesc;
 	
-	@NotEmpty(message = "카테고리를 설정해주세요")
-	private Integer ncate;
+	@NotNull(message = "카테고리를 설정해주세요")
+	private Integer nkind;
+	//private Integer ncate;
+	
 	
 	private Integer nid;
 	

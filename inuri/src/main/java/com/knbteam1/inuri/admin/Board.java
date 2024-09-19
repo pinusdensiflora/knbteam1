@@ -16,7 +16,7 @@ public class Board {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer bid;//자동 증가되는 번호
 
-	private String bcate;
+	private Integer bcate; //공지=1, info=2, 고객지원=3
 	private String bname;  // 게시판 마다의 이름
 	
 	

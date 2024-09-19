@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.knbteam1.inuri.admin.Board;
 import com.knbteam1.inuri.admin.BoardService;
 
 import jakarta.validation.Valid;
@@ -54,21 +56,51 @@ public class NewsController {
 	//관리자만접근
 	
 
-	/*@GetMapping("/{kind)/creat") // board를 이용한 creat로 추후 변경하기
-	 * public String create(){
-	 * 
-	 * 
-	 * }
-	 */
+
+	@GetMapping("/{kind}/create") // board를 이용한 create로 추후 변경하기
+	public String create(NewsForm newsForm, Model model, @PathVariable("kind") Integer kind){
+	
+		
+		Board b = boardService.findBoard(kind);
+		
+		model.addAttribute("cateKey", kind);
+		model.addAttribute("cateValue", b.getBname());
+		model.addAttribute("boards", boardService.readlist());
+		
+		
+		return "news/newsCreate";
+	  
+	 }
+	 
+	@PostMapping("/{kind}/create")
+	public String create(@Valid NewsForm newsForm, BindingResult bindingResult) {
+		
+
+		if (bindingResult.hasErrors()) {
+			return "news/newsCreate";
+		}
+		
+		News news = new News();
+		news.setNkind(newsForm.getNkind());
+		news.setNtitle(newsForm.getNtitle());
+		news.setNdesc(newsForm.getNdesc());
+		newsService.create(news);
+		
+		return "redirect:/news/" + news.getNkind(); //카테고리에 따른 리턴 차이 필요
+	}
 	
 	
 	
-		@GetMapping("/{cate}/create")
+	
+	/*	@GetMapping("/{cate}/create")
+
+
 	//public String create(Model model, @PathVariable("cate") String cate) {
 	public String create(NewsForm newsForm, Model model,@PathVariable("cate") String cate) {
 		model.addAttribute("cateKey", cate);
 		model.addAttribute("cateValue", cateMap.get(cate));
 		model.addAttribute("boards", boardService.readlist());
+		
 		return "news/newsCreate";
 	}
 	
@@ -91,13 +123,30 @@ public class NewsController {
 		return "redirect:/news/" + news.getNcate(); //카테고리에 따른 리턴 차이 필요
 	}
 	
+	*/
+	
+	
 	
 	//readdetail==================================================================================
-	@GetMapping("/article/{id}")
+	/*@GetMapping("/article/{id}")
 	public String readdetail(Model model, @PathVariable("id") Integer id) {
 		newsService.hit(id);
 		model.addAttribute("news", newsService.readdetail(id));
 		model.addAttribute("cateValue", cateMap.get(newsService.readdetail(id).getNcate()));
+		return "news/readdetail";
+	}*/
+	
+	//멀티
+	@GetMapping("/article/{id}")
+	public String readdetail(Model model, @PathVariable("id") Integer id) {
+		newsService.hit(id);
+		
+		News n = newsService.readdetail(id);
+		
+		model.addAttribute("news", n);
+		model.addAttribute("cateValue", boardService.getBname(n.getNkind()));
+
+		
 		return "news/readdetail";
 	}
 	
@@ -124,7 +173,8 @@ public class NewsController {
 		//newsService.create(news);
 		News news = newsService.readdetail(newsForm.getNid());
 		//news.setNcate(newsForm.getNcate());
-		news.setNkind(newsForm.getNcate());
+		news.setNkind(newsForm.getNkind());
+//		news.setNkind(newsForm.getNcate());
 		news.setNtitle(newsForm.getNtitle());
 		news.setNdesc(newsForm.getNdesc());
 		newsService.create(news);//임시
@@ -145,13 +195,13 @@ public class NewsController {
 	
 
 	//==================================================================================
-	@GetMapping("/{cate}")
+	/*@GetMapping("/{cate}")
 	public String cate(Model model, @PathVariable("cate") String cate, 
 			@RequestParam(value="page", defaultValue="0") int page) {
 		
 		Page<News> paging = newsService.readlistpage(cate, page);
 	    model.addAttribute("paging", paging);
-		
+	    model.addAttribute("cateboards", boardService.findbcate());
 		
 		//model.addAttribute("newsl", newsService.readlist(cate));
 
@@ -171,15 +221,42 @@ public class NewsController {
 		
 				
 		
+	}*/
+	
+	@GetMapping("/{bid}")
+	public String cate(Model model, @PathVariable("bid") Integer bid, 
+			@RequestParam(value="page", defaultValue="0") int page) {
+		
+		Page<News> paging = newsService.readlistpage(bid, page);
+	    model.addAttribute("paging", paging);
+	    model.addAttribute("cateboards", boardService.findbcate());
+		
+	    if(bid.equals(1)) {
+	    	return "news/notice";
+	    	
+	    }
+	    else if(bid.equals(2)) {
+	    	return "news/info/info1";
+	    	
+	    }
+	    else {
+	    	return "news/assist/faq";
+	    }
+		
+				
+		
 	}
 	
-
+	
+	
+	
+	
 	
 	//공지사항탭
 	@GetMapping("")
 	public String notice(Model model) {
 		
-		return "redirect:/news/notice";
+		return "redirect:/news/1";
 		
 	}
 
@@ -188,7 +265,7 @@ public class NewsController {
 	@GetMapping("/info")
 	public String infoMain(Model model) {
 		
-		return "redirect:/news/info1";
+		return "redirect:/news/2";
 		
 	}
 	

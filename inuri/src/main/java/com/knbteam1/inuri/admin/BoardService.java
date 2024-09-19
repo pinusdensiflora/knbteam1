@@ -1,6 +1,7 @@
 package com.knbteam1.inuri.admin;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -17,4 +18,23 @@ public class BoardService {
 		
 		return boardRepository.findAll();
 	}
+	
+	public List<Board> findbcate() {
+		
+		
+		return boardRepository.findByBcate(2);
+	}
+	public Board findBoard(Integer bid) {
+		//bid 값으로 어디의 보드정보 가져오기
+		
+		Optional<Board> ob =  boardRepository.findById(bid);
+		return ob.get();
+	}
+	
+	public String getBname(Integer bid) {
+		Optional<Board> ob =  boardRepository.findById(bid);
+
+		return ob.get().getBname();
+	}
+	
 }

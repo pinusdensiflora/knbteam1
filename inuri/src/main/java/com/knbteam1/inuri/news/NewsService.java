@@ -63,7 +63,8 @@ public class NewsService {
 		public List<News> readlist(String cate) {
 			return newsRepository.findByNcate(cate);
 		}
-		// readlist 페이징
+		
+/*		// readlist 페이징
 		public Page<News> readlistpage(String cate, int page) {
 			Pageable pageable = PageRequest.of(page, 10);
 			
@@ -71,6 +72,13 @@ public class NewsService {
 			//return newsRepository.findAll(pageable);
 			
 			//return newsRepository.findByNcate(cate);
+		}*/
+		
+		// readlist 페이징, 멀티 게시판
+		public Page<News> readlistpage(Integer kind, int page) {
+			Pageable pageable = PageRequest.of(page, 10);
+			
+			return newsRepository.findByNkind(kind, pageable);
 		}
 		
 		
