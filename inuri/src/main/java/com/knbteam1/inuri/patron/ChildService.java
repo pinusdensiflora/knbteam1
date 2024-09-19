@@ -1,0 +1,57 @@
+/*
+ * 생성자 : 김근환 생성일 : 9.13 연락처 : ghwan07@gmail.com
+ */
+package com.knbteam1.inuri.patron;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+
+@Service
+public class ChildService {
+
+    @Autowired
+    private ChildRepository childRepository;
+
+    // 아동 저장 또는 업데이트
+    public Child createOrUpdateChild(Child child) {
+        return childRepository.save(child);
+    }
+
+    // ID로 아동 조회
+    public Optional<Child> getChildById(Integer id) {
+        return childRepository.findById(id);
+    }
+
+    // 모든 아동 조회
+    public List<Child> getAllChildren() {
+        return childRepository.findAll();
+    }
+
+    // 키워드로 아동 검색
+    public List<Child> searchChildren(String keyword) {
+        return childRepository.findByChnameContaining(keyword);
+    }
+
+    // ID로 아동 삭제
+    public void deleteChildById(Integer id) {
+        childRepository.deleteById(id);
+    }
+    
+    //페이징
+    public Page<Child> getList(int page) {
+    	//최신순
+    	List<Sort.Order> sorts = new ArrayList<>();
+        sorts.add(Sort.Order.desc("chdate"));
+    	
+        Pageable pageable = PageRequest.of(page, 9, Sort.by(sorts));
+        return this.childRepository.findAll(pageable);
+    }
+}
