@@ -38,11 +38,6 @@ public class AdminController {
         return "admin/patrons/readPatronList";
     }
 
-    @GetMapping("/children")
-    public String readChildren() {
-        return "admin/child/readChildren";
-    }
-
     @GetMapping("/children/add")
     public String addChild(){
         return "admin/child/addChild";
