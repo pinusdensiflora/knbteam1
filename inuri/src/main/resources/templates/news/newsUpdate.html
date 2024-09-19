@@ -47,23 +47,21 @@
                                     <div class="col-lg-6">
                                         <div class="border-bottom rounded">
 <!--validation 적용전 <select name = "ncate" class="form-select" aria-label="Default select example" > -->
-<select name="ncate" class="form-select" aria-label="Default select example" >
-  <option th:value = "${news.ncate}" selected>[[${cateValue}]]</option>
-  <option value="notice">공지사항</option>
-  <hr>
-  <option value="info1">기업소식</option>
-  <option value="info2">후원금사용내역</option>
-  <option value="info3">진행프로젝트</option>
-  <option value="info4">피후원자 추가안내</option>
-  <option value="info5">명예후원자</option>
-  <option value="info6">인재채용</option>
-  <option value="info7">보도자료</option>
-  <hr>
-<!--   <option value="terms">이용약관</option> -->
-  <option value="faq">FAQ</option>
-  
-</select>
-                                        </div>
+
+<select th:field="*{nkind}" class="form-select" aria-label="Default select example">
+
+
+							<option th:value="${news.nkind}" selected>[[${cateValue}]]</option>
+
+
+							<hr>
+							<th:block th:each="board : ${boards}">
+								<option th:value="${board.bid}">[[${board.bname}]]</option>
+							</th:block>
+							<hr>
+
+
+</select>                                      </div>
                                     </div>
                                     
                                     

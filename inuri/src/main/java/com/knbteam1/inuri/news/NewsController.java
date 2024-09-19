@@ -153,11 +153,13 @@ public class NewsController {
 	
 	//UPDATE==================================================================================
 	
+	//멀티
 	@GetMapping("/update/{id}")
 	public String update(NewsForm newsForm, Model model, @PathVariable("id") Integer id){
 		News news = newsService.readdetail(id);
-		model.addAttribute("cateValue", cateMap.get(news.getNcate()));
+		model.addAttribute("cateValue", boardService.getBname(news.getNkind()));
 		model.addAttribute("news", news);
+		model.addAttribute("boards", boardService.readlist());
 		
 		return "news/newsUpdate";
 	}
@@ -169,7 +171,6 @@ public class NewsController {
 		if (bindingResult.hasErrors()) {
 			return "news/newsUpdate";
 		}
-		
 		//newsService.create(news);
 		News news = newsService.readdetail(newsForm.getNid());
 		//news.setNcate(newsForm.getNcate());
@@ -185,9 +186,16 @@ public class NewsController {
 	
 	
 	//DELETE==================================================================================
-	@GetMapping("/{cate}/delete/{id}")
+	/*@GetMapping("/{cate}/delete/{id}")
 	public String delete(@PathVariable("id") Integer id, 
 						 @PathVariable("cate") String cate) {
+		newsService.delete(id);	
+		return "redirect:/news/" + cate;
+	}*/
+	
+	@GetMapping("/{kind}/delete/{id}")
+	public String delete(@PathVariable("id") Integer id, 
+			@PathVariable("kind") String cate) {
 		newsService.delete(id);	
 		return "redirect:/news/" + cate;
 	}
