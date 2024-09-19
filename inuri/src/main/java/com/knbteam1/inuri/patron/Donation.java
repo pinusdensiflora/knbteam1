@@ -1,3 +1,6 @@
+/*
+ * 생성자 : 김근환 생성일 : 9.12 연락처 : ghwan07@gmail.com
+ */
 package com.knbteam1.inuri.patron;
 
 import java.time.LocalDateTime;
@@ -9,9 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
-/*
- * 생성자 : 김근환 생성일 : 9.12 연락처 : ghwan07@gmail.com
- */
+
 @Data
 @Entity
 public class Donation {
