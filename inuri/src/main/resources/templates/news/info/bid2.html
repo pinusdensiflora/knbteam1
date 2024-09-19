@@ -34,15 +34,7 @@
                             </div>
                             <div class="col-6"><p>기업정보 > 소식 > <a href = "/news/info">기업소식</a></div>
                             <div class="col-xl-3">
-<!--                                 <div class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4">
-                                    <label for="fruits">Default Sorting:</label>
-                                    <select id="fruits" name="fruitlist" class="border-0 form-select-sm bg-light me-3" form="fruitform">
-                                        <option value="volvo">Nothing</option>
-                                        <option value="saab">Popularity</option>
-                                        <option value="opel">Organic</option>
-                                        <option value="audi">Fantastic</option>
-                                    </select>
-                                </div> -->
+
                             </div>
                         </div>
                         <div class="row g-4 ">
@@ -60,42 +52,6 @@
                                                     </div>
                                                 </li>
                                             <th:block >    
-                                             <!--    <li>
-                                                    <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="/news/info2"><i class="fas fa-apple-alt me-2"></i>후원금 사용내역</a>
-                                                        <span>(5)</span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="/news/info3"><i class="fas fa-apple-alt me-2"></i>진행 프로젝트</a>
-                                                        <span>(2)</span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="/news/info4"><i class="fas fa-apple-alt me-2"></i>피후원자 추가안내</a>
-                                                        <span>(8)</span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="/news/info5"><i class="fas fa-apple-alt me-2"></i>명예후원자</a>
-                                                        <span>(5)</span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="/news/info6"><i class="fas fa-apple-alt me-2"></i>인재채용</a>
-                                                        <span>(5)</span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="/news/info7"><i class="fas fa-apple-alt me-2"></i>보도자료</a>
-                                                        <span>(8)</span>
-                                                    </div>
-                                                </li> -->
                                             </ul>
                                         </div>
                                     </div>
@@ -181,7 +137,7 @@
                                 </div>
                                 
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-  									<a href ="/news/info1/create" class="btn btn-primary" type="button">글쓰기</a>
+  									<a th:href ="@{|/news/${bid}/create|}" class="btn btn-primary" type="button">글쓰기</a>
 								</div>
                                 
 

@@ -160,22 +160,30 @@ public class NewsController {
 		model.addAttribute("cateValue", boardService.getBname(news.getNkind()));
 		model.addAttribute("news", news);
 		model.addAttribute("boards", boardService.readlist());
+	    
+	    // 기존 데이터 설정
+	    newsForm.setNid(news.getNid());
+	    newsForm.setNtitle(news.getNtitle());  // 제목 설정
+	    newsForm.setNkind(news.getNkind());
+	    newsForm.setNdesc(news.getNdesc());
+		
+		
 		
 		return "news/newsUpdate";
 	}
 
 	@PostMapping("/update")
-	public String update(NewsForm newsForm, BindingResult bindingResult,
+	public String update(@Valid NewsForm newsForm, BindingResult bindingResult,
 						 Model model){
 		
 		if (bindingResult.hasErrors()) {
 			return "news/newsUpdate";
 		}
+		
 		//newsService.create(news);
 		News news = newsService.readdetail(newsForm.getNid());
 		//news.setNcate(newsForm.getNcate());
 		news.setNkind(newsForm.getNkind());
-//		news.setNkind(newsForm.getNcate());
 		news.setNtitle(newsForm.getNtitle());
 		news.setNdesc(newsForm.getNdesc());
 		newsService.create(news);//임시
@@ -235,16 +243,20 @@ public class NewsController {
 	public String cate(Model model, @PathVariable("bid") Integer bid, 
 			@RequestParam(value="page", defaultValue="0") int page) {
 		
+		Integer bcate = boardService.getBcate(bid);
+		
 		Page<News> paging = newsService.readlistpage(bid, page);
 	    model.addAttribute("paging", paging);
-	    model.addAttribute("cateboards", boardService.findbcate());
+	    model.addAttribute("cateboards", boardService.findListBcate(bcate));
+	    model.addAttribute("bid", bid);
 		
-	    if(bid.equals(1)) {
+	    
+	    if(bcate.equals(1)) {
 	    	return "news/notice";
 	    	
 	    }
-	    else if(bid.equals(2)) {
-	    	return "news/info/info1";
+	    else if(bcate.equals(2)) {
+	    	return "news/info/bid"+ bid;
 	    	
 	    }
 	    else {

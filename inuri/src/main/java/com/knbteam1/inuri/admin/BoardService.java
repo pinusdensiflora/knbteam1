@@ -19,11 +19,15 @@ public class BoardService {
 		return boardRepository.findAll();
 	}
 	
-	public List<Board> findbcate() {
+	public List<Board> findListBcate(Integer bcate) {
 		
 		
-		return boardRepository.findByBcate(2);
+		return boardRepository.findByBcate(bcate);
 	}
+	
+	
+	
+	
 	public Board findBoard(Integer bid) {
 		//bid 값으로 어디의 보드정보 가져오기
 		
@@ -35,6 +39,12 @@ public class BoardService {
 		Optional<Board> ob =  boardRepository.findById(bid);
 
 		return ob.get().getBname();
+	}
+	
+	public Integer getBcate(Integer bid) {
+		Optional<Board> ob =  boardRepository.findById(bid);
+
+		return ob.get().getBcate();
 	}
 	
 }
