@@ -13,13 +13,7 @@ import java.util.List;
 import com.knbteam1.inuri.patron.Donation;
 import com.knbteam1.inuri.qna.Answer;
 import com.knbteam1.inuri.qna.Question;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -40,10 +34,10 @@ public class Customer {
 	
 	@OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE)
 	private List<Donation> donation;
-	
+
 	@OneToMany(mappedBy = "aauthor", cascade = CascadeType.REMOVE)
 	private List<Answer> answers;
-	
+
 	@OneToMany(mappedBy = "qauthor", cascade = CascadeType.REMOVE)
 	private List<Question> questions;
 }
