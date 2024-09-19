@@ -4,39 +4,36 @@
  연락처: dawnzeze@gmail.com
  
  */
-package com.knbteam1.inuri.qna;
+package com.knbteam1.inuri.qna.answer;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import com.knbteam1.inuri.auth.Customer;
 
-import jakarta.persistence.CascadeType;
+import com.knbteam1.inuri.qna.question.Question;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 @Data
 @Entity
-public class Question {
+public class Answer {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer qid;
-	private LocalDateTime qdate;
-	
-	
+	private Integer aid;
 
+	private String content;
+	
 	@ManyToOne
-	private Customer qauthor;
-	 
+	private Customer aauthor;
 	
-	@OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
-	private List<Answer> answers;
+	@ManyToOne
+	private Question question;
 	
-
+	
+	
 }
