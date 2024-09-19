@@ -25,8 +25,10 @@ public class Answer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer aid;
+	private LocalDateTime adate;
 
 	private String content;
+
 	
 	@ManyToOne
 	private Customer aauthor;
