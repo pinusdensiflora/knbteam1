@@ -33,7 +33,7 @@
                         <div class="col-12">
                             <div class="mx-auto" >
                                 <h1 class="text-primary">[[${news.ntitle}]]</h1>
-                                <p class="mb-4"> <a th:href="@{|/news/${news.ncate}|}">[[${cateValue}]]</a><br> 작성일 : [[${news.ndate}]] </p>
+                                <p class="mb-4"> <a th:href="@{|/news/${news.ncate}|}">[[${cateValue}]]</a><br> 작성일 : [[${news.ndate}]] <br> 조회수 : [[${news.nhit}]] </p>
                             	<hr>
                             </div>
                         </div>
@@ -47,10 +47,10 @@
                         
                         
                         <div class="d-flex justify-content-between py-3 mb-5">
-                         	<a th:href="@{|/news/${news.ncate}|}" class="btn border border-secondary text-primary px-4 py-2"> 목록보기</a> 
+                         	<a th:href="@{|/news/${news.nkind}|}" class="btn border border-secondary text-primary px-4 py-2"> 목록보기</a> 
                          	<div>
                          		<a th:href = "@{|/news/update/${news.nid}|}" class="btn btn-success px-4 py-2"> 수정</a>  
-                            	<a th:href = "@{|/news/${news.ncate}/delete/${news.nid}|}" class="btn btn-danger px-4 py-2"> 삭제</a> 
+                            	<a th:href = "@{|/news/${news.nkind}/delete/${news.nid}|}" class="btn btn-danger px-4 py-2"> 삭제</a> 
                          	</div>
                             
                         </div>

@@ -6,33 +6,29 @@ Donation.java
  */
 
 
-
-package com.knbteam1.inuri.auth;
-
-import java.time.LocalDateTime;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import lombok.Data;
-
-@Entity
-@Data
-public class Donation {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer did;
-	private LocalDateTime ddate;
-	private Integer dwon;
-	private String dwhere;
-	
-	@ManyToOne
-	
-	private Customer customer;
-	
-
-
-}
+/*
+ * package com.knbteam1.inuri.auth;
+ * 
+ * import java.time.LocalDateTime;
+ * 
+ * import jakarta.persistence.Entity; import jakarta.persistence.GeneratedValue;
+ * import jakarta.persistence.GenerationType; import jakarta.persistence.Id;
+ * import jakarta.persistence.ManyToOne; import lombok.Data;
+ * 
+ * @Entity
+ * 
+ * @Data public class Donation {
+ * 
+ * @Id
+ * 
+ * @GeneratedValue(strategy = GenerationType.IDENTITY) private Integer did;
+ * private LocalDateTime ddate; private Integer dwon; private String dwhere;
+ * 
+ * @ManyToOne
+ * 
+ * private Customer customer;
+ * 
+ * 
+ * 
+ * }
+ */

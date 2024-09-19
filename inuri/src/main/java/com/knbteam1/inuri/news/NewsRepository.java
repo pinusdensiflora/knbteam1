@@ -17,6 +17,7 @@ public interface NewsRepository extends JpaRepository<News, Integer> {
 
 	List<News> findByNcate(String ncate);
 	Page<News> findByNcate(String ncate, Pageable pageable);
+	Page<News> findByNkind(Integer nkind, Pageable pageable);
 	Page<News> findAll(Pageable pageable);
 	
 }
