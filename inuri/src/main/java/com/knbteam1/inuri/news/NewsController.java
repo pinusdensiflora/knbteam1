@@ -259,10 +259,12 @@ public class NewsController {
 	    	return "news/info/bid"+ bid;
 	    	
 	    }
-	    else {
+	    else if(bcate.equals(3)){
 	    	return "news/assist/bid" + bid;
 	    }
-		
+	    else {
+	    	return "redirect:/news/1";
+	    }
 				
 		
 	}
@@ -294,7 +296,7 @@ public class NewsController {
 	//고객지원탭
 	@GetMapping("/assist")
 	public String assist() {
-		return "redirect:/news/faq";
+		return "redirect:/news/4";
 	}
 	
 	@GetMapping("/assist/inquiry")
