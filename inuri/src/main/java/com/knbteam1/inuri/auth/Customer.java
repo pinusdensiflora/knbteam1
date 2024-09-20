@@ -8,7 +8,11 @@ Customer.java
 package com.knbteam1.inuri.auth;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
+import com.knbteam1.inuri.qna.Answer;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -32,7 +36,8 @@ public class Customer {
 	
 	private String name;
 	
-	@OneToMany
-	private Donation donation;
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE)
+	private List<Donation> donation;
+
 
 }

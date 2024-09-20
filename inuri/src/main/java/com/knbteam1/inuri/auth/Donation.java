@@ -30,7 +30,6 @@ public class Donation {
 	private String dwhere;
 	
 	@ManyToOne
-	
 	private Customer customer;
 	
 
