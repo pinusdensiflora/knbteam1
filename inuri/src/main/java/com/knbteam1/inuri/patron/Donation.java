@@ -34,6 +34,8 @@ public class Donation {
     @ManyToOne
     private Child child; // 후원 아동 정보
 
-    @ManyToOne
-    private Customer customer; // 후원자 정보
+	
+	@ManyToOne 
+	private Customer customer; // 후원자 정보
+	
 }

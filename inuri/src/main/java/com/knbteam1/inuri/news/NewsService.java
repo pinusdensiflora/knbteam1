@@ -7,12 +7,14 @@
 package com.knbteam1.inuri.news;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -63,7 +65,8 @@ public class NewsService {
 		public List<News> readlist(String cate) {
 			return newsRepository.findByNcate(cate);
 		}
-		// readlist 페이징
+		
+/*		// readlist 페이징
 		public Page<News> readlistpage(String cate, int page) {
 			Pageable pageable = PageRequest.of(page, 10);
 			
@@ -71,6 +74,18 @@ public class NewsService {
 			//return newsRepository.findAll(pageable);
 			
 			//return newsRepository.findByNcate(cate);
+		}*/
+		
+		// readlist 페이징, 멀티 게시판
+		public Page<News> readlistpage(Integer kind, int page) {
+			
+			List<Sort.Order> sorts = new ArrayList<>();
+	        sorts.add(Sort.Order.desc("ndate"));
+			
+			
+			Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+			
+			return newsRepository.findByNkind(kind, pageable);
 		}
 		
 		
@@ -109,10 +124,10 @@ public class NewsService {
 	
 	
 		public void hit(Integer id) {
-//			Optional<News> ob = newsRepository.findById(id);
-//			Integer hit = ob.get().getNhit() + 1;
-//			ob.get().setNhit(hit);
-//			newsRepository.save(ob.get());
+			Optional<News> ob = newsRepository.findById(id);
+			Integer hit = ob.get().getNhit() + 1;
+			ob.get().setNhit(hit);
+			newsRepository.save(ob.get());
 		}
 	
 	
