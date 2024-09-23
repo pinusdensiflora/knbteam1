@@ -6,7 +6,7 @@
  */
 package com.knbteam1.inuri.news;
 
-import java.util.Map;
+import java.io.IOException;
 
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.knbteam1.inuri.admin.Board;
 import com.knbteam1.inuri.admin.BoardService;
@@ -29,26 +29,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/news")
 @Controller
 public class NewsController {
-	
-	private final Map<String, String> cateMap = Map.of(
-			//article
-			"notice", "공지사항",
-			
-			//info
-            "info1", "기업소식",
-            "info2", "후원금 사용내역",
-            "info3", "진행프로젝트",
-            "info4", "피후원자 추가안내",
-            "info5", "명예후원자",
-            "info6", "인재 채용",
-            "info7", "보도자료",
-            
-            //assist
-            "terms", "이용약관",
-            "faq", "FAQ"
-    );
-	
-	
+
 	private final NewsService newsService;
 	private final BoardService boardService;
 	
@@ -73,68 +54,50 @@ public class NewsController {
 	 }
 	 
 	@PostMapping("/{kind}/create")
-	public String create(@Valid NewsForm newsForm, BindingResult bindingResult) {
+		public String create(@Valid NewsForm newsForm, BindingResult bindingResult, 
+							 Model model, @PathVariable("kind") Integer kind, 
+							 @RequestParam("file") MultipartFile file//파일처리
+							) throws IOException {
 		
 
 		if (bindingResult.hasErrors()) {
+			
+			Board b = boardService.findBoard(kind);
+			
+			model.addAttribute("cateKey", kind);
+			model.addAttribute("cateValue", b.getBname());
+			model.addAttribute("boards", boardService.readlist());
+			
 			return "news/newsCreate";
+			
+			
 		}
+		
 		
 		News news = new News();
 		news.setNkind(newsForm.getNkind());
 		news.setNtitle(newsForm.getNtitle());
 		news.setNdesc(newsForm.getNdesc());
-		newsService.create(news);
+		//newsService.create(news);
+		
+		
+		
+		// 파일이 존재하는 경우에만 처리
+	    if (!file.isEmpty()) {
+	        newsService.create(news, file);  // 파일 처리
+	    } else {
+	        newsService.create(news);  // 파일 없이 생성
+	    }
+		
+		
+		
+		//newsService.create(news, file);
 		
 		return "redirect:/news/" + news.getNkind(); //카테고리에 따른 리턴 차이 필요
 	}
 	
 	
 	
-	
-	/*	@GetMapping("/{cate}/create")
-
-
-	//public String create(Model model, @PathVariable("cate") String cate) {
-	public String create(NewsForm newsForm, Model model,@PathVariable("cate") String cate) {
-		model.addAttribute("cateKey", cate);
-		model.addAttribute("cateValue", cateMap.get(cate));
-		model.addAttribute("boards", boardService.readlist());
-		
-		return "news/newsCreate";
-	}
-	
-	
-	@PostMapping("/{cate}/create")
-	public String create(@Valid NewsForm newsForm, BindingResult bindingResult
-						//@ModelAttribute @Valid News news, BindingResult bindingResult,
-						) {
-		if (bindingResult.hasErrors()) {
-			return "news/newsCreate";
-		}
-		
-		//newsService.create(news);
-		News news = new News();
-		news.setNkind(newsForm.getNcate());
-		news.setNtitle(newsForm.getNtitle());
-		news.setNdesc(newsForm.getNdesc());
-		newsService.create(news);
-		
-		return "redirect:/news/" + news.getNcate(); //카테고리에 따른 리턴 차이 필요
-	}
-	
-	*/
-	
-	
-	
-	//readdetail==================================================================================
-	/*@GetMapping("/article/{id}")
-	public String readdetail(Model model, @PathVariable("id") Integer id) {
-		newsService.hit(id);
-		model.addAttribute("news", newsService.readdetail(id));
-		model.addAttribute("cateValue", cateMap.get(newsService.readdetail(id).getNcate()));
-		return "news/readdetail";
-	}*/
 	
 	//멀티
 	@GetMapping("/article/{id}")
@@ -172,11 +135,23 @@ public class NewsController {
 		return "news/newsUpdate";
 	}
 
-	@PostMapping("/update")
+	@PostMapping("/update/{id}")
 	public String update(@Valid NewsForm newsForm, BindingResult bindingResult,
-						 Model model){
+						 Model model, @PathVariable("id") Integer id,
+						 @RequestParam("file") MultipartFile[] file//파일처리
+						) throws IOException {
 		
 		if (bindingResult.hasErrors()) {
+			
+	
+			News news = newsService.readdetail(id);
+			model.addAttribute("cateValue", boardService.getBname(news.getNkind()));
+			model.addAttribute("news", news);
+			model.addAttribute("boards", boardService.readlist());
+			
+			
+			
+			//return "news/newsUpdate";
 			return "news/newsUpdate";
 		}
 		
@@ -186,7 +161,7 @@ public class NewsController {
 		news.setNkind(newsForm.getNkind());
 		news.setNtitle(newsForm.getNtitle());
 		news.setNdesc(newsForm.getNdesc());
-		newsService.create(news);//임시
+		newsService.create(news, file);//임시
 		
 		return "redirect:/news/article/"+news.getNid();
 	}
@@ -194,12 +169,7 @@ public class NewsController {
 	
 	
 	//DELETE==================================================================================
-	/*@GetMapping("/{cate}/delete/{id}")
-	public String delete(@PathVariable("id") Integer id, 
-						 @PathVariable("cate") String cate) {
-		newsService.delete(id);	
-		return "redirect:/news/" + cate;
-	}*/
+
 	
 	@GetMapping("/{kind}/delete/{id}")
 	public String delete(@PathVariable("id") Integer id, 
@@ -211,33 +181,7 @@ public class NewsController {
 	
 
 	//==================================================================================
-	/*@GetMapping("/{cate}")
-	public String cate(Model model, @PathVariable("cate") String cate, 
-			@RequestParam(value="page", defaultValue="0") int page) {
-		
-		Page<News> paging = newsService.readlistpage(cate, page);
-	    model.addAttribute("paging", paging);
-	    model.addAttribute("cateboards", boardService.findbcate());
-		
-		//model.addAttribute("newsl", newsService.readlist(cate));
 
-	    if(cate.equals("faq")) {
-	    	System.out.println("faq 들어옴");
-	    	return "news/assist/faq";
-	    	
-	    }else if(cate.equals("notice")) {
-			return "news/notice";
-			
-		}else if(cate.substring(0, 4).equals("info")) {
-			
-			return "news/info/"+cate;
-		}
-		return "redirect:/news";
-		
-		
-				
-		
-	}*/
 	
 	@GetMapping("/{bid}")
 	public String cate(Model model, @PathVariable("bid") Integer bid, 
@@ -252,24 +196,24 @@ public class NewsController {
 		
 	    
 	    if(bcate.equals(1)) {
-	    	return "news/notice";
+	    	return "news/bid"+bid;
 	    	
 	    }
 	    else if(bcate.equals(2)) {
 	    	return "news/info/bid"+ bid;
 	    	
 	    }
-	    else {
-	    	return "news/assist/faq";
+	    else if(bcate.equals(3)){
+	    	return "news/assist/bid" + bid;
 	    }
-		
+	    else {
+	    	return "redirect:/news/1";
+	    }
 				
 		
 	}
 	
-	
-	
-	
+
 	
 	
 	//공지사항탭
@@ -294,7 +238,7 @@ public class NewsController {
 	//고객지원탭
 	@GetMapping("/assist")
 	public String assist() {
-		return "redirect:/news/faq";
+		return "redirect:/news/4";
 	}
 	
 	@GetMapping("/assist/inquiry")

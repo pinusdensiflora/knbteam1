@@ -6,10 +6,12 @@
  */
 package com.knbteam1.inuri.news;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,6 +19,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.knbteam1.inuri.configuration.S3Service;
 
 import lombok.RequiredArgsConstructor;
 
@@ -26,18 +30,26 @@ import lombok.RequiredArgsConstructor;
 public class NewsService {
 
 	private final NewsRepository newsRepository;
+	private final S3Service s3Service;
 	
 	
 	
+		public void create(News news){ //사진없음
+			
+			news.setNdate(LocalDateTime.now());
+			news.setNhit(0);
+			
+			newsRepository.save(news);
+		}
 
-		//public void create(News news, MultipartFile file) throws IOException {
-		public void create(News news){
+		public void create(News news, MultipartFile file) throws IOException {
+		//public void create(News news){
 			//s3Service의 uploadFile 메서드를 사용하기 위해 파일 이름이 필요한데, 이때 uuid 를 추가해서 쓴다.
 			
 //			//기본 사진이름을 uuid 처리 후 aws에 저장
-//			UUID uuid = UUID.randomUUID();
-//			String fileName = uuid + "_" + file.getOriginalFilename(); //"uuid_기존파일이름" 형태로 만든다 
-//			s3Service.uploadFile(file, fileName); //예외처리가 요구됨
+			UUID uuid = UUID.randomUUID();
+			String fileName = uuid + "_" + file.getOriginalFilename(); //"uuid_기존파일이름" 형태로 만든다 
+			s3Service.uploadFile(file, fileName); //예외처리가 요구됨
 			
 //			//접속자(작성자) 정보 뽑아내기
 //			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -47,7 +59,7 @@ public class NewsService {
 			
 			
 			//객체에 저장
-			//news.setImg(fileName);
+			news.setNimg1(fileName);
 			news.setNdate(LocalDateTime.now());
 			news.setNhit(0);
 			

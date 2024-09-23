@@ -25,8 +25,8 @@
 
 
 		<!--validation 적용전         <form th:action="@{|/news/${cateKey}/create|}" method = "post"> -->
-		<form th:action="@{|/news/update|}" th:object="${newsForm}"
-			method="post">
+		<form th:action="@{|/news/update/${news.nid}|}" th:object="${newsForm}"
+			method="post" enctype="multipart/form-data">
 			<input type="hidden" th:field="*{nid}" th:value="${news.nid}">
 
 			<h4 class="mb-5 fw-bold">아이누리 글 쓰기</h4>

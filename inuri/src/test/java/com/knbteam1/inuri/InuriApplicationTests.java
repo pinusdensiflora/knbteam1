@@ -29,7 +29,7 @@ class InuriApplicationTests {
         	n.setNcate("notice");
         	n.setNdesc("test");
         	
-            this.newsService.create(n);
+            //this.newsService.create(n);
         }
     }
 	
