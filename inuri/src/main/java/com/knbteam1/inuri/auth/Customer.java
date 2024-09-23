@@ -13,9 +13,9 @@ import java.util.List;
 
 
 import com.knbteam1.inuri.patron.Donation;
-import com.knbteam1.inuri.qna.Answer;
-import com.knbteam1.inuri.qna.Question;
 
+import com.knbteam1.inuri.qna.answer.Answer;
+import com.knbteam1.inuri.qna.question.Question;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
