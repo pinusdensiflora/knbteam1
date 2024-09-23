@@ -11,13 +11,12 @@ package com.knbteam1.inuri.auth;
 import java.time.LocalDateTime;
 import java.util.List;
 
-<<<<<<< HEAD
+
 import com.knbteam1.inuri.qna.Answer;
-=======
+
 import com.knbteam1.inuri.patron.Donation;
 import com.knbteam1.inuri.qna.Answer;
 import com.knbteam1.inuri.qna.Question;
->>>>>>> main
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -43,16 +42,11 @@ public class Customer {
 	
 	private String name;
 	
-<<<<<<< HEAD
 	private String postcode; 
 	
 	@OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE)
 	private List<Donation> donation;
 
-
-=======
-	@OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE)
-	private List<Donation> donation;
 	
 	@OneToMany(mappedBy = "aauthor", cascade = CascadeType.REMOVE)
 	private List<Answer> answers;
@@ -61,5 +55,4 @@ public class Customer {
 	private List<Question> questions;
 	
 	
->>>>>>> main
 }
