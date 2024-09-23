@@ -40,11 +40,12 @@ public class Customer {
 	
 	private String name;
 	
-	private String postcode;
-
+	private String postcode; 
+	
 	@OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE)
 	private List<Donation> donation;
 
+	
 	@OneToMany(mappedBy = "aauthor", cascade = CascadeType.REMOVE)
 	private List<Answer> answers;
 	
