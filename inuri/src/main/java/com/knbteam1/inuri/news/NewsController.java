@@ -73,11 +73,21 @@ public class NewsController {
 	 }
 	 
 	@PostMapping("/{kind}/create")
-	public String create(@Valid NewsForm newsForm, BindingResult bindingResult) {
+	public String create(@Valid NewsForm newsForm, BindingResult bindingResult, 
+						 Model model, @PathVariable("kind") Integer kind) {
 		
 
 		if (bindingResult.hasErrors()) {
+			
+			Board b = boardService.findBoard(kind);
+			
+			model.addAttribute("cateKey", kind);
+			model.addAttribute("cateValue", b.getBname());
+			model.addAttribute("boards", boardService.readlist());
+			
 			return "news/newsCreate";
+			
+			
 		}
 		
 		News news = new News();
@@ -172,11 +182,21 @@ public class NewsController {
 		return "news/newsUpdate";
 	}
 
-	@PostMapping("/update")
+	@PostMapping("/update/{id}")
 	public String update(@Valid NewsForm newsForm, BindingResult bindingResult,
-						 Model model){
+						 Model model, @PathVariable("id") Integer id){
 		
 		if (bindingResult.hasErrors()) {
+			
+	
+			News news = newsService.readdetail(id);
+			model.addAttribute("cateValue", boardService.getBname(news.getNkind()));
+			model.addAttribute("news", news);
+			model.addAttribute("boards", boardService.readlist());
+			
+			
+			
+			//return "news/newsUpdate";
 			return "news/newsUpdate";
 		}
 		
@@ -270,9 +290,7 @@ public class NewsController {
 		
 	}
 	
-	
-	
-	
+
 	
 	
 	//공지사항탭

@@ -25,7 +25,7 @@
 
 
 		<!--validation 적용전         <form th:action="@{|/news/${cateKey}/create|}" method = "post"> -->
-		<form th:action="@{|/news/update|}" th:object="${newsForm}"
+		<form th:action="@{|/news/update/${news.nid}|}" th:object="${newsForm}"
 			method="post">
 			<input type="hidden" th:field="*{nid}" th:value="${news.nid}">
 
