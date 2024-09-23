@@ -20,13 +20,9 @@ public class Img {
 	
 	private String ilink;
 	
-	@ManyToOne
-<<<<<<< HEAD:inuri/src/main/java/com/knbteam1/inuri/auth/Donation.java
-	private Customer customer;
-	
 
-=======
+	@ManyToOne
 	private News imgNews;
->>>>>>> main:inuri/src/main/java/com/knbteam1/inuri/news/Img.java
+
 
 }
