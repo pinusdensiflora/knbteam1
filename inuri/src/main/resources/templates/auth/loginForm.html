@@ -130,38 +130,44 @@ loginForm.html
         <!-- Single Page Header End -->
 
 
-        <!-- 404 Start -->
-        <div class="container-fluid py-5">
-            <div class="container py-5 text-center">
-                <div class="row justify-content-center">
-                    <div class="col-lg-6">
-                        
-                        <h1 class="display-1">로그인</h1>
-                <form>
-                
-<div class="form-group mb-3">
-    <input type="text" class="form-control" id="username" placeholder="이메일을 입력해주세요">
+        <!-- 로그인 Start -->
+<div class="container-fluid py-5">
+    <div class="container py-5 text-center">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="card" style="padding: 50px;">
+                   <div layout:fragment="content" class="container my-3">
+    <form action="/signin" method="post">
+        <div th:if="${param.error}">
+            <div class="alert alert-danger">
+                사용자ID 또는 비밀번호를 확인해 주세요.
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="username" class="form-label">사용자ID</label>
+            <input type="text" name="username" id="username" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">비밀번호</label>
+            <input type="password" name="password" id="password" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">로그인</button>
+    </form>
 </div>
-
-<div class="form-group mb-3">
-    <input type="password" class="form-control" id="password" placeholder="비밀번호를 입력해주세요">
-</div>
-
-                <button type="submit" class="btn btn-primary btn-block mt-3">로그인</button>
-            </form>
-                        <ol class="breadcrumb justify-content-center mb-0 mt-3">
-                <li class="breadcrumb-item"><a href="#">비밀번호 찾기</a></li>
-                <li class="breadcrumb-item"><a href="#">회원가입</a></li>
-            </ol>
-                        <h1 class="mb-4"></h1>
-                        
-                        <a class="btn border-secondary rounded-pill py-3 px-5" href="index.html">네이버 로그인</a>
-                        <a class="btn border-secondary rounded-pill py-3 px-5" href="index.html">카카오 로그인</a>
-                    </div>
+                    <ol class="breadcrumb justify-content-center mb-0 mt-3">
+                        <li class="breadcrumb-item"><a href="#">비밀번호 찾기</a></li>
+                        <li class="breadcrumb-item"><a href="#">회원가입</a></li>
+                    </ol>
+                    <!-- <h1 class="mb-4"></h1>
+                    <a class="btn border-secondary rounded-pill py-3 px-5" href="index.html">네이버 로그인</a>
+                    <a class="btn border-secondary rounded-pill py-3 px-5" href="index.html">카카오 로그인</a> -->
                 </div>
             </div>
         </div>
-        <!-- 404 End -->
+    </div>
+</div>
+
+        <!-- 로그인 End -->
 
 
         <!-- Footer Start -->

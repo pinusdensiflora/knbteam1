@@ -2,6 +2,7 @@
 Customer.java
 생성자: 김가은
 생성날짜: 9.11
+수정날짜: 9.20
 연락처: kkydu007@naver.com
  */
 
@@ -28,13 +29,15 @@ public class Customer {
 	private Integer cid;
 	private LocalDateTime cdate;
 	
-	//시큐리티 규격에 맞게 항상 4개는 항상 똑같이 넣어준다. 
-	private String username;  // 회원 아이디, 이메일 주소로 하면 많이 편하다. 
-	private String password;
-	private boolean enabled;
+	
+	private String username; 
+	private String password;  
+	private boolean enabled;  
 	private String role;
 	
 	private String name;
+	
+	private String postcode; 
 	
 	@OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE)
 	private List<Donation> donation;
