@@ -23,6 +23,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
+import lombok.ToString;
 
 @Entity
 @Data
@@ -40,15 +41,17 @@ public class Customer {
 	
 	private String name;
 	
-	private String postcode; 
-	
+	private String postcode;
+
+	@ToString.Exclude // Exclude the child from toString() to prevent recursion
 	@OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE)
 	private List<Donation> donation;
 
-	
+	@ToString.Exclude // Exclude the child from toString() to prevent recursion
 	@OneToMany(mappedBy = "aauthor", cascade = CascadeType.REMOVE)
 	private List<Answer> answers;
 
+	@ToString.Exclude // Exclude the child from toString() to prevent recursion
 	@OneToMany(mappedBy = "qauthor", cascade = CascadeType.REMOVE)
 	private List<Question> questions;
 }
