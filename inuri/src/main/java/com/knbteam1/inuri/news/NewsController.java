@@ -138,7 +138,7 @@ public class NewsController {
 	@PostMapping("/update/{id}")
 	public String update(@Valid NewsForm newsForm, BindingResult bindingResult,
 						 Model model, @PathVariable("id") Integer id,
-						 @RequestParam("file") MultipartFile file//파일처리
+						 @RequestParam("file") MultipartFile[] file//파일처리
 						) throws IOException {
 		
 		if (bindingResult.hasErrors()) {
