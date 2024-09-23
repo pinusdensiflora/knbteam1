@@ -3,6 +3,7 @@
  */
 package com.knbteam1.inuri.patron;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 
@@ -61,9 +63,9 @@ public class ChildController {
 
     // 아동 추가 (예: 폼 제출을 통해 처리할 수 있는 POST 요청)
     @PostMapping("/child/add")
-    public String addChild(@ModelAttribute Child child) {
-        childService.createOrUpdateChild(child);
-        return "redirect:patron/child_list"; // 아동 목록으로 리다이렉트
+    public String addChild(@ModelAttribute Child child, @RequestParam("file")MultipartFile file, @RequestParam("location_detail") String l_detail) throws IOException {
+        childService.createOrUpdateChild(child, file, l_detail);
+        return "redirect:/child_list"; // 아동 목록으로 리다이렉트
     }
 
     // 아동 삭제

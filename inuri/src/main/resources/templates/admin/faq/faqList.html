@@ -1,7 +1,7 @@
 <!--
-admin/readPatronList.html
+admin/faq/faqList.html
 생산자: 이강혁
-생성날짜: 9.10
+생성날짜: 9.13
 연락처: rkdgur5381@gmail.com
  -->
 <html layout:decorate="~{admin/admin}">
@@ -9,27 +9,30 @@ admin/readPatronList.html
     <div class="container-fluid pt-4 px-4">
         <div class="bg-light text-center rounded p-4">
             <div class="d-flex align-items-center justify-content-between mb-4">
-                <h6 class="mb-0">후원자 목록</h6>
+                <h6 class="mb-0">FAQ</h6>
+                <a href = "/news/faq/create">글 작성</a>
             </div>
             <div class="table-responsive">
                 <table class="table text-start align-middle table-bordered table-hover mb-0">
                     <thead>
                     <tr class="text-dark">
                         <th scope="col"><input class="form-check-input" type="checkbox"></th>
-                        <th scope="col">이름</th>
-                        <th scope="col">메일</th>
-                        <th scope="col">연락처</th>
-                        <th scope="col">누적 후원금</th>
+                        <th scope="col">번호</th>
+                        <th scope="col">제목</th>
+                        <th scope="col">작성일</th>
+                        <th scope="col">조회수</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td><input class="form-check-input" type="checkbox"></td>
-                        <td>01 Jan 2045</td>
-                        <td>INV-0123</td>
-                        <td>Jhon Doe</td>
-                        <td>$123</td>
-                    </tr>
+                    <th:block th:each="faq:${faqlist}">
+                        <tr>
+                            <td><input class="form-check-input" type="checkbox"></td>
+                            <td>[[${faq.nid}]]</td>
+                            <td>[[${faq.ntitle}]]</td>
+                            <td>[[${faq.ndate.toLocalDate()}]]</td>
+                            <td>[[${faq.nhit}]]</td>
+                        </tr>
+                    </th:block>
                     </tbody>
                 </table>
             </div>

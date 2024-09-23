@@ -6,7 +6,6 @@ package com.knbteam1.inuri.patron;
 import java.time.LocalDateTime;
 
 import com.knbteam1.inuri.auth.Customer;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,21 +17,21 @@ import lombok.Data;
 @Data
 @Entity
 public class Donation {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer did;
 
-	private LocalDateTime ddate; //후원날짜
-	
-	private String donationMethod; //후원 방법
-	
-	private Integer donationAmount; //후원 금액
-	
-	private Integer donationPeriod; // 정기 후원 기간
-	
-	
-	@ManyToOne
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer did;
+
+    private LocalDateTime ddate; //후원날짜
+
+    private String donationMethod; //후원 방법
+
+    private Integer donationAmount; //후원 금액
+
+    private Integer donationPeriod; // 정기 후원 기간
+
+
+    @ManyToOne
     private Child child; // 후원 아동 정보
 
 	

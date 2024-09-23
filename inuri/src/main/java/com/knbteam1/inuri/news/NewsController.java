@@ -29,7 +29,6 @@ import com.knbteam1.inuri.admin.BoardService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
-
 @RequiredArgsConstructor
 @RequestMapping("/news")
 @Controller
