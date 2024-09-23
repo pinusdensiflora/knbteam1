@@ -29,6 +29,11 @@ public class AdminController {
     public String index(Model model) {
         model.addAttribute("newsList", adminService.readAllNews());
         model.addAttribute("patronsCount", adminService.readAllCustomers().toArray().length);
+        model.addAttribute("childrenCount", adminService.readAllChildren().toArray().length);
+//        model.addAttribute("donationSum", adminService.readDonations()
+//                .stream()
+//                .mapToInt(donation::getDonationAmount));
+//        model.addAttribute("todayDonation", adminService.calTodayDonate());
         return "admin/main";
     }
 
@@ -39,7 +44,7 @@ public class AdminController {
     }
 
     @GetMapping("/children/add")
-    public String addChild(){
+    public String addChild() {
         return "admin/child/addChild";
     }
 
@@ -47,5 +52,11 @@ public class AdminController {
     public String readFaq(Model model) {
         model.addAttribute("faqlist", newsService.readlist("faq"));
         return "admin/faq/faqList";
+    }
+
+    @GetMapping("/donations")
+    public String readDonation(Model model) {
+        model.addAttribute("donationlist", adminService.readDonations());
+        return "admin/donation/readDonationList";
     }
 }
