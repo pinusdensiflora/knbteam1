@@ -1,8 +1,8 @@
 <!-- 
-생성자 : 배다원 
-생성일 : 9.10
-연락처 : dawnzeze@gmail.com
--->
+생성자: 배다원
+생성날짜: 9.13
+연락처: dawnzeze@gmail.com
+ -->
 <html layout:decorate="~{layout}">
 <div layout:fragment="content">
 
@@ -20,68 +20,83 @@
 	</div>
 
 
-
-
 	<div class="container-fluid fruite py-5">
-		<div class="container py-5">
-			<h1 class="mb-4">[[${cateValue}]]</h1>
+
+
+
+		<!--validation 적용전         <form th:action="@{|/news/${cateKey}/create|}" method = "post"> -->
+		<form th:action="@{|/news/update/${news.nid}|}" th:object="${newsForm}"
+			method="post" enctype="multipart/form-data">
+			<input type="hidden" th:field="*{nid}" th:value="${news.nid}">
+
+			<h4 class="mb-5 fw-bold">아이누리 글 쓰기</h4>
+			<!-- validation 안내창 -->
+			<div th:replace="~{news/form_errors :: formErrorsFragment}"></div>
+
+
 			<div class="row g-4">
-			
-							
-				<div class="p-5">
-                    <div class="row g-4">
-                        <div class="col-12">
-                            <div class="mx-auto" >
-                                <h1 class="text-primary">[[${news.ntitle}]]</h1>
-                                <p class="mb-4"> <a th:href="@{|/news/${news.ncate}|}">[[${cateValue}]]</a><br> 작성일 : [[${news.ndate}]] <br> 조회수 : [[${news.nhit}]] </p>
-                            	<hr>
-                            </div>
-                        </div>
-                       
-                        <div class="">
-                           
-                                	<div style = "height : 50vh;" th:utext="${news.ndesc}"></div>
-<!--                                 <textarea class="w-100 form-control border-0 mb-4" rows="30" cols="10" placeholder="내용 없음">[[${news.ndesc}]]</textarea>
- -->
- 									<img th:src="@{|https://inuri-bucket-106wnz.s3.ap-northeast-2.amazonaws.com/${news.nimg1}|}">
-<br>	     
-                        </div>
-                        
-                        
-                        <div class="d-flex justify-content-between py-3 mb-5">
-                         	<a th:href="@{|/news/${news.nkind}|}" class="btn border border-secondary text-primary px-4 py-2"> 목록보기</a> 
-                         	<div>
-                         		<a th:href = "@{|/news/update/${news.nid}|}" class="btn btn-success px-4 py-2"> 수정</a>  
-                            	<a th:href = "@{|/news/${news.nkind}/delete/${news.nid}|}" class="btn btn-danger px-4 py-2"> 삭제</a> 
-                         	</div>
-                            
-                        </div>
-                    </div>
-                
-                
-                
-                </div>
-							
 
-				
-				
-				
+				<div class="col-lg-6">
+					<div class="border-bottom rounded">
+						<input th:field="*{ntitle}" name="ntitle" type="text"
+							class="form-control border-0 me-4" th:value="${news.ntitle}">
+					</div>
+				</div>
+
+
+				<div class="col-lg-6">
+					<div class="border-bottom rounded">
+
+
+						<select th:field="*{nkind}" name="nkind" class="form-select"
+							aria-label="Default select example">
+
+
+							<option th:value="${news.nkind}" selected>[[${cateValue}]]</option>
+
+
+							<hr>
+							<th:block th:each="board : ${boards}">
+								<option th:value="${board.bid}">[[${board.bname}]]</option>
+							</th:block>
+							<hr>
+
+
+						</select>
+					</div>
+				</div>
+
+
+				<div class="col-lg-12">
+					<div class="border-bottom rounded my-4">
+						<textarea id="summernote" th:field="*{ndesc}" name="ndesc">[[${news.ndesc}]]</textarea>
+					</div>
+				</div>
+
+
+
+
+				<div class="col-lg-12">
+					<div class="d-flex justify-content-between py-3 mb-5">
+						<div class="d-flex align-items-center">
+							<p class="mb-0 me-3">감사합니다</p>
+							<div class="d-flex align-items-center" style="font-size: 12px;">
+								<i class="fa fa-star text-muted"></i> <i class="fa fa-star"></i>
+								<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
+									class="fa fa-star"></i>
+
+							</div>
+						</div>
+						<button type="submit" class="btn border border-secondary text-primary rounded-pill px-4 py-3">발행</button>
+					</div>
+				</div>
 			</div>
-		</div>
+		</form>
+
+
+
+
 	</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

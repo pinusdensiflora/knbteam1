@@ -15,12 +15,12 @@ public class ImgService {
 		Img img = new Img();
 		img.setIdate(LocalDateTime.now());
 		img.setIlink(filename);
-		img.setNews(news);
+		img.setImgNews(news);
 		imgRepository.save(img);
 	}
 	
 	public void delete(Integer id) {
-		imgRepository.deleteById(id);;
+		imgRepository.deleteById(id);
 	}
 	
 }

@@ -43,8 +43,10 @@
                                 	<div style = "height : 50vh;" th:utext="${news.ndesc}"></div>
 <!--                                 <textarea class="w-100 form-control border-0 mb-4" rows="30" cols="10" placeholder="내용 없음">[[${news.ndesc}]]</textarea>
  -->
- 									<img th:src="@{|https://inuri-bucket-106wnz.s3.ap-northeast-2.amazonaws.com/${news.nimg1}|}">
-<br>	     
+ 									<div th:block th:each="img : ${news.imgs}">
+            							<img th:src="@{|${endpoint}/${img.ilink}|}" alt="News Image" style="max-width: 100%; height: auto;" />
+        							</div>
+									<br>	     
                         </div>
                         
                         

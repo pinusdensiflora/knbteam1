@@ -21,6 +21,6 @@ public class Img {
 	private String ilink;
 	
 	@ManyToOne
-	News news;
+	private News imgNews;
 
 }
