@@ -30,6 +30,9 @@ public class Question {
 	private LocalDateTime qdate;
 	
 	
+	private String img1;
+	private String img2;
+	
 
 	@ManyToOne
 	private Customer qauthor;
