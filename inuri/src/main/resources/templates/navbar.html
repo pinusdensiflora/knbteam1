@@ -22,6 +22,7 @@ navbar.html
                 
 				<div sec:authorize="isAuthenticated()">
 				<small  class ="text-white mx-2">[[${#authentication.name}]]</small>
+				<span th:text="${#authentication.authorities}"></span>
 				<a href="/signout" class="text-white"><small class="text-white mx-2">로그아웃</small></a>
 				
 				</div>
