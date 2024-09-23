@@ -31,7 +31,8 @@ public class NewsService {
 
 	private final NewsRepository newsRepository;
 	private final S3Service s3Service;
-	
+	private final ImgService imgService;
+	private final ImgRepository imgRepository;
 	
 	
 		public void create(News news){ //사진없음
@@ -42,14 +43,8 @@ public class NewsService {
 			newsRepository.save(news);
 		}
 
-		public void create(News news, MultipartFile file) throws IOException {
-		//public void create(News news){
-			//s3Service의 uploadFile 메서드를 사용하기 위해 파일 이름이 필요한데, 이때 uuid 를 추가해서 쓴다.
-			
-//			//기본 사진이름을 uuid 처리 후 aws에 저장
-			UUID uuid = UUID.randomUUID();
-			String fileName = uuid + "_" + file.getOriginalFilename(); //"uuid_기존파일이름" 형태로 만든다 
-			s3Service.uploadFile(file, fileName); //예외처리가 요구됨
+		public void create(News news, MultipartFile[] files) throws IOException {
+
 			
 //			//접속자(작성자) 정보 뽑아내기
 //			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -59,17 +54,37 @@ public class NewsService {
 			
 			
 			//객체에 저장
-			news.setNimg1(fileName);
 			news.setNdate(LocalDateTime.now());
 			news.setNhit(0);
+
 			
 			//접속자(작성자) 정보 저장
 			//news.setAuthor(oc.get());
 			
-			newsRepository.save(news);
+			//newsRepository.save(news);
 			
 			//이메일 보내기
 			//mailService.create("게시글이 등록되었습니다.", username + "회원님께서 " + notice.getTitle() + "의 제목으로 글을 등록하셨습니다.", username); //아이디가 이메일 주소
+		
+			
+			//재호출 때문에 이렇게 저장
+			News savedNews = newsRepository.save(news);
+
+			
+			for (MultipartFile file : files) {
+		        if (!file.isEmpty()) {
+		            // UUID 생성 및 파일명 설정
+		            UUID uuid = UUID.randomUUID();
+		            String fileName = uuid + "_" + file.getOriginalFilename();
+		            
+		            // 파일 업로드 (S3 등)
+		            s3Service.uploadFile(file, fileName);
+		            
+		            imgService.create(fileName, savedNews);
+		            System.out.println(fileName);
+		        }
+		    }
+		
 		}
 		
 		
@@ -109,22 +124,54 @@ public class NewsService {
 		}
 		
 		
-		// update
-		public void update(News news, MultipartFile file) {
-			
-//			//사진을 새로 넣지 않았을 경우
-//			if (file.isEmpty()) {
-//				news.setImg(news.getImg());//기존 사진 이름을 그대로 다시 사용한다. 
-//			} else { //기존 사진을 그대로 쓰지 않고 새 사진을 넣은 경우, 사진 변경 처리
-//				//기본 사진이름을 uuid 처리 후 aws에 저장
-//				UUID uuid = UUID.randomUUID();
-//				String fileName = uuid + "_" + file.getOriginalFilename();
-//				s3Service.uploadFile(file, fileName);
-//				news.setImg(fileName);  //새로운 uuid 붙인 사진 넣기
-//			}
-			
-			//update시 id는 hidden 으로 함께 추가됨
-			newsRepository.save(news);
+		//update
+		public void updateNews(News news, MultipartFile[] newFiles, List<Integer> imgIdsToDelete) throws IOException {
+		    
+			// 기존 뉴스 정보 업데이트
+		    Optional<News> on = newsRepository.findById(news.getNid());                                   
+		    News existingNews = on.get();
+		    existingNews.setNtitle(news.getNtitle());
+		    existingNews.setNdesc(news.getNdesc());
+		    existingNews.setNkind(news.getNkind());
+		    
+		    
+		 // 삭제할 이미지 ID 리스트 처리
+		    if (imgIdsToDelete != null) {
+		        for (Integer imgId : imgIdsToDelete) {
+		            imgRepository.deleteById(imgId);
+		        }
+		    }
+		    
+		    // 수정된 뉴스 저장
+		    News savedNews = newsRepository.save(existingNews);
+		    
+		    
+		 
+
+		    // 새로운 이미지 추가
+		    for (MultipartFile file : newFiles) {
+		        if (!file.isEmpty()) {
+		            UUID uuid = UUID.randomUUID();
+		            String fileName = uuid + "_" + file.getOriginalFilename();
+		            s3Service.uploadFile(file, fileName);
+
+//		            Img img = new Img();
+//		            img.setIlink(fileName);
+//		            img.setIdate(LocalDateTime.now());
+//		            img.setImgNews(existingNews);
+		            System.out.println(existingNews.getNid() + "    " + fileName);
+		            
+		            imgService.create(fileName, savedNews);
+		            
+		            
+		            
+		        }
+		    }
+		    
+		    
+		    
+		    
+		    
 		}
 		
 		

@@ -7,7 +7,9 @@
 package com.knbteam1.inuri.news;
 
 import java.io.IOException;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +35,10 @@ public class NewsController {
 	private final NewsService newsService;
 	private final BoardService boardService;
 	
+	@Value("${cloud.aws.s3.endpoint}")
+    private String s3Endpoint;
+	
+	
 	//news CREATE ==================================================================================
 	//관리자만접근
 	
@@ -56,8 +62,10 @@ public class NewsController {
 	@PostMapping("/{kind}/create")
 		public String create(@Valid NewsForm newsForm, BindingResult bindingResult, 
 							 Model model, @PathVariable("kind") Integer kind, 
-							 @RequestParam("file") MultipartFile file//파일처리
+							 @RequestParam("files") MultipartFile[] files//파일처리
 							) throws IOException {
+		
+		
 		
 
 		if (bindingResult.hasErrors()) {
@@ -73,6 +81,7 @@ public class NewsController {
 			
 		}
 		
+	
 		
 		News news = new News();
 		news.setNkind(newsForm.getNkind());
@@ -83,8 +92,9 @@ public class NewsController {
 		
 		
 		// 파일이 존재하는 경우에만 처리
-	    if (!file.isEmpty()) {
-	        newsService.create(news, file);  // 파일 처리
+	    //if (!files.isEmpty()) {
+	    if (files != null && files.length > 0) {
+	        newsService.create(news, files);  // 파일 처리
 	    } else {
 	        newsService.create(news);  // 파일 없이 생성
 	    }
@@ -108,8 +118,7 @@ public class NewsController {
 		
 		model.addAttribute("news", n);
 		model.addAttribute("cateValue", boardService.getBname(n.getNkind()));
-
-		
+		model.addAttribute("endpoint",s3Endpoint);
 		return "news/readdetail";
 	}
 	
@@ -123,6 +132,7 @@ public class NewsController {
 		model.addAttribute("cateValue", boardService.getBname(news.getNkind()));
 		model.addAttribute("news", news);
 		model.addAttribute("boards", boardService.readlist());
+		model.addAttribute("endpoint",s3Endpoint);
 	    
 	    // 기존 데이터 설정
 	    newsForm.setNid(news.getNid());
@@ -134,11 +144,12 @@ public class NewsController {
 		
 		return "news/newsUpdate";
 	}
-
+/*
 	@PostMapping("/update/{id}")
 	public String update(@Valid NewsForm newsForm, BindingResult bindingResult,
 						 Model model, @PathVariable("id") Integer id,
-						 @RequestParam("file") MultipartFile[] file//파일처리
+						 @RequestParam("files") MultipartFile[] files//파일처리
+						@ModelAttribute
 						) throws IOException {
 		
 		if (bindingResult.hasErrors()) {
@@ -148,6 +159,7 @@ public class NewsController {
 			model.addAttribute("cateValue", boardService.getBname(news.getNkind()));
 			model.addAttribute("news", news);
 			model.addAttribute("boards", boardService.readlist());
+			model.addAttribute("endpoint",s3Endpoint);
 			
 			
 			
@@ -161,7 +173,42 @@ public class NewsController {
 		news.setNkind(newsForm.getNkind());
 		news.setNtitle(newsForm.getNtitle());
 		news.setNdesc(newsForm.getNdesc());
-		newsService.create(news, file);//임시
+		newsService.create(news, files);//임시
+		
+		return "redirect:/news/article/"+news.getNid();
+	}
+	*/
+	
+	@PostMapping("/update/{id}")
+	public String update(@Valid NewsForm newsForm, BindingResult bindingResult,
+						 Model model, @PathVariable("id") Integer id,
+						 @RequestParam(value = "files", required = false) MultipartFile[] newFiles,
+                         @RequestParam(value = "imgIdsToDelete", required = false) List<Integer> imgIdsToDelete) throws IOException {
+
+		
+		if (bindingResult.hasErrors()) {
+			
+	
+			News news = newsService.readdetail(id);
+			model.addAttribute("cateValue", boardService.getBname(news.getNkind()));
+			model.addAttribute("news", news);
+			model.addAttribute("boards", boardService.readlist());
+			model.addAttribute("endpoint",s3Endpoint);
+			
+			
+			
+			//return "news/newsUpdate";
+			return "news/newsUpdate";
+		}
+		
+		//newsService.create(news);
+		News news = newsService.readdetail(newsForm.getNid());
+		//news.setNcate(newsForm.getNcate());
+		news.setNkind(newsForm.getNkind());
+		news.setNtitle(newsForm.getNtitle());
+		news.setNdesc(newsForm.getNdesc());
+		
+		newsService.updateNews(news, newFiles, imgIdsToDelete); // 뉴스 업데이트
 		
 		return "redirect:/news/article/"+news.getNid();
 	}

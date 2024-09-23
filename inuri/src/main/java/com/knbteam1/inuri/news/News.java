@@ -39,12 +39,12 @@ public class News {
 	
 	private Integer nhit;
 	
-	private String nimg1;
+	//private String nimg1;
 	//private String nimg2;
 	
 	//news는 관리자만이 생성하기 떄문에 작성자를 넣지 않음
 	
-	@OneToMany(mappedBy = "news", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "imgNews", cascade = CascadeType.REMOVE)
 	private List<Img> imgs;
 	
 	
