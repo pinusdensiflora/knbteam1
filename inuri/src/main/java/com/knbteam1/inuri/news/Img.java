@@ -1,13 +1,4 @@
-/* 
-Donation.java
-생성자: 김가은
-생성날짜: 9.12
-연락처: kkydu007@naver.com
- */
-
-
-
-package com.knbteam1.inuri.auth;
+package com.knbteam1.inuri.news;
 
 import java.time.LocalDateTime;
 
@@ -18,20 +9,24 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
-@Entity
 @Data
-public class Donation {
-	
+@Entity
+public class Img {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer did;
-	private LocalDateTime ddate;
-	private Integer dwon;
-	private String dwhere;
+	private Integer iid;
+
+	private LocalDateTime idate;
+	
+	private String ilink;
 	
 	@ManyToOne
+<<<<<<< HEAD:inuri/src/main/java/com/knbteam1/inuri/auth/Donation.java
 	private Customer customer;
 	
 
+=======
+	private News imgNews;
+>>>>>>> main:inuri/src/main/java/com/knbteam1/inuri/news/Img.java
 
 }

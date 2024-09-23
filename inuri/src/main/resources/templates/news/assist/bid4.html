@@ -1,0 +1,176 @@
+<!-- 
+생성자 : 배다원 
+생성일 : 9.11
+연락처 : dawnzeze@gmail.com
+
+자주묻는질문 페이지입니다. 파일명은 bid#.html 로 상황에 따라 변경이 가능합니다.
+#은 Board에서 해당되는 데이터의 id값 입니다.
+-->
+<html layout:decorate="~{layout}">
+<div layout:fragment="content">
+
+   
+   <div class="container-fluid page-header py-5">
+            <h1 class="text-center text-white display-6">기업정보</h1>
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="/news">공지사항</a></li>
+                <li class="breadcrumb-item"><a href="/news/info">소식</a></li>
+                <li class="breadcrumb-item"><a href="/news/assist">고객지원</a></li>
+                <li class="breadcrumb-item"><a href="/news/address">찾아오시는 길</a></li>
+            </ol>
+        </div>
+
+
+
+
+<div class="container-fluid fruite py-5">
+            <div class="container py-5">
+                <h1 class="mb-4">소식</h1>
+                <div class="row g-4">
+                    <div class="col-lg-12">
+                        <div class="row g-4 p-2">
+                            <div class="col-xl-3">
+                                <div class="input-group w-100 mx-auto d-flex">
+                                    <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
+                                    <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
+                                </div>
+                            </div>
+                            <div class="col-6"><p>기업정보 > 고객지원 > <a href = "/news/faq">FAQ</a></div>
+                            <div class="col-xl-3">
+<!--                                 <div class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4">
+                                    <label for="fruits">Default Sorting:</label>
+                                    <select id="fruits" name="fruitlist" class="border-0 form-select-sm bg-light me-3" form="fruitform">
+                                        <option value="volvo">Nothing</option>
+                                        <option value="saab">Popularity</option>
+                                        <option value="opel">Organic</option>
+                                        <option value="audi">Fantastic</option>
+                                    </select>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="row g-4 ">
+                            <div class="col-lg-3 rounded p-4">
+                                <div class="row g-4">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <h4>Categories</h4>
+                                            <ul class="list-unstyled fruite-categorie">
+                                                <th:block th:each="board : ${cateboards}">
+                                                <li>
+                                                    <div class="d-flex justify-content-between fruite-name">
+                                                        <a th:href="@{|/news/${board.bid}|}"><i class="fas fa-apple-alt me-2"></i>[[${board.bname}]]</a>
+                                                        <span>(3)</span>
+                                                    </div>
+                                                </li>
+                                            <th:block >  
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                </div>
+              
+                                
+                            </div>
+                            <div class="col-lg-9">
+                            
+                            
+                                <div class="justify-content-center">
+                                
+                                
+<div class="table-responsive">
+ 				
+ 				
+ 				
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col" style="width: 10%;">번호</th>
+            <th scope="col" style="width: 70%;">제목</th>  <!-- 제목의 가로폭을 70%로 설정 -->
+            <th scope="col" style="width: 20%;">작성일</th>
+        </tr>
+    </thead>
+    <tbody>
+    
+    
+    
+<th:block th:each = "news:${paging}">
+
+
+
+        <tr>
+            <td>
+                <p class="mb-0 mt-4">[[${news.nid}]]</p>
+            </td>
+            <td>
+                <p class="mb-0 mt-4"><a th:href = "@{|/news/article/${news.nid}|}">[[${news.ntitle}]]</a></p> <!-- 제목 예시 텍스트 -->
+            </td>
+            <td>
+                <p class="mb-0 mt-4">[[${news.ndate}]]</p>
+            </td>
+        </tr>
+</th:block>
+    </tbody>
+</table>
+
+
+                </div> 
+                                    
+                                    
+                                    
+<div th:if="${!paging.isEmpty()}">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
+                <a class="page-link"
+                    th:href="@{|?page=${paging.number-1}|}">
+                    <span>이전</span>
+                </a>
+            </li>
+            <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
+            	th:if="${page >= paging.number-5 and page <= paging.number+5}"
+                th:classappend="${page == paging.number} ? 'active'" 
+                class="page-item">
+                <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
+            </li>
+            <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
+                <a class="page-link" th:href="@{|?page=${paging.number+1}|}">
+                    <span>다음</span>
+                </a>
+            </li>
+        </ul>
+</div>
+
+                                </div>
+                                
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  									<a href ="/news/faq/create" class="btn btn-primary" type="button">글쓰기</a>
+								</div>
+                                
+
+                                          
+                               
+                               
+                               
+                               
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+ 
+            
+        </div>
+
+
+
+
+</div>
+</html>

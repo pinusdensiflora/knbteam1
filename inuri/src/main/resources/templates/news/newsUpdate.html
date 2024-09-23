@@ -71,8 +71,21 @@
 					<div class="border-bottom rounded my-4">
 						<textarea id="summernote" th:field="*{ndesc}" name="ndesc">[[${news.ndesc}]]</textarea>
 					</div>
+				
 				</div>
 
+<div>
+        <h3>기존 이미지</h3>
+        <div th:each="img : ${news.imgs}">
+            <img th:src="@{|${endpoint}/${img.ilink}|}" alt="News Image" style="max-width: 100px;"/>
+            <input type="checkbox" name="imgIdsToDelete" th:value="${img.iid}"/> 삭제
+        </div>
+    </div>
+
+    <div>
+        <label for="files">새로운 이미지 추가:</label>
+        <input type="file" id="files" name="files" multiple/>
+ </div>
 
 
 

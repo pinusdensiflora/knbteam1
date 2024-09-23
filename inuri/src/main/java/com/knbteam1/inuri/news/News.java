@@ -7,11 +7,15 @@
 package com.knbteam1.inuri.news;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 @Data
@@ -26,15 +30,22 @@ public class News {
 	
 	private String ntitle;
 	
+	@Column(columnDefinition = "TEXT")//썸머노트
 	private String ndesc;
 	
 	private String ncate;
-
+	
+    private Integer nkind; // 게시판의 종류를 숫자로 부여하게 되면 쉽게 관리 할수 있다. 
+	
 	private Integer nhit;
 	
-	private String nimg1;
+	//private String nimg1;
 	//private String nimg2;
 	
+	//news는 관리자만이 생성하기 떄문에 작성자를 넣지 않음
+	
+	@OneToMany(mappedBy = "imgNews", cascade = CascadeType.REMOVE)
+	private List<Img> imgs;
 	
 	
 }
