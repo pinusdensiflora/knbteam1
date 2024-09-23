@@ -12,15 +12,26 @@ navbar.html
                 <a href="#" class="text-white"><small class="text-white mx-2">Terms of Use</small></a>
             </div>
             <div class="top-link pe-2">
+                
+                <div sec:authorize="isAnonymous()">
                 <a href="/signin" class="text-white"><small class="text-white mx-2">로그인</small></a>
                 <a href="/signup" class="text-white"><small class="text-white mx-2">회원가입</small></a>
-                <a href="/signout" class="text-white"><small class="text-white mx-2">로그아웃</small></a>
+                
+                
+                </div>
+                
+				<div sec:authorize="isAuthenticated()">
+				<small  class ="text-white mx-2">[[${#authentication.name}]]</small>
+				<span th:text="${#authentication.authorities}"></span>
+				<a href="/signout" class="text-white"><small class="text-white mx-2">로그아웃</small></a>
+				
+				</div>
             </div>
         </div>
     </div>
     <div class="container pt-3 px-0">
         <nav class="navbar navbar-light bg-white navbar-expand-xl">
-            <a href="/news" class="navbar-brand">
+            <a href="/" class="navbar-brand">
                 <img src="/img/logo_inuri.png" alt="INURI" style="width: 70%"/>
             </a>
             <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse"
@@ -29,7 +40,7 @@ navbar.html
             </button>
             <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                 <div class="navbar-nav mx-auto">
-                    <a href="#" class="nav-item nav-link">후원 아동</a>
+                    <a href="/child_list" class="nav-item nav-link">후원 아동</a>
                     <a href="/news" class="nav-item nav-link">소식</a>
                     <a href="/admin" class="nav-item nav-link">관리자</a>
                 </div>

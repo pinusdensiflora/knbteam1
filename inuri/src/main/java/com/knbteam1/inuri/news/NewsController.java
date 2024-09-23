@@ -11,6 +11,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,6 +28,7 @@ import com.knbteam1.inuri.admin.BoardService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+
 
 @RequiredArgsConstructor
 @RequestMapping("/news")
@@ -217,7 +220,7 @@ public class NewsController {
 	
 	//DELETE==================================================================================
 
-	
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
 	@GetMapping("/{kind}/delete/{id}")
 	public String delete(@PathVariable("id") Integer id, 
 			@PathVariable("kind") String cate) {
