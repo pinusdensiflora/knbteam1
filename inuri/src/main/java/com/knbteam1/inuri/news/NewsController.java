@@ -238,6 +238,7 @@ public class NewsController {
 				
 		
 	}*/
+
 	
 	@GetMapping("/{bid}")
 	public String cate(Model model, @PathVariable("bid") Integer bid, 
