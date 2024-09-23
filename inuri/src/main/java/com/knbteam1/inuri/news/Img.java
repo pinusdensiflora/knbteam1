@@ -1,3 +1,11 @@
+/*
+ * 생산자 배다원
+ * 생성일 0923
+ * 연락처 dawnzeze@gmail.com
+ * 
+ * 여러 이미지를 담기위한 엔티티
+ * */
+
 package com.knbteam1.inuri.news;
 
 import java.time.LocalDateTime;
@@ -21,6 +29,12 @@ public class Img {
 	private String ilink;
 	
 	@ManyToOne
-	News news;
+<<<<<<< HEAD:inuri/src/main/java/com/knbteam1/inuri/auth/Donation.java
+	private Customer customer;
+	
+
+=======
+	private News imgNews;
+>>>>>>> main:inuri/src/main/java/com/knbteam1/inuri/news/Img.java
 
 }
