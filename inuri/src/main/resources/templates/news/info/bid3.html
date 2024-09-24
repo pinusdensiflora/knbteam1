@@ -30,10 +30,22 @@
                     <div class="col-lg-12">
                         <div class="row g-4 p-2">
                             <div class="col-xl-3">
+                            
+                            
                                 <div class="input-group w-100 mx-auto d-flex">
-                                    <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
-                                    <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
-                                </div>
+								<input type="text" class="form-control p-3"
+									placeholder="검색어를 입력하세요" th:value="${kw}" id="search_kw">
+								<button class="btn btn-primary " type="submit" id="btn_search">
+									<i class="fa fa-search"></i>
+								</button>
+							</div>
+							<form th:action="@{/news/search}" method="get" id="searchForm">
+								<input type="hidden" id="kw" name="kw" th:value="${kw}">
+								<input type="hidden" id="page" name="page"
+									th:value="${paging.number}">
+							</form>
+							
+							
                             </div>
                             <div class="col-6"><p>기업정보 > 소식 > <a href = "/news/info">기업소식</a></div>
                             <div class="col-xl-3">
@@ -160,6 +172,21 @@
 
 
 
+<script layout:fragment="script" type='text/javascript'>
+const page_elements = document.getElementsByClassName("page-link");
+Array.from(page_elements).forEach(function(element) {
+    element.addEventListener('click', function() {
+        document.getElementById('page').value = this.dataset.page;
+        document.getElementById('searchForm').submit();
+    });
+});
+const btn_search = document.getElementById("btn_search");
+btn_search.addEventListener('click', function() {
+    document.getElementById('kw').value = document.getElementById('search_kw').value;
+    document.getElementById('page').value = 0;  // 검색버튼을 클릭할 경우 0페이지부터 조회한다.
+    document.getElementById('searchForm').submit();
+});
+</script>
 
 </div>
 </html>
