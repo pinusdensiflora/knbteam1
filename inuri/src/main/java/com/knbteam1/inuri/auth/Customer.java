@@ -11,13 +11,9 @@ package com.knbteam1.inuri.auth;
 import java.time.LocalDateTime;
 import java.util.List;
 
-<<<<<<< HEAD
-import com.knbteam1.inuri.qna.Answer;
-=======
 import com.knbteam1.inuri.patron.Donation;
 import com.knbteam1.inuri.qna.Answer;
 import com.knbteam1.inuri.qna.Question;
->>>>>>> main
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -25,6 +21,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Entity
@@ -36,21 +34,20 @@ public class Customer {
 	private LocalDateTime cdate;
 	
 	
-	private String username; 
-	private String password;  
-	private boolean enabled;  
+	private String username;
+	private String password; 
+	private boolean enabled; 
 	private String role;
 	
 	private String name;
 	
-<<<<<<< HEAD
 	private String postcode; 
 	
-	@OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE)
-	private List<Donation> donation;
+	private String caddr;
+	
+	private String ctel;
 
 
-=======
 	@OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE)
 	private List<Donation> donation;
 	
@@ -59,7 +56,7 @@ public class Customer {
 	
 	@OneToMany(mappedBy = "qauthor", cascade = CascadeType.REMOVE)
 	private List<Question> questions;
-	
-	
->>>>>>> main
+
+
+
 }

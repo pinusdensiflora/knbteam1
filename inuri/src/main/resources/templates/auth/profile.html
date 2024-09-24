@@ -38,14 +38,6 @@ profile.html
     </head>
 
     <body>
-
-        <!-- Spinner Start -->
-        <div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
-            <div class="spinner-grow text-primary" role="status"></div>
-        </div>
-        <!-- Spinner End -->
-
-
         <!-- Navbar start -->
         <div class="container-fluid fixed-top">
             <div class="container topbar bg-primary d-none d-lg-block">
@@ -100,24 +92,7 @@ profile.html
         <!-- Navbar End -->
 
 
-        <!-- Modal Search Start -->
-        <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-fullscreen">
-                <div class="modal-content rounded-0">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body d-flex align-items-center">
-                        <div class="input-group w-75 mx-auto d-flex">
-                            <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
-                            <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Modal Search End -->
+
 
 
         <!-- Single Page Header start -->
@@ -132,35 +107,35 @@ profile.html
         <!-- Single Page Header End -->
 
 
-        <!-- Single Product Start -->
-       <div class="container-fluid py-5 mt-5">
-    <div class="container py-5">
-        <div class="row g-4 mb-5">
+       <!-- profile Start -->
+<div class="container-fluid py-5 mt-5">
+    <div class="container py-5 d-flex justify-content-center">
+        <div class="row g-4 mb-5 w-75">
             <div class="col-lg-8 col-xl-9">
                 <div class="row g-4">
                     <!-- Image section -->
-                    <div class="col-lg-3">
-                        <div class="border rounded p-3">
+                    <div class="col-lg-3 text-center">
+                        <div class="border rounded p-3 bg-light">
                             <a href="#">
-                                <img src="img/single-item.jpg" class="img-fluid rounded" alt="Image">
+                                <img src="img/single-item.jpg" class="img-fluid rounded-circle mb-3" alt="Image">
                             </a>
+                            <a href="#" class="btn btn-outline-primary btn-sm me-2">비밀번호 변경</a>
+                            <a href="#" class="btn btn-outline-danger btn-sm">회원탈퇴</a>
                         </div>
-                        <a href="#" class="me-4">비밀번호 변경</a>
-                        <a href="#">회원탈퇴</a>
                     </div>
 
                     <!-- 총 후원금액 section -->
                     <div class="col-lg-4">
-                        <div class="border rounded p-3" style="height: 100%;">
-                            <p>총 후원금액</p>
-                            <a href="#" class="d-block">결제 수단 관리</a>
-                            <a href="#" class="d-block">1:1 질문내역</a>
+                        <div class="border rounded p-3 bg-light text-center">
+                            <p class="fw-bold">총 후원금액</p>
+                            <a href="#" class="btn btn-outline-secondary btn-sm d-block mb-2">결제 수단 관리</a>
+                            <a href="#" class="btn btn-outline-secondary btn-sm d-block">1:1 질문내역</a>
                         </div>
                     </div>
 
                     <!-- 후원 목록 section -->
                     <div class="col-lg-12 mt-4">
-                        <h4 class="fw-bold mb-3 border-bottom">후원 목록</h4>
+                        <h4 class="fw-bold mb-3 border-bottom pb-2">후원 목록</h4>
                         <p class="mb-4">여기는 현재 사용자가 후원중인 목록을 띄우는 페이지입니다.</p>
                     </div>
                 </div>
@@ -168,11 +143,10 @@ profile.html
         </div>
     </div>
 </div>
+<!-- profile End -->
 
 
 
-    
-        <!-- Copyright End -->
 
 
 
