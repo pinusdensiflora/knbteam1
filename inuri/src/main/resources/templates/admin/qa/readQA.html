@@ -1,0 +1,75 @@
+<!--
+admin/qa/readQA.html
+생산자: 이강혁
+생성날짜: 9.12
+연락처: rkdgur5381@gmail.com
+ -->
+<html layout:decorate="~{admin/admin}">
+<div layout:fragment="content" class="col-lg-9">
+    <!-- 질문 -->
+    <h2 class="border-bottom py-2" th:text="${question.subject}"></h2>
+    <div class="card my-3">
+        <div class="card-body">
+            <div class="card-text" style="white-space: pre-line;" th:utext="${question.content}"></div>
+            <div class="d-flex justify-content-end">
+                <div class="badge bg-light text-dark p-2 text-start">
+                    <div class="mb-2">
+                        <span th:if="${question.qauthor != null}" th:text="${question.qauthor.username}"></span>
+                    </div>
+                    <div th:text="${#temporals.format(question.qdate, 'yyyy-MM-dd HH:mm')}"></div>
+                </div>
+            </div>
+            <div class="my-3">
+<!--                &lt;!&ndash;수정 버튼&ndash;&gt;-->
+<!--                <a th:href="@{|/question/modify/${question.id}|}" class="btn btn-sm btn-outline-secondary"-->
+<!--                   sec:authorize="isAuthenticated()"-->
+<!--                   th:if="${question.author != null and #authentication.getPrincipal().getUsername() == question.author.username}"-->
+<!--                   th:text="수정"></a>-->
+<!--                &lt;!&ndash;삭제 버튼&ndash;&gt;-->
+<!--                <a href="javascript:void(0);" th:data-uri="@{|/question/delete/${question.id}|}"-->
+<!--                   class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"-->
+<!--                   th:if="${question.author != null and #authentication.getPrincipal().getUsername() == question.author.username}"-->
+<!--                   th:text="삭제"></a>-->
+            </div>
+        </div>
+    </div>
+    <!-- 답변의 갯수 표시 -->
+    <h5 class="border-bottom my-3 py-2" th:text="|${#lists.size(question.answers)}개의 답변이 있습니다.|"></h5>
+    <!-- 답변 반복 시작 -->
+    <div class="card my-3" th:each="answer : ${question.answers}">
+        <a th:id="|answer_${answer.aid}|"></a>
+        <div class="card-body">
+            <div class="card-text" style="white-space: pre-line;" th:utext="${answer.content}"></div>
+            <div class="d-flex justify-content-end">
+                <div class="badge bg-light text-dark p-2 text-start">
+                    <div class="mb-2">
+                        <span th:if="${answer.aauthor != null}" th:text="${answer.aauthor.username}"></span>
+                    </div>
+                    <div th:text="${#temporals.format(answer.adate, 'yyyy-MM-dd HH:mm')}"></div>
+                </div>
+                <div class="my-3">
+<!--                    <a th:href="@{|/answer/modify/${answer.id}|}" class="btn btn-sm btn-outline-secondary"-->
+<!--                       sec:authorize="isAuthenticated()"-->
+<!--                       th:if="${answer.author != null and #authentication.getPrincipal().getUsername() == answer.author.username}"-->
+<!--                       th:text="수정"></a>-->
+<!--                    <a href="javascript:void(0);" th:data-uri="@{|/answer/delete/${answer.id}|}"-->
+<!--                       class="delete btn  btn-sm btn-outline-secondary"-->
+<!--                       sec:authorize="isAuthenticated()"-->
+<!--                       th:if="${answer.author != null and #authentication.getPrincipal().getUsername() == answer.author.username}"-->
+<!--                       th:text="삭제"></a>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 답변 반복 끝  -->
+    <!-- 답변 작성 -->
+    <form th:action="@{|/answer/create/${question.qid}|}" th:object="${answer}" method="post" class="my-3">
+<!--        <div th:replace="~{form_errors :: formErrorsFragment}"></div>-->
+<!--        <textarea sec:authorize="isAnonymous()" disabled th:name="content" rows="10"-->
+<!--                  class="form-control"></textarea>-->
+<!--        <textarea sec:authorize="isAuthenticated()" th:name="content" rows="10" id="summernote"></textarea>-->
+        <label for="summernote"></label><textarea th:name="content" rows="10" id="summernote"></textarea>
+        <input type="submit" value="답변등록" class="btn btn-primary my-2">
+    </form>
+</div>
+</html>

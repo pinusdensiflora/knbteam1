@@ -30,6 +30,4 @@ public class Img {
 	
 	@ManyToOne
 	private News imgNews;
-
-
 }

@@ -97,13 +97,12 @@
     
     
     
-<th:block th:each = "news:${paging}">
-
-
+<!-- <th:block th:each = "news:${paging}"> -->
+<th:block th:each="news, iterStat : ${paging.content}"> <!-- 숫자 번호 넣으려고 -->
 
         <tr>
             <td>
-                <p class="mb-0 mt-4">[[${news.nid}]]</p>
+                <p class="mb-0 mt-4" th:text = "${(paging.number) * 10 + (iterStat.index + 1)}"></p>
             </td>
             <td>
                 <p class="mb-0 mt-4"><a th:href = "@{|/news/article/${news.nid}|}">[[${news.ntitle}]]</a></p>
