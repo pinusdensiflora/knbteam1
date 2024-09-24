@@ -21,10 +21,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.knbteam1.inuri.admin.Board;
 import com.knbteam1.inuri.admin.BoardService;
+import com.knbteam1.inuri.qna.question.QuestionForm;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -290,9 +292,11 @@ public class NewsController {
 		return "redirect:/news/4";
 	}
 	
-	@GetMapping("/assist/inquiry")
-	public String inquiry() {
-		return "news/assist/inquiry";
+	//1대1문의
+	@GetMapping("/assist/question")
+	public String inquiry(QuestionForm questionForm) {
+		
+		return "news/assist/question";
 	}
 	
 	
