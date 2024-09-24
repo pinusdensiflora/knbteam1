@@ -17,11 +17,19 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.knbteam1.inuri.configuration.S3Service;
+import com.knbteam1.inuri.qna.Answer;
 
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.JoinType;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import lombok.RequiredArgsConstructor;
 
 
@@ -115,6 +123,18 @@ public class NewsService {
 			return newsRepository.findByNkind(kind, pageable);
 		}
 		
+		//검색결과 페이징
+		public Page<News> keywordlist(int page, String kw){
+	        List<Sort.Order> sorts = new ArrayList<>();
+	        sorts.add(Sort.Order.desc("ndate"));
+	        
+	        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+	        Specification<News> spec = search(kw);
+	        
+			return newsRepository.findAll(spec, pageable);
+		}
+	
+		
 		
 		
 		// readdetail
@@ -189,5 +209,21 @@ public class NewsService {
 			newsRepository.save(ob.get());
 		}
 	
+		
+		
+		
+		
+		 private Specification<News> search(String kw) {
+		        return new Specification<>() {
+		            private static final long serialVersionUID = 1L;
+		            @Override
+		            public Predicate toPredicate(Root<News> n, CriteriaQuery<?> query, CriteriaBuilder cb) {
+		                query.distinct(true);  // 중복을 제거 
+		                return cb.or(cb.like(n.get("ntitle"), "%" + kw + "%"), // 제목 
+		                        cb.like(n.get("ndesc"), "%" + kw + "%"));      // 내용 
+		                        
+		            }
+		        };
+		    }
 	
 }
