@@ -5,6 +5,8 @@
 package com.knbteam1.inuri.qna.answer;
 
 import com.knbteam1.inuri.auth.CustomerService;
+import com.knbteam1.inuri.qna.question.Question;
+import com.knbteam1.inuri.qna.question.QuestionService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -15,15 +17,22 @@ public class AnswerService {
 
     private final AnswerRepository answerRepository;
     private final CustomerService customerService;
+    private final QuestionService questionService;
 
-    public AnswerService(AnswerRepository answerRepository, CustomerService customerService) {
+    public AnswerService(AnswerRepository answerRepository, CustomerService customerService, QuestionService questionService, QuestionService questionService1) {
         this.answerRepository = answerRepository;
         this.customerService = customerService;
+        this.questionService = questionService1;
     }
 
-    public void create(Answer answer) {
+    public void create(Answer answer, Integer questionId) {
+        Question question = questionService.readdetail(questionId);
         answer.setAdate(LocalDateTime.now());
-        answer.setAauthor(customerService.authen());
+        answer.setQuestion(question);
+//        answer.setAauthor(customerService.authen());
+
+        question.getAnswers().add(answer);
+
         answerRepository.save(answer);
     }
 

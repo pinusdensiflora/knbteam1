@@ -10,13 +10,14 @@ admin/qa/readQAList.html
     <div class="bg-light text-center rounded p-4">
       <div class="d-flex align-items-center justify-content-between mb-4">
         <h6 class="mb-0">1:1 문의</h6>
-        <a href = "/news/qa/create">글 작성</a>
       </div>
       <div class="table-responsive">
         <table class="table text-start align-middle table-bordered table-hover mb-0">
           <thead>
           <tr class="text-dark">
-            <th scope="col"><input class="form-check-input" type="checkbox"></th>
+            <th scope="col">
+              <input class="form-check-input" type="checkbox">
+            </th>
             <th scope="col">번호</th>
             <th scope="col">제목</th>
             <th scope="col">작성일</th>
@@ -24,13 +25,13 @@ admin/qa/readQAList.html
           </tr>
           </thead>
           <tbody>
-          <th:block th:each="qa:${qaList}">
+          <th:block th:each="qa:${qalist}">
             <tr>
               <td><input class="form-check-input" type="checkbox"></td>
               <td>[[${qa.qid}]]</td>
-              <td>[[${qa.subject}]]</td>
+              <td><a  th:href="@{|/question/${qa.qid}|}">[[${qa.subject}]]</a></td>
               <td>[[${qa.qdate.toLocalDate()}]]</td>
-              <td>[[${qa.answer.size()}]]</td>
+              <td>[[${qa.answers.size()}]]</td>
             </tr>
           </th:block>
           </tbody>
