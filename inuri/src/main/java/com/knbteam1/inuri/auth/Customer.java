@@ -22,6 +22,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.ToString;
 
@@ -43,6 +45,10 @@ public class Customer {
 	
 	private String postcode;
 
+	private String caddr;
+	
+	private String ctel;
+	
 	@ToString.Exclude // Exclude the child from toString() to prevent recursion
 	@OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE)
 	private List<Donation> donation;
@@ -54,4 +60,7 @@ public class Customer {
 	@ToString.Exclude // Exclude the child from toString() to prevent recursion
 	@OneToMany(mappedBy = "qauthor", cascade = CascadeType.REMOVE)
 	private List<Question> questions;
+
+
+
 }
