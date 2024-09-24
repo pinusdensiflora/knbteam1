@@ -308,6 +308,17 @@ public class NewsController {
 	
 	
 	
+	@GetMapping("/search")
+    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "kw", defaultValue = "") String kw) {
+        Page<News> paging = newsService.keywordlist(page, kw);
+        model.addAttribute("paging", paging);
+        model.addAttribute("kw", kw);
+        return "news/notice";
+    }
+	
+	
+	
 	
 	
 

@@ -30,6 +30,11 @@ public class Question {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer qid;
 	private LocalDateTime qdate;
+	
+	
+	private String img1;
+	private String img2;
+	
 
 	private String subject;
 	private String content;
