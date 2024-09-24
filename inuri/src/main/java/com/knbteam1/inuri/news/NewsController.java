@@ -314,7 +314,7 @@ public class NewsController {
         Page<News> paging = newsService.keywordlist(page, kw);
         model.addAttribute("paging", paging);
         model.addAttribute("kw", kw);
-        return "news/notice";
+        return "news/search";
     }
 	
 	
