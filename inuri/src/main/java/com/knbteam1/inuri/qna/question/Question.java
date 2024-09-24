@@ -20,6 +20,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
+import lombok.ToString;
 
 @Data
 @Entity
@@ -32,13 +33,13 @@ public class Question {
 
 	private String subject;
 	private String content;
-	
-	
 
+
+	@ToString.Exclude // Exclude the child from toString() to prevent recursion
 	@ManyToOne
 	private Customer qauthor;
-	 
-	
+
+	@ToString.Exclude // Exclude the child from toString() to prevent recursion
 	@OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
 	private List<Answer> answers;
 	

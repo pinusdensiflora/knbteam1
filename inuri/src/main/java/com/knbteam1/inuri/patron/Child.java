@@ -13,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
+import lombok.ToString;
 
 @Data
 @Entity
@@ -36,6 +37,7 @@ public class Child {
     
     private String chdesc; // 아동 설명
 
+    @ToString.Exclude // Exclude the child from toString() to prevent recursion
     @OneToMany(mappedBy = "child")
     private List<Donation> donations; // 후원 내역
 }

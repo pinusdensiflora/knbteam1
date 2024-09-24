@@ -12,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
+import lombok.ToString;
 
 
 @Data
@@ -34,7 +35,7 @@ public class Donation {
     @ManyToOne
     private Child child; // 후원 아동 정보
 
-	
+    @ToString.Exclude // Exclude the child from toString() to prevent recursion
 	@ManyToOne 
 	private Customer customer; // 후원자 정보
 	

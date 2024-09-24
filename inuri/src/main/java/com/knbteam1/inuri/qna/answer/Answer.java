@@ -17,6 +17,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
+import lombok.ToString;
 
 @Data
 @Entity
@@ -29,10 +30,12 @@ public class Answer {
 
 	private String content;
 
-	
+
+	@ToString.Exclude // Exclude the child from toString() to prevent recursion
 	@ManyToOne
 	private Customer aauthor;
-	
+
+	@ToString.Exclude // Exclude the child from toString() to prevent recursion
 	@ManyToOne
 	private Question question;
 	
