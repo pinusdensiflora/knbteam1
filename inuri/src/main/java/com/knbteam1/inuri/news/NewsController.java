@@ -150,40 +150,7 @@ public class NewsController {
 		
 		return "news/newsUpdate";
 	}
-/*
-	@PostMapping("/update/{id}")
-	public String update(@Valid NewsForm newsForm, BindingResult bindingResult,
-						 Model model, @PathVariable("id") Integer id,
-						 @RequestParam("files") MultipartFile[] files//파일처리
-						@ModelAttribute
-						) throws IOException {
-		
-		if (bindingResult.hasErrors()) {
-			
-	
-			News news = newsService.readdetail(id);
-			model.addAttribute("cateValue", boardService.getBname(news.getNkind()));
-			model.addAttribute("news", news);
-			model.addAttribute("boards", boardService.readlist());
-			model.addAttribute("endpoint",s3Endpoint);
-			
-			
-			
-			//return "news/newsUpdate";
-			return "news/newsUpdate";
-		}
-		
-		//newsService.create(news);
-		News news = newsService.readdetail(newsForm.getNid());
-		//news.setNcate(newsForm.getNcate());
-		news.setNkind(newsForm.getNkind());
-		news.setNtitle(newsForm.getNtitle());
-		news.setNdesc(newsForm.getNdesc());
-		newsService.create(news, files);//임시
-		
-		return "redirect:/news/article/"+news.getNid();
-	}
-	*/
+
 	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
 	@PostMapping("/update/{id}")
 	public String update(@Valid NewsForm newsForm, BindingResult bindingResult,
@@ -233,9 +200,9 @@ public class NewsController {
 	
 	
 
-	//==================================================================================
+	//매핑==================================================================================
 
-	
+	//board에 생성한 공지사항, bid와 html명이 일치하여야 동작, bcate: 1=공지사항 2=기업소식 3=고객지원
 	@GetMapping("/{bid}")
 	public String cate(Model model, @PathVariable("bid") Integer bid, 
 			@RequestParam(value="page", defaultValue="0") int page) {
@@ -269,10 +236,9 @@ public class NewsController {
 		
 	}
 	
-
 	
 	
-	//공지사항탭
+	//공지사항탭 (기본 news 페이지)
 	@GetMapping("")
 	public String notice(Model model) {
 		
@@ -288,7 +254,6 @@ public class NewsController {
 		return "redirect:/news/2";
 		
 	}
-	
 
 	
 	//고객지원탭
@@ -306,7 +271,6 @@ public class NewsController {
 	
 	
 	
-	
 	//찾아오시는 길
 	@GetMapping("/address")
 	public String address() {
@@ -315,8 +279,7 @@ public class NewsController {
 	}
 	
 	
-	
-	
+	//검색결과
 	@GetMapping("/search")
     public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "kw", defaultValue = "") String kw) {
@@ -326,9 +289,6 @@ public class NewsController {
         return "news/search";
     }
 	
-	
-	
-	
-	
+
 
 }
