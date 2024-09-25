@@ -1,116 +1,133 @@
 <!-- 
 생성자 : 김근환 
-생성일 : 9.11
+생성일 : 9.19
 연락처 : ghwan07@gmail.com
 -->
 <html layout:decorate="~{layout}">
 <div layout:fragment="content">
 
-	<div class="container-fluid page-header py-5"
-		style="padding-bottom: 30px;">
-		<!-- 상단 헤더 -->
-		<h1 class="text-center text-white display-6">후원받은 아동들</h1>
+<style>
+.child-img {
+    width: 100%;  /* 부모 요소의 너비에 맞춤 */
+    height: 200px;  /* 원하는 높이 설정 */
+    overflow: hidden;  /* 잘리는 부분 숨김 */
+    position: relative;
+}
 
-		<ol class="breadcrumb justify-content-center mb-0">
-			<li class="breadcrumb-item"><a href="/news">공지사항</a></li>
-			<li class="breadcrumb-item"><a href="/news/info">소식</a></li>
-			<li class="breadcrumb-item"><a href="/news/assist">고객지원</a></li>
-			<li class="breadcrumb-item"><a href="/news/address">찾아오시는 길</a></li>
-		</ol>
-	</div>
-	<!-- Spinner Start -->
+.child-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;  /* 비율 유지하며 잘림 */
+    display: block;  /* 이미지 아래 여백 없애기 */
+}
+</style>
+<!-- Spinner Start -->
 	<div id="spinner"
 		class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
 		<div class="spinner-grow text-primary" role="status"></div>
 	</div>
 	<!-- Spinner End -->
-	<div style="display: flex; justify-content: flex-end; margin: 30px;">
-    <div style="width: 35%;">
-        <div class="input-group w-100">
-            <input type="search" class="form-control p-3" placeholder="keywords"
-                aria-describedby="search-icon-1"> 
-            <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
+
+    <div class="container-fluid page-header py-5" style="padding-bottom: 30px;">
+        <!-- 상단 헤더 -->
+        <h1 class="text-center text-white display-6">후원받은 아동들</h1>
+
+        <ol class="breadcrumb justify-content-center mb-0">
+            <li class="breadcrumb-item"><a href="/news">공지사항</a></li>
+            <li class="breadcrumb-item"><a href="/news/info">소식</a></li>
+            <li class="breadcrumb-item"><a href="/news/assist">고객지원</a></li>
+            <li class="breadcrumb-item"><a href="/news/address">찾아오시는 길</a></li>
+        </ol>
+    </div>
+    <div style="display: flex; justify-content: flex-end; margin: 30px;">
+    <a href="/add_child">아동추가</a>
+    </div>
+
+    <!-- 검색창 시작 -->
+    <div style="display: flex; justify-content: flex-end; margin: 30px;">
+        <div style="width: 40%;">
+            <form action="/child_list" method="get">
+                <div class="input-group w-100">
+                    <!-- 검색 기준 선택 -->
+                    <select name="searchType" class="form-select p-3" aria-label="검색 기준" style="width: 15%;">
+                        <option value="name" th:selected="${searchType == 'name'}">이름</option>
+                        <option value="location" th:selected="${searchType == 'location'}">국가</option>
+                        <option value="age" th:selected="${searchType == 'age'}">나이</option>
+                    </select>
+
+                    <!-- 검색어 입력 -->
+                    <input type="text" name="keyword" class="form-control p-3" placeholder="검색어를 입력하세요" th:value="${keyword}" aria-describedby="search-icon" style="width: 35%;">
+
+                    <!-- 검색 버튼 -->
+                    <button type="submit" class="input-group-text p-3" id="search-icon">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
-</div>
+    <!-- 검색창 끝 -->
 
-	<!-- Modal Search Start -->
-	<div class="modal fade" id="searchModal" tabindex="-1"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-fullscreen">
-			<div class="modal-content rounded-0">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Search by
-						keyword</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"
-						aria-label="Close"></button>
-				</div>
-				<div class="modal-body d-flex align-items-center">
-					<div class="input-group w-75 mx-auto d-flex">
-						<input type="search" class="form-control p-3"
-							placeholder="keywords" aria-describedby="search-icon-1">
-						<span id="search-icon-1" class="input-group-text p-3"><i
-							class="fa fa-search"></i></span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Modal Search End -->
-
-	<div class="container-fluid child">
-    <div class="container py-3">
-        <div class="tab-class text-center">
-            <div class="tab-content">
-                <div id="tab-1" class="tab-pane fade show p-0 active">
-                    <div class="row g-4">
-                        <div class="col-lg-12">
-                            <div class="row g-4">
-                                <!-- 아동 리스트 반복 시작 -->
-                                
-                                <!-- 문제 있을 수도 있으니 이전의 코드를 남김 -->
-                                <!-- <div th:each="child : ${children}" class="col-md-4 col-lg-4 col-sm-6"> -->
-                                <div th:each="child, loop : ${paging}" class="col-md-4 col-lg-4 col-sm-6">
-                                    <div class="rounded position-relative child-item">
-                                        <!-- 아동 이미지 -->
-                                        <div class="child-img">
-                                        
-                                        	<!-- 아동 이미지가 업로드 된다면 활성화 -->
-                                            <!-- <img th:src="${child.chimg}" class="img-fluid w-100 rounded-top" alt="아동 이미지"> -->
-                                            
-                                            <img src="img/best-product-1.jpg" class="img-fluid rounded-top" alt="">
-                                        </div>
-                                        <!-- 아동 정보 -->
-                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                            <!-- 아동 이름 -->
+    <div class="container-fluid child">
+        <div class="container py-3">
+            <div class="tab-class text-center">
+                <div class="tab-content">
+                    <div id="tab-1" class="tab-pane fade show p-0 active">
+                        <div class="row g-4">
+                            <div class="col-lg-12">
+                                <div class="row g-4">
+                                    <!-- 아동 리스트 반복 시작 -->
+<div class="container-fluid child">
+        <div class="container py-3">
+            <div class="tab-class text-center">
+                <div class="tab-content">
+                    <div id="tab-1" class="tab-pane fade show p-0 active">
+                        <div class="row g-4">
+                            <div class="col-lg-12">
+                                <div class="row g-4">
+                                    <!-- 아동 리스트 반복 시작 -->
+                                    <div th:each="child : ${paging.content}" class="col-md-4 col-lg-4 col-sm-6">
+                                        <div class="rounded position-relative child-item">
+                                            <!-- 아동 이미지 -->
+                                            <div class="child-img">
                                             <a th:href="@{/child_detail/{chid}(chid=${child.chid})}">
-                                                <h4 th:text="${child.chname}"></h4>
-                                            </a>
-                                            <!-- 아동 설명 -->
-                                            <!-- <p th:text="${child.chdesc}"></p> -->
-                                            
-                                            <!-- 아동 성별과 거주지 -->
-                                            <p>성별: <span th:text="${child.chgender}"></span></p>
-                                            <p>거주지: <span th:text="${child.chlocation}"></span></p>
-                                            
-                                            <!-- 후원 버튼 -->
-                                            <div class="d-flex justify-content-center flex-lg-wrap">
-                                                <a th:href="@{/child_detail/{chid}(chid=${child.chid})}" class="btn border border-secondary rounded-pill px-3 text-primary">
-                                                    <i class="text-primary"></i> 상세 정보
+                                                <img th:src="@{|https://inuri-bucket-106wnz.s3.ap-northeast-2.amazonaws.com/${child.chimg}|}" class="img-fluid rounded-top" alt="img">
                                                 </a>
+                                            </div>
+                                            <!-- 아동 정보 -->
+                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
+                                                <a th:href="@{/child_detail/{chid}(chid=${child.chid})}">
+                                                    <h4 th:text="${child.chname}"></h4>
+                                                </a>
+                                                <p>성별: <span th:text="${child.chgender}"></span></p>
+                                                <p>국가: <span th:text="${child.chlocation}"></span></p>
+                                                <p>생년월일: <span th:text="${child.chdob}"></span></p>
                                             </div>
                                         </div>
                                     </div>
+                                    <!-- 아동 리스트 반복 끝 -->
+                                    <!-- 검색 결과 및 아동 목록 -->
+    <div class="row">
+        <div th:if="${paging.content.isEmpty()}" class="alert alert-warning">
+            검색 결과가 없습니다.
+        </div>
                                 </div>
-                                <!-- 아동 리스트 반복 끝 -->
-                            </div> <!-- row -->
-                        </div> <!-- col-lg-12 -->
-                    </div> <!-- row -->
-                </div> <!-- tab-1 -->
-            </div> <!-- tab-content -->
-        </div> <!-- tab-class -->
-    </div> <!-- container -->
-</div> <!-- container-fluid -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 <!-- 페이징처리 시작 -->
     <div th:if="${!paging.isEmpty()}">
@@ -135,18 +152,10 @@
 </div>
     <!-- 페이징처리 끝 -->
 
+    <div style="margin-bottom: 100px;"></div>
 
-<div style="margin-bottom: 100px;"></div>
-
-
-
-
-
-	<!-- Back to Top -->
-	<a href="#"
-		class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i
-		class="fa fa-arrow-up"></i></a>
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
 
 </div>
-
 </html>
