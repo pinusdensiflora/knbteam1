@@ -1,0 +1,117 @@
+<!-- 
+생성자: 배다원
+생성날짜: 9.13
+연락처: dawnzeze@gmail.com
+ -->
+<html layout:decorate="~{layout}">
+<div layout:fragment="content">
+
+
+
+
+	<div class="container-fluid page-header py-5">
+		<h1 class="text-center text-white display-6">기업정보</h1>
+		<ol class="breadcrumb justify-content-center mb-0">
+			<li class="breadcrumb-item"><a href="/news">공지사항</a></li>
+			<li class="breadcrumb-item"><a href="/news/info">소식</a></li>
+			<li class="breadcrumb-item"><a href="/news/assist">고객지원</a></li>
+			<li class="breadcrumb-item"><a href="/news/address">찾아오시는 길</a></li>
+		</ol>
+	</div>
+
+
+	<div class="container-fluid fruite py-5">
+
+
+
+		<!--validation 적용전         <form th:action="@{|/news/${cateKey}/create|}" method = "post"> -->
+		<form th:action="@{|/news/update/${news.nid}|}" th:object="${newsForm}"
+			method="post" enctype="multipart/form-data">
+			<input type="hidden" th:field="*{nid}" th:value="${news.nid}">
+
+			<h4 class="mb-5 fw-bold">아이누리 글 쓰기</h4>
+			<!-- validation 안내창 -->
+			<div th:replace="~{news/form_errors :: formErrorsFragment}"></div>
+
+
+			<div class="row g-4">
+
+				<div class="col-lg-6">
+					<div class="border-bottom rounded">
+						<input th:field="*{ntitle}" name="ntitle" type="text"
+							class="form-control border-0 me-4" th:value="${news.ntitle}">
+					</div>
+				</div>
+
+
+				<div class="col-lg-6">
+					<div class="border-bottom rounded">
+
+
+						<select th:field="*{nkind}" name="nkind" class="form-select"
+							aria-label="Default select example">
+
+
+							<option th:value="${news.nkind}" selected>[[${cateValue}]]</option>
+
+
+							<hr>
+							<th:block th:each="board : ${boards}">
+								<option th:value="${board.bid}">[[${board.bname}]]</option>
+							</th:block>
+							<hr>
+
+
+						</select>
+					</div>
+				</div>
+
+
+				<div class="col-lg-12">
+					<div class="border-bottom rounded my-4">
+						<textarea id="summernote" th:field="*{ndesc}" name="ndesc">[[${news.ndesc}]]</textarea>
+					</div>
+				
+				</div>
+
+<div>
+        <h3>기존 이미지</h3>
+        <div th:each="img : ${news.imgs}">
+            <img th:src="@{|${endpoint}/${img.ilink}|}" alt="News Image" style="max-width: 100px;"/>
+            <input type="checkbox" name="imgIdsToDelete" th:value="${img.iid}"/> 삭제
+        </div>
+    </div>
+
+    <div>
+        <label for="files">새로운 이미지 추가:</label>
+        <input type="file" id="files" name="files" multiple/>
+ </div>
+
+
+
+				<div class="col-lg-12">
+					<div class="d-flex justify-content-between py-3 mb-5">
+						<div class="d-flex align-items-center">
+							<p class="mb-0 me-3">감사합니다</p>
+							<div class="d-flex align-items-center" style="font-size: 12px;">
+								<i class="fa fa-star text-muted"></i> <i class="fa fa-star"></i>
+								<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
+									class="fa fa-star"></i>
+
+							</div>
+						</div>
+						<button type="submit" class="btn border border-secondary text-primary rounded-pill px-4 py-3">발행</button>
+					</div>
+				</div>
+			</div>
+		</form>
+
+
+
+
+	</div>
+
+
+
+</div>
+</html>
