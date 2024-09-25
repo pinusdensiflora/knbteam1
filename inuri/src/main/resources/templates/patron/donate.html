@@ -1,6 +1,7 @@
 <!-- 
 생성자 : 김근환 
 생성일 : 9.11
+수정일 : 9.24
 연락처 : ghwan07@gmail.com
 -->
 <html layout:decorate="~{layout}">
@@ -23,14 +24,13 @@
     </ol>
 </div>
 
-<!-- hr 줄의 길이를 50%로 조정하고 위아래 여백을 추가 (20px) -->
-<hr style="width: 50%; margin: 20px auto;">
+
 
 <div class="container-fluid fruite py-1">
 <div class="container text-center">
-    
+<!-- hr 줄의 길이를 50%로 조정하고 위아래 여백을 추가 (20px) -->
+<hr style="width: 50%; margin: 20px auto;">
     <!-- 후원 방법 -->
-    
 <div>
     <h2><strong>후원 방법</strong></h2>
 </div>
@@ -41,23 +41,6 @@
 
     <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" onclick="showOneTimeOptions()">
     <label class="btn btn-outline-primary" for="btnradio2">일시 후원</label>
-</div>
-
-    <!-- hr 줄의 길이를 50%로 조정하고 위아래 여백을 추가 (20px) -->
-    <hr style="width: 50%; margin: 20px auto;">
-
-    <!-- 후원 분야 -->
-    <div>
-        <h2><strong>후원 분야</strong></h2>
-    </div>
- 
-    <div>
-    <select class="form-select" aria-label="Default select example" id="donationField" style="width: 30%; margin: 0 auto;">
-        <option selected>후원 분야 선택</option>
-        <option value="세계 어린이 돕기">세계 어린이 돕기</option>
-        <option value="난민 어린이 돕기">난민 어린이 돕기</option>
-        <option value="긴급구호(수단 기근 피해 어린이 돕기)">긴급구호(수단 기근 피해 어린이 돕기)</option>
-    </select>
 </div>
 
     <!-- hr 줄의 길이를 50%로 조정하고 위아래 여백을 추가 (20px) -->
@@ -165,58 +148,95 @@ function updateTotalAmount() {
     <!-- hr 줄의 길이를 50%로 조정하고 위아래 여백을 추가 (20px) -->
     <hr style="width: 50%; margin: 20px auto;">
 
-    <!-- 결제 버튼 -->
-    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+<!-- 결제 버튼 -->
+
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+
+
 <script>
     IMP.init("imp27761772");
 
     function requestpay() {
-        const selectedDonation = document.querySelector('input[name="btnradio"]:checked'); // 선택된 후원 방법
-        const selectedField = document.getElementById('donationField').value; // 선택한 후원 분야
+        const selectedDonationMethod = document.querySelector('input[name="btnradio"]:checked'); // 선택된 후원 방법
         const totalAmount = document.getElementById('totalAmountValue').innerText.replace(/,/g, ''); // 총 후원 금액
+        const childId = document.getElementById('childId').value;  // 서버에서 전달된 아동 ID
+        const customerId = document.getElementById('customerId').value;  // 서버에서 전달된 후원자 ID
+        const buyerEmail = document.getElementById('buyerEmail').value; // 로그인한 고객의 이메일 (username)
+        const buyerName = document.getElementById('buyerName').value; // 로그인한 고객의 이름 (name)
+        const buyerPostcode = document.getElementById('buyerPostcode').value; // 로그인한 고객의 우편번호 (postcode)
+        const childName = document.getElementById('childName').value; // 아동의 이름
 
-        if (!selectedDonation) {
-            alert("후원 금액을 선택해 주세요.");
+        if (!selectedDonationMethod) {
+            alert("후원 방법을 선택해 주세요.");
             return;
         }
-        
-        if (selectedField === "후원 분야 선택") {
-            alert("후원 분야를 선택해 주세요.");
-            return;
-        }
 
-        // 후원 방법에서 텍스트 가져오기
-        const donationMethod = selectedDonation.nextElementSibling.innerText; // "정기 후원" 또는 "일시 후원"
+        const donationMethod = selectedDonationMethod.nextElementSibling.innerText; // 후원 방법 (정기 후원, 일시 후원)
+        const donationPeriod = donationMethod === '정기 후원' ? 12 : 0;  // 정기 후원: 12개월, 일시 후원: 0개월
 
-        // 결제 요청 시 name에 후원 방법과 후원 분야 결합
-        const paymentName = `${donationMethod}: ${selectedField}`; // "정기 후원: 세계 어린이 돕기" 형태
-
+        // 결제 요청
         IMP.request_pay(
             {
                 pg: "danal_tpay",
                 pay_method: "card",
-                merchant_uid: `123123as21q`,
-                name: paymentName, // 후원 방법과 후원 분야 결합
+                merchant_uid: `merchant_${new Date().getTime()}`, // 주문 고유 ID
+                name: `${donationMethod} : ${childName}`,  // 후원 방법과 아동 이름을 결합하여 표시
                 amount: totalAmount, // 총 후원 금액
-                buyer_email: "gildong@gmail.com",
-                buyer_name: "홍길동",
-                buyer_tel: "010-4242-4242",
-                buyer_addr: "서울특별시 강남구 신사동",
-                buyer_postcode: "01181",
+                buyer_email: buyerEmail, // 동적으로 로그인한 고객의 이메일을 사용
+                buyer_name: buyerName,   // 동적으로 로그인한 고객의 이름을 사용
+                buyer_postcode: buyerPostcode, // 동적으로 로그인한 고객의 우편번호 사용
             },
             function (response) {
                 if (response.success) {
                     alert("결제 성공");
+                    // 결제 성공 시 후원 정보 서버에 저장
+                    saveDonation(donationMethod, totalAmount, donationPeriod, childId, customerId);
                 } else {
                     alert("결제 실패: " + response.error_msg);
                 }
             },
         );
     }
+
+    // 후원 정보 저장 요청
+    function saveDonation(method, amount, period, childId, customerId) {
+        // 서버로 후원 정보 전송
+        fetch("/donation/create", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                method: method,
+                amount: amount,
+                period: period,
+                childId: childId,
+                customerId: customerId
+            }),
+        })
+        .then(response => response.text())
+        .then(result => {
+            alert(result);  // 후원 성공 메시지
+        })
+        .catch(error => {
+            alert("후원 저장 실패: " + error.message);
+        });
+    }
 </script>
 
-    <button type="button" class="btn btn-secondary" style="margin-top: 20px;" onclick="requestpay()">다음</button>
-    <div style="margin-bottom: 100px;"></div>
+
+<!-- 고객과 아동 정보를 담는 hidden input 필드 -->
+<input type="hidden" id="childId" th:value="${child.chid}">
+<input type="hidden" id="customerId" th:value="${customer.cid}">
+<input type="hidden" id="buyerEmail" th:value="${customer.username}">
+<input type="hidden" id="buyerName" th:value="${customer.name}">
+<input type="hidden" id="buyerPostcode" th:value="${customer.postcode}">
+<input type="hidden" id="childName" th:value="${child.chname}">
+<!-- 결제 버튼 -->
+<button type="button" class="btn btn-secondary" style="margin-top: 20px;" onclick="requestpay()">다음</button>
+<div style="margin-bottom: 100px;"></div>
+
+
 </div>
 </div>
 </div>
