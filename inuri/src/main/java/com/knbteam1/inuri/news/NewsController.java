@@ -21,10 +21,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.knbteam1.inuri.admin.Board;
 import com.knbteam1.inuri.admin.BoardService;
+import com.knbteam1.inuri.qna.question.QuestionForm;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -45,7 +47,7 @@ public class NewsController {
 	//관리자만접근
 	
 
-
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
 	@GetMapping("/{kind}/create") // board를 이용한 create로 추후 변경하기
 	public String create(NewsForm newsForm, Model model, @PathVariable("kind") Integer kind){
 	
@@ -60,7 +62,8 @@ public class NewsController {
 		return "news/newsCreate";
 	  
 	 }
-	 
+	
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
 	@PostMapping("/{kind}/create")
 		public String create(@Valid NewsForm newsForm, BindingResult bindingResult, 
 							 Model model, @PathVariable("kind") Integer kind, 
@@ -128,6 +131,7 @@ public class NewsController {
 	//UPDATE==================================================================================
 	
 	//멀티
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
 	@GetMapping("/update/{id}")
 	public String update(NewsForm newsForm, Model model, @PathVariable("id") Integer id){
 		News news = newsService.readdetail(id);
@@ -180,7 +184,7 @@ public class NewsController {
 		return "redirect:/news/article/"+news.getNid();
 	}
 	*/
-	
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
 	@PostMapping("/update/{id}")
 	public String update(@Valid NewsForm newsForm, BindingResult bindingResult,
 						 Model model, @PathVariable("id") Integer id,
@@ -242,8 +246,11 @@ public class NewsController {
 	    model.addAttribute("paging", paging);
 	    model.addAttribute("cateboards", boardService.findListBcate(bcate));
 	    model.addAttribute("bid", bid);
-		
 	    
+	    List<News> allList = newsService.readlist(bid);
+		int len = allList.size();
+	    model.addAttribute("listsize", len);
+		
 	    if(bcate.equals(1)) {
 	    	return "news/bid"+bid;
 	    	
@@ -290,9 +297,11 @@ public class NewsController {
 		return "redirect:/news/4";
 	}
 	
-	@GetMapping("/assist/inquiry")
-	public String inquiry() {
-		return "news/assist/inquiry";
+	//1대1문의
+	@GetMapping("/assist/question")
+	public String inquiry(QuestionForm questionForm) {
+		
+		return "news/assist/question";
 	}
 	
 	

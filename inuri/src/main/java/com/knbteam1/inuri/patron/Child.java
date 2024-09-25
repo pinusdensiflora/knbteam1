@@ -5,7 +5,10 @@ package com.knbteam1.inuri.patron;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.List;
+
+import com.knbteam1.inuri.auth.Customer;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,20 +27,24 @@ public class Child {
     private Integer chid;
     
     private LocalDateTime chdate; // 생성날짜
-
-    private LocalDate chdob; // 생년월일
-
+    private LocalDate chdob; // 생년월일 (Date of Birth, 나이를 계산할 때 사용)
     private String chname; // 이름
-
     private String chimg; // 이미지
-
     private String chgender; // 성별
-
-    private String chlocation; // 거주지
-    
+    private String chlocation; // 거주지 (국가를 저장하는 필드)
     private String chdesc; // 아동 설명
 
     @ToString.Exclude // Exclude the child from toString() to prevent recursion
     @OneToMany(mappedBy = "child")
     private List<Donation> donations; // 후원 내역
+
+    // 나이를 계산하는 메서드
+    public int getAge() {
+        return Period.between(this.chdob, LocalDate.now()).getYears();
+    }
+
+	public Customer getCustomer() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

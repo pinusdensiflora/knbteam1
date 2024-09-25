@@ -53,8 +53,14 @@
                         <div class="d-flex justify-content-between py-3 mb-5">
                          	<a th:href="@{|/news/${news.nkind}|}" class="btn border border-secondary text-primary px-4 py-2"> 목록보기</a> 
                          	<div>
-                         		<a th:href = "@{|/news/update/${news.nid}|}" class="btn btn-success px-4 py-2"> 수정</a>  
-                            	<a th:href = "@{|/news/${news.nkind}/delete/${news.nid}|}" class="btn btn-danger px-4 py-2"> 삭제</a> 
+                         		<a th:href = "@{|/news/update/${news.nid}|}" class="btn btn-success px-4 py-2"
+                         			sec:authorize="isAuthenticated()"
+  	 								th:if="${#authentication.principal.authorities.?[authority == 'ROLE_ADMIN'].size() > 0}">
+  	 								 수정</a>  
+                            	<a th:href = "@{|/news/${news.nkind}/delete/${news.nid}|}" class="btn btn-danger px-4 py-2"
+                            		sec:authorize="isAuthenticated()"
+  	 								th:if="${#authentication.principal.authorities.?[authority == 'ROLE_ADMIN'].size() > 0}">
+  	 								 삭제</a> 
                          	</div>
                             
                         </div>

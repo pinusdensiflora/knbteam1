@@ -96,9 +96,9 @@ public class NewsService {
 		}
 		
 		
-		// readlist 카테고리별
-		public List<News> readlist(String cate) {
-			return newsRepository.findByNcate(cate);
+		// readlist 카테고리별 cate -> Integer Nkind 로 수정
+		public List<News> readlist(Integer kind) {
+			return newsRepository.findByNkind(kind);
 		}
 		
 /*		// readlist 페이징
