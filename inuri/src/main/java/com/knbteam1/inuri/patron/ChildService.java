@@ -7,19 +7,13 @@
 package com.knbteam1.inuri.patron;
 
 import java.io.IOException;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import com.knbteam1.inuri.configuration.S3Service;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -28,7 +22,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-
 import com.knbteam1.inuri.configuration.S3Service;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -36,11 +29,8 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 
-
-@RequiredArgsConstructor
 @Service
 public class ChildService {
-
 	
 	@Autowired
 	private S3Service s3Service;
@@ -60,23 +50,6 @@ public class ChildService {
     			child.setChdate(LocalDateTime.now());
     			
     			childRepository.save(child);
-
-
-    private final ChildRepository childRepository;
-    private final S3Service s3Service;
-
-    // 아동 저장 또는 업데이트
-    public Child createOrUpdateChild(Child child, MultipartFile file, String l_detail) throws IOException {
-        UUID uuid = UUID.randomUUID();
-        String filename = uuid + "_" + child.getChname();
-        s3Service.uploadFile(file, filename);
-
-        child.setChimg(filename);
-        child.setChdate(LocalDateTime.now());
-        child.setChlocation(child.getChlocation()+" "+l_detail);
-
-        return childRepository.save(child);
-
     }
     // ID로 아동 조회
     public Optional<Child> getChildById(Integer id) {
