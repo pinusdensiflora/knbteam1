@@ -7,7 +7,9 @@
 package com.knbteam1.inuri.patron;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,6 +22,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.knbteam1.inuri.auth.Customer;
+
 @Controller
 
 public class ChildController {
@@ -27,12 +31,20 @@ public class ChildController {
     @Autowired
     private ChildService childService;
 
-    // 특정 아동 상세 페이지
+ // 특정 아동 상세 페이지
     @GetMapping("/child_detail/{chid}")
     public String childdetail(@PathVariable("chid") Integer chid, Model model) {
         Optional<Child> child = childService.getChildById(chid);
+
         if (child.isPresent()) {
-            model.addAttribute("child", child.get());
+            Child childEntity = child.get();
+
+            // 후원 내역을 모델에 추가
+            List<Donation> donations = childEntity.getDonations(); // 아동과 관련된 모든 후원 가져오기
+
+            model.addAttribute("child", childEntity);
+            model.addAttribute("donations", donations);  // 후원 정보 모델에 추가
+
             return "patron/child_detail";
         } else {
             return "error/404"; // 아동이 없을 경우 404 페이지로 연결
