@@ -69,4 +69,6 @@ public class CustomerController {
     public String signin() {
         return "auth/loginForm"; // 로그인 폼으로 이동
     }
+    
+
 }
