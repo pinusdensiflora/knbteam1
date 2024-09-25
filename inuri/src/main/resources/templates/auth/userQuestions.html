@@ -23,19 +23,13 @@
 				<div class="col-lg-6">
 					<h3 class="display-6">나의 질문내역</h3>
 					
-			<th:block th:each = "qauthor : ${customer.questions}">
-                        
-                        <br>
-                        
-                        </th:block>
-                        
                     </div>
                     
                     <table class="table">
                     <thead>
                     <tr>
             <th scope="col" style="width: 60%;">제목</th>
-            <th scope="col" style="width: 40%;">작성일</th>  제목의 가로폭을 70%로 설정
+            <th scope="col" style="width: 40%;">작성일</th>  <!-- 제목의 가로폭을 %로 설정 -->
             </tr>
             </thead>
             <tbody>
@@ -44,7 +38,7 @@
 
         <tr>
              <td>
-                <p class="mb-0 mt-4">[[${question.subject}]]</p>
+                <a th:href="@{|/detailquestion/${question.qid}|}" class="mb-0 mt-4">[[${question.subject}]]</p>
             </td>
             <td>
                 <p class="mb-0 mt-4">[[${question.qdate}]]</p>
@@ -61,7 +55,6 @@
 </div>
 </div>
 </div>
-
 
 </div>
 </html>

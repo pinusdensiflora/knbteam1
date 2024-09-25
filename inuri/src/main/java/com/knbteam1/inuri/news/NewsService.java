@@ -101,6 +101,10 @@ public class NewsService {
 			return newsRepository.findByNkind(kind);
 		}
 		
+		public List<News> readlist(String cate) {
+			return newsRepository.findByNcate(cate);
+		}
+		
 /*		// readlist 페이징
 		public Page<News> readlistpage(String cate, int page) {
 			Pageable pageable = PageRequest.of(page, 10);

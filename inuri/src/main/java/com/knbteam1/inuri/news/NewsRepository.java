@@ -15,7 +15,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface NewsRepository extends JpaRepository<News, Integer> {
 
-	//List<News> findByNcate(String ncate);
+	List<News> findByNcate(String ncate);
 	List<News> findByNkind(Integer nkind);
 	
 	Page<News> findByNcate(String ncate, Pageable pageable);

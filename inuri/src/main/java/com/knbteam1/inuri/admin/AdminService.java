@@ -46,7 +46,8 @@ public class AdminService {
     }
 
 
-    public Integer calTodayDonate(){
-        return donationRepository.findTotalDonationsByDate(LocalDateTime.now());
-    }
+	/*
+	 * public Integer calTodayDonate(){ return
+	 * donationRepository.findTotalDonationsByDate(LocalDateTime.now()); }
+	 */
 }
