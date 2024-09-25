@@ -101,6 +101,11 @@ public class NewsService {
 			return newsRepository.findByNkind(kind);
 		}
 		
+		//카테고리 네임으로 찾기 << 추후 삭제 요망...
+		public List<News> readlist(String cate) {
+			return newsRepository.findByNcate(cate);
+		}
+		
 /*		// readlist 페이징
 		public Page<News> readlistpage(String cate, int page) {
 			Pageable pageable = PageRequest.of(page, 10);

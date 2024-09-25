@@ -50,7 +50,7 @@ public class AdminController {
 
     @GetMapping("/faq")
     public String readFaq(Model model) {
-        model.addAttribute("faqlist", newsService.readlist("faq"));
+        model.addAttribute("faqlist", newsService.readlist("faq")); 
         return "admin/faq/faqList";
     }
 
