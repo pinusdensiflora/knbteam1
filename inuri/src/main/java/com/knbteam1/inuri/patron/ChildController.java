@@ -7,9 +7,6 @@
 package com.knbteam1.inuri.patron;
 
 import java.io.IOException;
-
-import java.util.List;
-
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,7 +65,6 @@ public class ChildController {
 
     
     // 아동 추가 (예: 폼 제출을 통해 처리할 수 있는 POST 요청)
-
     @PostMapping("/add_child")
     public String addChild(@ModelAttribute Child child,
                            @RequestParam("file") MultipartFile file) throws IOException {
@@ -81,11 +77,6 @@ public class ChildController {
             childService.createOrUpdateChild(child, null);
         }
         
-
-    @PostMapping("/child/add")
-    public String addChild(@ModelAttribute Child child, @RequestParam("file")MultipartFile file, @RequestParam("location_detail") String l_detail) throws IOException {
-        childService.createOrUpdateChild(child, file, l_detail);
-
         return "redirect:/child_list"; // 아동 목록으로 리다이렉트
     }
 
