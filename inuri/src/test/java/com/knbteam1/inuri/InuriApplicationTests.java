@@ -1,5 +1,8 @@
 package com.knbteam1.inuri;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -33,6 +36,8 @@ class InuriApplicationTests {
 //        }
 //    }
     
+	
+	//작동을 위한 기본적인 Board 입니다. Board가 없다면 생성하고 진행
     //@Test
     void makeBoard() {
     
@@ -61,6 +66,34 @@ class InuriApplicationTests {
 
     	
 
+    }
+    
+    //테스트용 News 게시글을 생성하는 코드
+    //@Test
+    void makeTest() {
+    	
+    	for(int i = 1 ; i <= 50; i++) {
+    		News n = new News();
+        	n.setNdate(LocalDateTime.now());
+        	n.setNkind(1); //공지사항
+        	n.setNtitle("테스트데이터" + i);
+        	n.setNdesc("반복생성 데이터 입니다." + i);
+ 
+    		newsService.create(n);
+    		
+    	}
+    	
+    	for(int i = 51 ; i <= 100; i++) {
+    		News n = new News();
+        	n.setNdate(LocalDateTime.now());
+        	n.setNkind(2); //소식
+        	n.setNtitle("소식 테스트데이터" + i);
+        	n.setNdesc("반복생성 데이터 입니다." + i);
+ 
+    		newsService.create(n);
+    		
+    	}
+    	
     }
 	
 	
