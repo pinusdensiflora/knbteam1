@@ -110,7 +110,7 @@
 												<tr>
 													<td>
 														<p class="mb-0 mt-4"
-															th:text="${(paging.number) * 10 + (iterStat.index + 1)}"></p>
+															th:text="${(listsize) - (paging.number) * 10 - (iterStat.index)}"></p>
 													</td>
 													<td>
 														<p class="mb-0 mt-4">
@@ -155,7 +155,10 @@
 
 							<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 								<a th:href="@{|/news/${bid}/create|}" class="btn btn-primary"
-									type="button">글쓰기</a>
+									type="button"
+									sec:authorize="isAuthenticated()"
+  	 								th:if="${#authentication.principal.authorities.?[authority == 'ROLE_ADMIN'].size() > 0}">
+  	 								글쓰기</a>
 							</div>
 
 

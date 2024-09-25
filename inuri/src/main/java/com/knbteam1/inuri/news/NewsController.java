@@ -47,7 +47,7 @@ public class NewsController {
 	//관리자만접근
 	
 
-
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
 	@GetMapping("/{kind}/create") // board를 이용한 create로 추후 변경하기
 	public String create(NewsForm newsForm, Model model, @PathVariable("kind") Integer kind){
 	
@@ -62,7 +62,8 @@ public class NewsController {
 		return "news/newsCreate";
 	  
 	 }
-	 
+	
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
 	@PostMapping("/{kind}/create")
 		public String create(@Valid NewsForm newsForm, BindingResult bindingResult, 
 							 Model model, @PathVariable("kind") Integer kind, 
@@ -130,6 +131,7 @@ public class NewsController {
 	//UPDATE==================================================================================
 	
 	//멀티
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
 	@GetMapping("/update/{id}")
 	public String update(NewsForm newsForm, Model model, @PathVariable("id") Integer id){
 		News news = newsService.readdetail(id);
@@ -182,7 +184,7 @@ public class NewsController {
 		return "redirect:/news/article/"+news.getNid();
 	}
 	*/
-	
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
 	@PostMapping("/update/{id}")
 	public String update(@Valid NewsForm newsForm, BindingResult bindingResult,
 						 Model model, @PathVariable("id") Integer id,
@@ -244,8 +246,11 @@ public class NewsController {
 	    model.addAttribute("paging", paging);
 	    model.addAttribute("cateboards", boardService.findListBcate(bcate));
 	    model.addAttribute("bid", bid);
-		
 	    
+	    List<News> allList = newsService.readlist(bid);
+		int len = allList.size();
+	    model.addAttribute("listsize", len);
+		
 	    if(bcate.equals(1)) {
 	    	return "news/bid"+bid;
 	    	
