@@ -49,7 +49,7 @@
 						</div>
 						<div class="col-6">
 							<p>
-								기업정보 > <a href="/news">공지사항</a>
+								기업정보 > <a th:href="@{|/news/${bid}|}">[[${bname}]]</a>
 						</div>
 						<div class="col-xl-3"></div>
 					</div>
@@ -64,7 +64,7 @@
 												<li>
 													<div class="d-flex justify-content-between fruite-name">
 														<a th:href="@{|/news/${board.bid}|}"><i
-															class="fas fa-apple-alt me-2"></i>[[${board.bname}]]</a> <span>(3)</span>
+															class="fas fa-apple-alt me-2"></i>[[${board.bname}]]</a> <span></span>
 													</div>
 												</li>
 												<th:block>

@@ -213,6 +213,7 @@ public class NewsController {
 	    model.addAttribute("paging", paging);
 	    model.addAttribute("cateboards", boardService.findListBcate(bcate));
 	    model.addAttribute("bid", bid);
+	    model.addAttribute("bname", boardService.getBname(bid));
 	    
 	    List<News> allList = newsService.readlist(bid);
 		int len = allList.size();
