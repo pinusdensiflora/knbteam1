@@ -9,7 +9,7 @@
 <style>
 .child-img {
     width: 100%;  /* 부모 요소의 너비에 맞춤 */
-    height: 200px;  /* 원하는 높이 설정 */
+    height: 300px;  /* 원하는 높이 설정 */
     overflow: hidden;  /* 잘리는 부분 숨김 */
     position: relative;
 }
@@ -30,7 +30,7 @@
 
     <div class="container-fluid page-header py-5" style="padding-bottom: 30px;">
         <!-- 상단 헤더 -->
-        <h1 class="text-center text-white display-6">후원받은 아동들</h1>
+        <h1 class="text-center text-white display-6" th:text="${headerTitle}">모든 아동</h1>
 
         <ol class="breadcrumb justify-content-center mb-0">
             <li class="breadcrumb-item"><a href="/news">공지사항</a></li>
@@ -39,10 +39,15 @@
             <li class="breadcrumb-item"><a href="/news/address">찾아오시는 길</a></li>
         </ol>
     </div>
-    <div style="display: flex; justify-content: flex-end; margin: 30px;">
+    <!-- <div style="display: flex; justify-content: flex-end; margin: 30px;">
     <a href="/add_child">아동추가</a>
-    </div>
-
+    </div> -->
+<!-- 아동 필터 버튼 -->
+<div class="container my-4 text-center">
+    <a href="/child_list?filter=all" class="btn btn-primary mx-2">모든 아동</a>
+    <a href="/child_list?filter=sponsored" class="btn btn-success mx-2">후원받은 아동</a>
+    <a href="/child_list?filter=unsponsored" class="btn btn-warning mx-2">후원이 필요한 아동</a>
+</div>
     <!-- 검색창 시작 -->
     <div style="display: flex; justify-content: flex-end; margin: 30px;">
         <div style="width: 40%;">
@@ -51,7 +56,7 @@
                     <!-- 검색 기준 선택 -->
                     <select name="searchType" class="form-select p-3" aria-label="검색 기준" style="width: 15%;">
                         <option value="name" th:selected="${searchType == 'name'}">이름</option>
-                        <option value="location" th:selected="${searchType == 'location'}">국가</option>
+                        <option value="location" th:selected="${searchType == 'location'}">거주지</option>
                         <option value="age" th:selected="${searchType == 'age'}">나이</option>
                     </select>
 
@@ -100,7 +105,7 @@
                                                     <h4 th:text="${child.chname}"></h4>
                                                 </a>
                                                 <p>성별: <span th:text="${child.chgender}"></span></p>
-                                                <p>국가: <span th:text="${child.chlocation}"></span></p>
+                                                <p>거주지: <span th:text="${child.chlocation}"></span></p>
                                                 <p>생년월일: <span th:text="${child.chdob}"></span></p>
                                             </div>
                                         </div>

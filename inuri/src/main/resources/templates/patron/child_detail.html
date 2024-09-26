@@ -1,7 +1,7 @@
 <!-- 
 생성자 : 김근환 
 생성일 : 9.11
-수정일 : 9.24
+수정일 : 9.25
 연락처 : ghwan07@gmail.com
 -->
 <html layout:decorate="~{layout}">
@@ -79,7 +79,8 @@
 					<div class="row g-4">
 						<div class="col-lg-6">
 							<div class="child-img">
-								<img th:src="@{|https://inuri-bucket-106wnz.s3.ap-northeast-2.amazonaws.com/${child.chimg}|}" class="img-fluid w-100 rounded-top" alt="img">
+								<img th:src="@{|https://inuri-bucket-106wnz.s3.ap-northeast-2.amazonaws.com/${child.chimg}|}"
+								 class="img-fluid w-100 rounded-top rounded-bottom" alt="img">
 									
 							</div>
 						</div>
@@ -110,20 +111,44 @@
 							</nav>
 							<div class="tab-content mb-5">
 								<div class="tab-pane active" id="nav-about" role="tabpanel"
-									aria-labelledby="nav-about-tab">		
+									aria-labelledby="nav-about-tab">
+											
+								<!-- 페이징 및 후원자 목록 -->
+								<div class="row">
+    <div th:each="donation, iterStat : ${donations}" class="col-md-4 col-lg-3 col-sm-6 mb-3">
+        <div class="p-3 border border-secondary rounded shadow-sm" style="background-color: #f9f9f9;">
+            <strong>후원자 이름:</strong>
+            <span th:text="${donation.customer.name}"></span><br>
+            <strong>후원 금액:</strong>
+            <span th:text="${donation.donationAmount}"></span> 원<br>
+            <strong>후원 날짜:</strong>
+            <span th:text="${#temporals.format(donation.ddate, 'yyyy-MM-dd')}"></span><br>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex justify-content-center" th:if="${#lists.size(donations) > 16}">
+    <nav>
+        <ul class="pagination">
+            <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
+                <a class="page-link" th:href="@{/donations(page=${currentPage - 1})}">이전</a>
+            </li>
+            <li class="page-item" th:each="page : ${#numbers.range(1, totalPages)}" th:classappend="${page == currentPage} ? 'active'">
+                <a class="page-link" th:href="@{/donations(page=${page})}" th:text="${page}"></a>
+            </li>
+            <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
+                <a class="page-link" th:href="@{/donations(page=${currentPage + 1})}">다음</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
 								
-								
+
+        
 								
 								</div>
-								<div class="tab-pane" id="nav-mission" role="tabpanel"
-									aria-labelledby="nav-mission-tab">
-									<div class="d-flex">
-										<img src="img/avatar.jpg" class="img-fluid rounded-circle p-3"
-											style="width: 100px; height: 100px;" alt="">
-										
-									</div>
-									
-								</div>
+								
 								
 							</div>
 						</div>
