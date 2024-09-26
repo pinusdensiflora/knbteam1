@@ -128,7 +128,7 @@
 											th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
 											th:if="${page >= paging.number-5 and page <= paging.number+5}"
 											th:classappend="${page == paging.number} ? 'active'"
-											class="page-item"><a th:text="${page}" class="page-link"
+											class="page-item"><a th:text="${page+1}" class="page-link"
 											th:href="@{|?kw=${kw}&page=${page}|}"></a></li>
 										<li class="page-item"
 											th:classappend="${!paging.hasNext} ? 'disabled'"><a
