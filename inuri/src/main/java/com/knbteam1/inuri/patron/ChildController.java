@@ -57,17 +57,36 @@ public class ChildController {
             @RequestParam(value = "keyword", required = false, defaultValue = "") String keyword,
             @RequestParam(value = "searchType", required = false, defaultValue = "name") String searchType,
             @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "filter", defaultValue = "all") String filter, // 필터 파라미터 추가
             Model model) {
 
-        Page<Child> paging = childService.getList(page, keyword, searchType);
-        
-        // 검색 관련 정보 모델에 추가
+        // 필터에 따라 헤더 텍스트 설정
+        String headerTitle;
+        switch (filter) {
+            case "sponsored":
+                headerTitle = "후원받은 아동";
+                break;
+            case "unsponsored":
+                headerTitle = "후원이 필요한 아동";
+                break;
+            default:
+                headerTitle = "모든 아동";
+        }
+
+        // 필터에 따른 아동 목록 가져오기
+        Page<Child> paging = childService.getFilteredChildren(page, keyword, searchType, filter);
+
+        // 검색 및 필터 관련 정보 모델에 추가
         model.addAttribute("paging", paging);
         model.addAttribute("keyword", keyword);
         model.addAttribute("searchType", searchType);
+        model.addAttribute("headerTitle", headerTitle); // 헤더에 표시할 제목 전달
+        model.addAttribute("filter", filter); // 현재 필터 정보 전달
 
-        return "patron/child_list";  // 기존 페이지를 그대로 사용
+        return "patron/child_list";  // 목록 페이지로 이동
     }
+
+
 
     @GetMapping("/add_child")
     public String addChild(Model model) {
