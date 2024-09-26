@@ -127,7 +127,7 @@
     </div>
 </div>
 
-<div class="d-flex justify-content-center" th:if="${#lists.size(donations) > 9}">
+<div class="d-flex justify-content-center" th:if="${#lists.size(donations) > 16}">
     <nav>
         <ul class="pagination">
             <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
@@ -144,67 +144,6 @@
 </div>
 
 								
-<!-- 후원자 리스트 반복 시작 -->
-<!-- <div class="container-fluid donations">
-    <div class="container py-3">
-        <div class="tab-class text-center">
-            <div class="tab-content">
-                <div id="tab-1" class="tab-pane fade show p-0 active">
-                    <div class="row g-4">
-                        <div class="col-lg-12">
-                            <div class="row g-4">
-                                후원자 리스트 반복 시작
-                                <div th:each="donation : ${paging.content}" class="col-md-4 col-lg-4 col-sm-6">
-                                    <div class="rounded position-relative donation-item">
-                                        후원자 정보
-                                        <div class="p-4 border border-secondary rounded">
-                                            <strong>후원자 이름:</strong>
-                                            <span th:text="${donation.customer.name}"></span><br>
-                                            <strong>후원 금액:</strong>
-                                            <span th:text="${donation.donationAmount}"></span> 원<br>
-                                            <strong>후원 날짜:</strong>
-                                            <span th:text="${#temporals.format(donation.ddate, 'yyyy-MM-dd HH:mm')}"></span><br>
-                                        </div>
-                                    </div>
-                                </div>
-                                후원자 리스트 반복 끝
-
-                                검색 결과 및 후원자 목록
-                                <div class="row">
-                                    <div th:if="${paging.content.isEmpty()}" class="alert alert-warning">
-                                        검색 결과가 없습니다.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    페이징 처리 시작
-                    <div th:if="${!paging.isEmpty()}">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
-                                <a class="page-link" th:href="@{|?page=${paging.number-1}|}">
-                                    <span>이전</span>
-                                </a>
-                            </li>
-                            <li th:each="page: ${#numbers.sequence(1, paging.totalPages)}"
-                                th:if="${page >= paging.number and page <= paging.number+10}"
-                                th:classappend="${page == paging.number+1} ? 'active'"
-                                class="page-item">
-                                <a th:text="${page}" class="page-link" th:href="@{|?page=${page-1}|}"></a>
-                            </li>
-                            <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
-                                <a class="page-link" th:href="@{|?page=${paging.number+1}|}">
-                                    <span>다음</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    페이징 처리 끝
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
 
         
 								
