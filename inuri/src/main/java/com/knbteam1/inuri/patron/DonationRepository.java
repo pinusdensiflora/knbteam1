@@ -6,8 +6,10 @@
  */
 package com.knbteam1.inuri.patron;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface DonationRepository extends JpaRepository<Donation, Integer> {
-
+	Optional<Donation> findFirstByChild_ChidAndCustomer_Cid(Integer chid, Integer customerId);
 }
