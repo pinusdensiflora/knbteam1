@@ -22,4 +22,5 @@ public class MailService {
         message.setText(text);
         mailSender.send(message);
     }
+
 }

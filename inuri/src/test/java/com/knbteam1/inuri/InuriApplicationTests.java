@@ -38,7 +38,7 @@ class InuriApplicationTests {
     
 	
 	//작동을 위한 기본적인 Board 입니다. Board가 없다면 생성하고 진행
-    //@Test
+    @Test
     void makeBoard() {
     
     	Board notice = new Board();

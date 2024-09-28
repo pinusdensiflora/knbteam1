@@ -89,6 +89,8 @@ public class ChildController {
         } else {
             return "error/404"; // 아동이 없을 경우 404 페이지로 연결
         }
+//        return "redirect:/child_detail/" + childId; // 편지 전송 후 상세 페이지로 리다이렉트
+
     }
     
  // 특정 아동 상세 페이지
