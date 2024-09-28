@@ -154,7 +154,7 @@ function updateTotalAmount() {
 
 <!-- 진짜 결제 스크립트 -->
 <script>
-    /* IMP.init("imp27761772");
+     IMP.init("imp27761772");
 
     function requestpay() {
         const selectedDonationMethod = document.querySelector('input[name="btnradio"]:checked'); // 선택된 후원 방법
@@ -198,88 +198,6 @@ function updateTotalAmount() {
         );
     }
 
-    // 후원 정보 저장 요청
-    function saveDonation(method, amount, period, childId, customerId) {
-        // 서버로 후원 정보 전송
-        fetch("/donation/create", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                method: method,
-                amount: amount,
-                period: period,
-                childId: childId,
-                customerId: customerId
-            }),
-        })
-        .then(response => response.text())
-        .then(result => {
-            alert(result);  // 후원 성공 메시지
-        })
-        .catch(error => {
-            alert("후원 저장 실패: " + error.message);
-        });
-    } */
-    
-    function requestpay() {
-        const selectedDonationMethod = document.querySelector('input[name="btnradio"]:checked'); 
-        const totalAmount = document.getElementById('totalAmountValue').innerText.replace(/,/g, ''); 
-        const childId = document.getElementById('childId').value; 
-        const customerId = document.getElementById('customerId').value;  
-        const buyerEmail = document.getElementById('buyerEmail').value; 
-        const buyerName = document.getElementById('buyerName').value; 
-        const buyerPostcode = document.getElementById('buyerPostcode').value; 
-        const childName = document.getElementById('childName').value; 
-
-        if (!selectedDonationMethod) {
-            alert("후원 방법을 선택해 주세요.");
-            return;
-        }
-
-        const donationMethod = selectedDonationMethod.nextElementSibling.innerText; 
-        const donationPeriod = donationMethod === '정기 후원' ? 12 : 0;
-
-        // 결제 성공 가정
-        const response = {
-            success: true,  // 결제 성공을 가정
-            error_msg: ""   // 에러 메시지는 빈 값
-        };
-
-        if (response.success) {
-            alert("결제 성공");
-            // 결제 성공 시 후원 정보 서버에 저장
-            saveDonation(donationMethod, totalAmount, donationPeriod, childId, customerId);
-        } else {
-            alert("결제 실패: " + response.error_msg);
-        }
-    }
-
-    // 후원 정보 저장 요청
-    function saveDonation(method, amount, period, childId, customerId) {
-        // 서버로 후원 정보 전송
-        fetch("/donation/create", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                method: method,
-                amount: amount,
-                period: period,
-                childId: childId,
-                customerId: customerId
-            }),
-        })
-        .then(response => response.text())
-        .then(result => {
-            alert(result);  // 후원 성공 메시지
-        })
-        .catch(error => {
-            alert("후원 저장 실패: " + error.message);
-        });
-    }
 
 </script>
 
