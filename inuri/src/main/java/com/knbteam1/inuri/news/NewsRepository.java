@@ -12,6 +12,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface NewsRepository extends JpaRepository<News, Integer> {
 
@@ -23,5 +25,13 @@ public interface NewsRepository extends JpaRepository<News, Integer> {
 	Page<News> findAll(Pageable pageable);
 	
 	Page<News> findAll(Specification<News> spec, Pageable pageable);
+	
+	
+	/*
+	 * @Query("SELECT n FROM News n WHERE " +
+	 * "LOWER(FUNCTION('REPLACE', FUNCTION('REPLACE', n.ndesc, '<', ''), '>', '')) LIKE LOWER(CONCAT('%', :kw, '%')) "
+	 * + "OR LOWER(n.ntitle) LIKE LOWER(CONCAT('%', :kw, '%'))") Page<News>
+	 * findAllByKeyword(Pageable pageable, @Param("kw") String kw);
+	 */
 	
 }
