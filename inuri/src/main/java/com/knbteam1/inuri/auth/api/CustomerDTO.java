@@ -1,4 +1,6 @@
-package com.knbteam1.inuri.auth;
+package com.knbteam1.inuri.auth.api;
+
+import com.knbteam1.inuri.auth.Customer;
 
 public record CustomerDTO(Integer cid,
                           String username,

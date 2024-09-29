@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.knbteam1.inuri.auth.api.CustomerDTO;
+import com.knbteam1.inuri.auth.api.UserAlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -63,6 +65,27 @@ public class CustomerService implements UserDetailsService {
         Optional<Customer> oc = customerRepository.findByusername(username);
 
         return oc.get();
+    }
+
+    // RestAPI SignUp
+    public CustomerDTO apiSignUp(String username, String password, String name, String addr, String postcode, String tel) {
+
+        // 이미 유저가 있는 경우 오류 발생시킴
+        customerRepository.findByusername(username)
+                .ifPresent(user -> {
+                    throw new UserAlreadyExistsException(username);
+                });
+
+        Customer customer = Customer.of(username, passwordEncoder.encode(password), name, addr, postcode, tel);
+        customer.setCdate(LocalDateTime.now());
+        if (username.equals("admin") || username.equals("admin@admin.com")) {
+            customer.setRole("ROLE_ADMIN");
+        } else {
+            customer.setRole("ROLE_USER");
+        }
+        Customer saved = customerRepository.save(customer);
+
+        return CustomerDTO.from(saved);
     }
 
 }

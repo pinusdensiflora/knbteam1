@@ -93,10 +93,14 @@ public class Customer  implements UserDetails {
         return UserDetails.super.isCredentialsNonExpired();
     }
 
-	public static Customer of(String username, String password) {
+	public static Customer of(String username, String password, String name, String addr, String postcode, String ctel) {
 		Customer customer = new Customer();
 		customer.setUsername(username);
 		customer.setPassword(password);
+		customer.setName(name);
+		customer.setCaddr(addr);
+		customer.setPostcode(postcode);
+		customer.setCtel(ctel);
 
 		return customer;
 	}
