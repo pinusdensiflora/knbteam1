@@ -98,11 +98,21 @@ public class ChildService {
 
 
     // 검색 조건에 따른 아동 목록을 반환하는 메서드
-    public Page<Child> getList(int page, String keyword, String searchType) {
+    public Page<Child> getFilteredChildren(int page, String keyword, String searchType, String filter) {
         Pageable pageable = PageRequest.of(page, 9, Sort.by(Sort.Order.desc("chdate")));
-        Specification<Child> spec = search(keyword, searchType);
+        Specification<Child> spec = search(keyword, searchType); 
+
+        if (filter.equals("sponsored")) {
+            // 후원받은 아동 필터링 (후원 내역이 있는 경우)
+            spec = spec.and((root, query, cb) -> cb.isNotEmpty(root.get("donations")));
+        } else if (filter.equals("unsponsored")) {
+            // 후원이 필요한 아동 필터링 (후원 내역이 없는 경우)
+            spec = spec.and((root, query, cb) -> cb.isEmpty(root.get("donations")));
+        }
+
         return childRepository.findAll(spec, pageable);
     }
+
 
     // ID로 아동 삭제
     public void deleteChildById(Integer id) {
