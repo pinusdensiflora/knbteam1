@@ -24,14 +24,38 @@
 </div>
 
 <!-- 편지 작성 폼 -->
-<form action="#" th:action="@{/send_letter}" method="post">
+<form action="#" th:action="@{/send_letter}" method="post" onsubmit="cleanMessage()">
     <input type="hidden" name="childId" th:value="${child.chid}" />
     <div class="form-group">
         <textarea class="form-control" id="summernote" name="message" rows="4"></textarea>
     </div>
-    <button type="submit" class="btn btn-primary mt-3">편지 보내기</button>
+    <button type="submit" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary mt-3 float-end">
+        <i class="fa fa-envelope me-2 text-primary"></i>편지 보내기
+    </button>
 </form>
-
+<!-- 편지 p태그 제거 -->
+<script>
+    function cleanMessage() {
+        const textarea = document.getElementById('summernote');
+        // HTML을 텍스트로 변환
+        textarea.value = textarea.value.replace(/<\/?p>/g, ''); // <p>와 </p>를 모두 제거
+    }
+</script>
+<script>
+    $('#summernote').summernote({
+        placeholder: '내용을 입력해 주세요.',
+        tabsize: 2,
+        height: 350,
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+        ]
+    });
+</script>
 
 
 </div>
