@@ -7,378 +7,512 @@
  -->
 
 <!DOCTYPE html>
-<html data-navigation-type="default" data-navbar-horizontal-shape="default" lang="en-US" dir="ltr"
-      xmlns:sec="http://www.w3.org/1999/xhtml">
+<html data-navigation-type="default"
+	data-navbar-horizontal-shape="default" lang="en-US" dir="ltr"
+	xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf-8">
-    <title>Inuri</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
+<meta charset="utf-8">
+<title>Inuri</title>
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="" name="keywords">
+<meta content="" name="description">
 
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet">
+<!-- Google Web Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap"
+	rel="stylesheet">
 
-    <!-- Icon Font Stylesheet -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+<!-- Icon Font Stylesheet -->
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+	rel="stylesheet">
 
-    <!-- Libraries Stylesheet -->
-    <link href="/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
-    <link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+<!-- Libraries Stylesheet -->
+<link href="/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+<link href="/lib/owlcarousel/assets/owl.carousel.min.css"
+	rel="stylesheet">
 
 
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
+<!-- Customized Bootstrap Stylesheet -->
+<link href="/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Template Stylesheet -->
-    <link href="/css/style.css" rel="stylesheet">
+<!-- Template Stylesheet -->
+<link href="/css/style.css" rel="stylesheet">
 
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+	integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+	crossorigin="anonymous"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+	
+	
+	<link href="/css/custom.css" rel="stylesheet">
+<script type="text/javascript"
+	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
+	charset="utf-8"></script>
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+	
 </head>
 
 <body>
 
-<!-- ===============================================-->
-<!--    Main Content-->
-<!-- ===============================================-->
-<main class="main" id="top">
+	<!-- ===============================================-->
+	<!--    Main Content-->
+	<!-- ===============================================-->
+	<main class="main" id="top">
 
-    <!-- 네비게이션바 -->
-    <nav th:replace="~{navbar :: navbarFragment}"></nav>
+		<!-- 네비게이션바 -->
+		<nav th:replace="~{navbar :: navbarFragment}"></nav>
 
-    <!-- ============================================-->
-    <!-- <section> begin ============================-->
-    <section class="py-0">
-
-
-
-
-        <!-- Hero Start -->
-        <div class="container-fluid py-5 mb-5 hero-header">
-            <div class="container py-5">
-                <div class="row g-5 align-items-center">
-                    <div class="col-md-12 col-lg-7">
-                        <h4 class="mb-3 text-secondary">아동후원, 아이누리와 함께하세요</h4>
-                        <h1 class="mb-5 display-3 text-primary">당신의 후원이 <br> 세상을 바꿉니다.</h1>
-                       
-                    </div>
-                    <div class="col-md-12 col-lg-5">
-                        <div id="carouselId" class="carousel slide position-relative" data-bs-ride="carousel">
-                            <div class="carousel-inner" role="listbox">
-                                <div class="carousel-item active rounded">
-                                    <img src="/child/r1.png" class="img-fluid w-100 h-100 bg-secondary rounded" alt="First slide">
-                                    <!-- <a href="#" class="btn px-4 py-2 text-white rounded">후원하기</a> -->
-                                </div>
-                                <div class="carousel-item rounded">
-                                    <img src="/child/r2.png" class="img-fluid w-100 h-100 rounded" alt="Second slide">
-                                    
-                                </div>
-                            </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselId" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselId" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Hero End -->
-
-
-        <!-- Featurs Section Start -->
-        <div class="container-fluid featurs py-5">
-            <div class="container py-5">
-                <div class="row g-4">
-                    <div class="col-md-6 col-lg-3">
-                        <div class="featurs-item text-center rounded bg-light p-4">
-                            <div class="featurs-icon btn-square rounded-circle bg-secondary mb-5 mx-auto">
-                                <i class="fas fa-car-side fa-3x text-white"></i>
-                            </div>
-                            <div class="featurs-content text-center">
-                                <h5>찾아오시는 길</h5>
-                                <p class="mb-0">대구 산격동 대학로80</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <div class="featurs-item text-center rounded bg-light p-4">
-                            <div class="featurs-icon btn-square rounded-circle bg-secondary mb-5 mx-auto">
-                                <i class="fas fa-user-shield fa-3x text-white"></i>
-                            </div>
-                            <div class="featurs-content text-center">
-                                <h5>청렴한 후원</h5>
-                                <p class="mb-0">후원금의 100% 전달</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <div class="featurs-item text-center rounded bg-light p-4">
-                            <div class="featurs-icon btn-square rounded-circle bg-secondary mb-5 mx-auto">
-                                <i class="fas fa-exchange-alt fa-3x text-white"></i>
-                            </div>
-                            <div class="featurs-content text-center">
-                                <h5>친밀한 소통</h5>
-                                <p class="mb-0">아이들과 좋은 교류를 나누세요</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <div class="featurs-item text-center rounded bg-light p-4">
-                            <div class="featurs-icon btn-square rounded-circle bg-secondary mb-5 mx-auto">
-                                <i class="fa fa-phone-alt fa-3x text-white"></i>
-                            </div>
-                            <div class="featurs-content text-center">
-                                <h5>전화 (9:00-16:00)</h5>
-                                <p class="mb-0">070-0000-0000</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Featurs Section End -->
-
-
-		<!-- Banner Section Start-->
-        <div class="container-fluid banner bg-secondary my-5">
-            <div class="container py-5">
-                <div class="row g-4 align-items-center">
-                    <div class="col-lg-6">
-                        <div class="py-4">
-                            <h1 class="display-3 text-white">아이누리와 함께하는</h1>
-                            <p class="fw-normal display-3 text-dark mb-4">민아 이야기</p>
-                            <p class="mb-4 text-dark">집에서 홀로 밥을 해먹어야하는 민아에게 적절한 영양식을 제공해주세요</p>
-                            <a href="/child_list" class="banner-btn btn border-2 border-white rounded-pill text-dark py-3 px-5">후원하기</a>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="position-relative">
-                            <img src="/child/banner.png" class="img-fluid w-100 rounded" alt="">
-                            <div class="d-flex align-items-center justify-content-center bg-white rounded-circle position-absolute" style="width: 140px; height: 140px; top: 0; left: 0;">
-                                <h1 style="font-size: 100px;">d</h1>
-                                <div class="d-flex flex-column">
-                                    <span class="h2 mb-0">민아</span>
-                                    <span class="h4 text-muted mb-0">8세</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Banner Section End -->
-
-        
-      </section>
-    <!-- <section> close ============================-->
-    <!-- ============================================-->
-</main>
-
-
-
-        <!-- Tastimonial Start -->
-        <div class="container-fluid testimonial py-5">
-            <div class="container py-5">
-                <div class="testimonial-header text-center">
-                    <h4 class="text-primary">아이누리를 빛내주신 고마운 분들을 소개합니다!</h4>
-                    <h1 class="display-5 mb-5 text-dark">명예후원자</h1>
-                </div>
-                <div class="owl-carousel testimonial-carousel">
-                    <div class="testimonial-item img-border-radius bg-light rounded p-4">
-                        <div class="position-relative">
-                            <i class="fa fa-quote-right fa-2x text-secondary position-absolute" style="bottom: 30px; right: 0;"></i>
-                            <div class="mb-4 pb-4 border-bottom border-secondary">
-                                <p class="mb-0">아이누리 아동 건강검진 프로그램 의료 지원
-                                </p>
-                            </div>
-                            <div class="d-flex align-items-center flex-nowrap">
-                                <div class="bg-secondary rounded">
-                                    <img src="/img/face1.png" class="img-fluid rounded" style="width: 100px; height: 100px;" alt="">
-                                </div>
-                                <div class="ms-4 d-block">
-                                    <h4 class="text-dark">홍미숙</h4>
-                                    <p class="m-0 pb-3">청렴한 후원을 이루는 아이누리의 발전을 기원합니다</p>
-                                    <div class="d-flex pe-5">
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-item img-border-radius bg-light rounded p-4">
-                        <div class="position-relative">
-                            <i class="fa fa-quote-right fa-2x text-secondary position-absolute" style="bottom: 30px; right: 0;"></i>
-                            <div class="mb-4 pb-4 border-bottom border-secondary">
-                                <p class="mb-0">아이누리 자원봉사 활동 최장 이력 보유자</p>
-                            </div>
-                            <div class="d-flex align-items-center flex-nowrap">
-                                <div class="bg-secondary rounded">
-                                    <img src="/img/face2.png" class="img-fluid rounded" style="width: 100px; height: 100px;" alt="">
-                                </div>
-                                <div class="ms-4 d-block">
-                                    <h4 class="text-dark">오민호</h4>
-                                    <p class="m-0 pb-3">진정한 나눔과 사랑으로 가득한 아이누리, 파이팅!</p>
-                                    <div class="d-flex pe-5">
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-item img-border-radius bg-light rounded p-4">
-                        <div class="position-relative">
-                            <i class="fa fa-quote-right fa-2x text-secondary position-absolute" style="bottom: 30px; right: 0;"></i>
-                            <div class="mb-4 pb-4 border-bottom border-secondary">
-                                <p class="mb-0">아이누리 최장기 후원자</p>
-                            </div>
-                            <div class="d-flex align-items-center flex-nowrap">
-                                <div class="bg-secondary rounded">
-                                    <img src="/img/face3.png" class="img-fluid rounded" style="width: 100px; height: 100px;" alt="">
-                                </div>
-                                <div class="ms-4 d-block">
-                                    <h4 class="text-dark">최정현</h4>
-                                    <p class="m-0 pb-3">아이누리의 모든 활동에 큰 응원을 보냅니다!</p>
-                                    <div class="d-flex pe-5">
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Tastimonial End -->
+		<!-- ============================================-->
+		<!-- <section> begin ============================-->
+		<section class="py-0">
 
 
 
 
+			<!-- Hero Start -->
+			<div class="container-fluid py-5 mb-5 hero-header">
+				<div class="container py-5">
+					<div class="row g-5 align-items-center">
+						<div class="col-md-12 col-lg-7">
+							<h4 class="mb-3 text-secondary">아동후원, 아이누리와 함께하세요</h4>
+							<h1 class="mb-5 display-3 text-primary">
+								당신의 후원이 <br> 세상을 바꿉니다.
+							</h1>
+
+						</div>
+						<div class="col-md-12 col-lg-5">
+							<div id="carouselId" class="carousel slide position-relative"
+								data-bs-ride="carousel">
+								<div class="carousel-inner" role="listbox">
+									<div class="carousel-item active rounded">
+										<img src="/child/r1.png"
+											class="img-fluid w-100 h-100 bg-secondary rounded"
+											alt="First slide">
+										<!-- <a href="#" class="btn px-4 py-2 text-white rounded">후원하기</a> -->
+									</div>
+									<div class="carousel-item rounded">
+										<img src="/child/r2.png" class="img-fluid w-100 h-100 rounded"
+											alt="Second slide">
+
+									</div>
+								</div>
+								<button class="carousel-control-prev" type="button"
+									data-bs-target="#carouselId" data-bs-slide="prev">
+									<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+									<span class="visually-hidden">Previous</span>
+								</button>
+								<button class="carousel-control-next" type="button"
+									data-bs-target="#carouselId" data-bs-slide="next">
+									<span class="carousel-control-next-icon" aria-hidden="true"></span>
+									<span class="visually-hidden">Next</span>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Hero End -->
+
+
+			<!-- Featurs Section Start -->
+			<div class="container-fluid featurs py-5">
+				<div class="container py-5">
+					<div class="row g-4">
+						<div class="col-md-6 col-lg-3">
+							<div class="featurs-item text-center rounded bg-light p-4">
+								<div
+									class="featurs-icon btn-square rounded-circle bg-secondary mb-5 mx-auto">
+									<i class="fas fa-car-side fa-3x text-white"></i>
+								</div>
+								<div class="featurs-content text-center">
+									<h5>찾아오시는 길</h5>
+									<p class="mb-0">대구 산격동 대학로80</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6 col-lg-3">
+							<div class="featurs-item text-center rounded bg-light p-4">
+								<div
+									class="featurs-icon btn-square rounded-circle bg-secondary mb-5 mx-auto">
+									<i class="fas fa-user-shield fa-3x text-white"></i>
+								</div>
+								<div class="featurs-content text-center">
+									<h5>청렴한 후원</h5>
+									<p class="mb-0">후원금의 100% 전달</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6 col-lg-3">
+							<div class="featurs-item text-center rounded bg-light p-4">
+								<div
+									class="featurs-icon btn-square rounded-circle bg-secondary mb-5 mx-auto">
+									<i class="fas fa-exchange-alt fa-3x text-white"></i>
+								</div>
+								<div class="featurs-content text-center">
+									<h5>친밀한 소통</h5>
+									<p class="mb-0">아이들과 좋은 교류를 나누세요</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6 col-lg-3">
+							<div class="featurs-item text-center rounded bg-light p-4">
+								<div
+									class="featurs-icon btn-square rounded-circle bg-secondary mb-5 mx-auto">
+									<i class="fa fa-phone-alt fa-3x text-white"></i>
+								</div>
+								<div class="featurs-content text-center">
+									<h5>전화 (9:00-16:00)</h5>
+									<p class="mb-0">070-0000-0000</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Featurs Section End -->
+
+
+			<!-- Banner Section Start-->
+			<div class="container-fluid banner bg-secondary my-5">
+				<div class="container py-5">
+					<div class="row g-4 align-items-center">
+						<div class="col-lg-6">
+							<div class="py-4">
+								<h1 class="display-3 text-white">아이누리와 함께하는</h1>
+								<p class="fw-normal display-3 text-dark mb-4">민아 이야기</p>
+								<p class="mb-4 text-dark">집에서 홀로 밥을 해먹어야하는 민아에게 적절한 영양식을
+									제공해주세요</p>
+								<a href="/child_list"
+									class="banner-btn btn border-2 border-white rounded-pill text-dark py-3 px-5">후원하기</a>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="position-relative">
+								<img src="/child/banner.png" class="img-fluid w-100 rounded"
+									alt="">
+								<div
+									class="d-flex align-items-center justify-content-center bg-white rounded-circle position-absolute"
+									style="width: 140px; height: 140px; top: 0; left: 0;">
+									<h1 style="font-size: 100px;">d</h1>
+									<div class="d-flex flex-column">
+										<span class="h2 mb-0">민아</span> <span
+											class="h4 text-muted mb-0">8세</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Banner Section End -->
+
+
+		</section>
+		<!-- <section> close ============================-->
+		<!-- ============================================-->
+	</main>
 
 
 
-<!-- Footer Start -->
-        <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5">
-            <div class="container py-5">
-                <div class="pb-4 mb-4" style="border-bottom: 1px solid rgba(226, 175, 24, 0.5) ;">
-                    <div class="row g-4">
-                        <div class="col-lg-3">
-                            <a href="#">
-                                <h1 class="text-primary mb-0">INURI</h1>
-                                <p class="text-secondary mb-0">청렴한 아동후원</p>
-                            </a>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="position-relative mx-auto">
-                                <input class="form-control border-0 w-100 py-3 px-4 rounded-pill" type="text" placeholder="검색어를 입력하세요">
-                                <button type="submit" class="btn btn-primary border-0 border-secondary py-3 px-4 position-absolute rounded-pill text-white" style="top: 0; right: 0;">Search</button>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="d-flex justify-content-end pt-3">
-                                <a class="btn  btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-youtube"></i></a>
-                                <a class="btn btn-outline-secondary btn-md-square rounded-circle" href=""><i class="fab fa-linkedin-in"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row g-5">
-                    <div class="col-lg-3 col-md-6">
-                        <div class="footer-item">
-                            <h4 class="text-light mb-3">청렴한 후원, <br>아이누리와 함께하세요</h4>
-                            <p class="">아이누리는 모든 후원금이 신뢰할 수 있는 방식으로 관리되고, <br>아동들에게 직접적으로 도움이 될 수 있도록 투명하게 전달되는 플랫폼입니다. 
-                           		후원자 여러분의 소중한 기부가 가장 <br>좋은 쓰임이 될 수 있도록 최선을 다하겠습니다.</p>
-                            <a href="/news/address" class="btn border-secondary py-2 px-4 rounded-pill text-primary">찾아오시는 길</a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="d-flex flex-column text-start footer-item">
-                            <h4 class="text-light mb-3">공지사항/소식</h4>
-                            <a class="btn-link" href="/news/1">공지사항</a>
-                            <a class="btn-link" href="/news/2">기업소개</a>
-                            <a class="btn-link" href="/news/3">후원금 사용내역</a>
-                            <a class="btn-link" href="/news/5">진행프로젝트</a>
-                            <a class="btn-link" href="/news/6">신규후원아동</a>
-                            <a class="btn-link" href="/news/7">인재채용</a>
-                        	<a class="btn-link" href="/news/8">보도자료</a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="d-flex flex-column text-start footer-item">
-                            <h4 class="text-light mb-3">고객지원</h4>
-                            <a class="btn-link" href="/news/4">자주묻는질문(FAQ)</a>
-                            <a class="btn-link" href="/news/assist/question">1:1 문의하기</a>
-                     
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="footer-item">
-                            <h4 class="text-light">INFORMATION</h4>
-                            <p><h5 class="text-light">주소 :</h5>대구 북구 산격동 대학로 80 정보전산원</p>
-                            <p><h5 class="text-light">이메일 : </h5>infomation@inuri.com</p>
-                            <p><h5 class="text-light">고객센터 : </h5>(+012) 3456 7890</p>
-                            
-                            <img src="img/payment.png" class="img-fluid" alt="">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Footer End -->
+	<!-- Tastimonial Start -->
+	<div class="container-fluid testimonial py-5">
+		<div class="container py-5">
+			<div class="testimonial-header text-center">
+				<h4 class="text-primary">아이누리를 빛내주신 고마운 분들을 소개합니다!</h4>
+				<h1 class="display-5 mb-5 text-dark">명예후원자</h1>
+			</div>
+			<div class="owl-carousel testimonial-carousel">
+				<div class="testimonial-item img-border-radius bg-light rounded p-4">
+					<div class="position-relative">
+						<i
+							class="fa fa-quote-right fa-2x text-secondary position-absolute"
+							style="bottom: 30px; right: 0;"></i>
+						<div class="mb-4 pb-4 border-bottom border-secondary">
+							<p class="mb-0">아이누리 아동 건강검진 프로그램 의료 지원</p>
+						</div>
+						<div class="d-flex align-items-center flex-nowrap">
+							<div class="bg-secondary rounded">
+								<img src="/img/face1.png" class="img-fluid rounded"
+									style="width: 100px; height: 100px;" alt="">
+							</div>
+							<div class="ms-4 d-block">
+								<h4 class="text-dark">홍미숙</h4>
+								<p class="m-0 pb-3">청렴한 후원을 이루는 아이누리의 발전을 기원합니다</p>
+								<div class="d-flex pe-5">
+									<i class="fas fa-star text-primary"></i> <i
+										class="fas fa-star text-primary"></i> <i
+										class="fas fa-star text-primary"></i> <i
+										class="fas fa-star text-primary"></i> <i
+										class="fas fa-star text-primary"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="testimonial-item img-border-radius bg-light rounded p-4">
+					<div class="position-relative">
+						<i
+							class="fa fa-quote-right fa-2x text-secondary position-absolute"
+							style="bottom: 30px; right: 0;"></i>
+						<div class="mb-4 pb-4 border-bottom border-secondary">
+							<p class="mb-0">아이누리 자원봉사 활동 최장 이력 보유자</p>
+						</div>
+						<div class="d-flex align-items-center flex-nowrap">
+							<div class="bg-secondary rounded">
+								<img src="/img/face2.png" class="img-fluid rounded"
+									style="width: 100px; height: 100px;" alt="">
+							</div>
+							<div class="ms-4 d-block">
+								<h4 class="text-dark">오민호</h4>
+								<p class="m-0 pb-3">진정한 나눔과 사랑으로 가득한 아이누리, 파이팅!</p>
+								<div class="d-flex pe-5">
+									<i class="fas fa-star text-primary"></i> <i
+										class="fas fa-star text-primary"></i> <i
+										class="fas fa-star text-primary"></i> <i
+										class="fas fa-star text-primary"></i> <i
+										class="fas fa-star text-primary"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="testimonial-item img-border-radius bg-light rounded p-4">
+					<div class="position-relative">
+						<i
+							class="fa fa-quote-right fa-2x text-secondary position-absolute"
+							style="bottom: 30px; right: 0;"></i>
+						<div class="mb-4 pb-4 border-bottom border-secondary">
+							<p class="mb-0">아이누리 최장기 후원자</p>
+						</div>
+						<div class="d-flex align-items-center flex-nowrap">
+							<div class="bg-secondary rounded">
+								<img src="/img/face3.png" class="img-fluid rounded"
+									style="width: 100px; height: 100px;" alt="">
+							</div>
+							<div class="ms-4 d-block">
+								<h4 class="text-dark">최정현</h4>
+								<p class="m-0 pb-3">아이누리의 모든 활동에 큰 응원을 보냅니다!</p>
+								<div class="d-flex pe-5">
+									<i class="fas fa-star text-primary"></i> <i
+										class="fas fa-star text-primary"></i> <i
+										class="fas fa-star text-primary"></i> <i
+										class="fas fa-star text-primary"></i> <i
+										class="fas fa-star text-primary"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Tastimonial End -->
 
 
-<script>
-    $('#summernote').summernote({
-        placeholder: 'about',
-        tabsize: 2,
-        height: 120,
-        toolbar: [
-            ['style', ['style']],
-            ['font', ['bold', 'underline', 'clear']],
-            ['color', ['color']],
-            ['para', ['ul', 'ol', 'paragraph']],
-            ['table', ['table']],
-            ['insert', ['link', 'picture', 'video']],
-        ]
-    });
-</script>
+	<!-- 챗봇시작 -->
+	<div class="chat-icon" id="chatIcon">
+		<!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon">
+            <path d="M12 2C6.48 2 2 6.48 2 12c0 5.52 4.48 10 10 10 1.94 0 3.73-.55 5.26-1.49L22 22l-2.51-5.26C21.45 14.73 22 13.42 22 12c0-5.52-4.48-10-10-10zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+        </svg> -->
+		<img src="/img/chaticon.png">
+	</div>
+
+	<div class="chat-widget" id="chatWidget">
+		<div class="chat-header">안녕 인공지능 챗봇</div>
+		<div class="chat-body" id="chatBody">
+			<div id="result"></div>
+			<!-- result에 응답이 띄워짐 -->
+		</div>
 
 
-<!-- JavaScript Libraries -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/lib/easing/easing.min.js"></script>
-<script src="/lib/waypoints/waypoints.min.js"></script>
-<script src="/lib/lightbox/js/lightbox.min.js"></script>
-<script src="/lib/owlcarousel/owl.carousel.min.js"></script>
+		<div class="chat-footer">
+			<input type="text" name="msg" id="msg"
+				placeholder="Type your message...">
+			<button onclick="sendmsg()">버튼</button>
+		</div>
+	</div>
 
-<!-- Template Javascript -->
-<script src="/js/main.js"></script>
+
+
+
+	<!-- 챗봇끝 -->
+
+
+
+
+	<!-- Footer Start -->
+	<div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5">
+		<div class="container py-5">
+			<div class="pb-4 mb-4"
+				style="border-bottom: 1px solid rgba(226, 175, 24, 0.5);">
+				<div class="row g-4">
+					<div class="col-lg-3">
+						<a href="#">
+							<h1 class="text-primary mb-0">INURI</h1>
+							<p class="text-secondary mb-0">청렴한 아동후원</p>
+						</a>
+					</div>
+					<div class="col-lg-6">
+						<div class="position-relative mx-auto">
+							<input class="form-control border-0 w-100 py-3 px-4 rounded-pill"
+								type="text" placeholder="검색어를 입력하세요">
+							<button type="submit"
+								class="btn btn-primary border-0 border-secondary py-3 px-4 position-absolute rounded-pill text-white"
+								style="top: 0; right: 0;">Search</button>
+						</div>
+					</div>
+					<div class="col-lg-3">
+						<div class="d-flex justify-content-end pt-3">
+							<a
+								class="btn  btn-outline-secondary me-2 btn-md-square rounded-circle"
+								href=""><i class="fab fa-twitter"></i></a> <a
+								class="btn btn-outline-secondary me-2 btn-md-square rounded-circle"
+								href=""><i class="fab fa-facebook-f"></i></a> <a
+								class="btn btn-outline-secondary me-2 btn-md-square rounded-circle"
+								href=""><i class="fab fa-youtube"></i></a> <a
+								class="btn btn-outline-secondary btn-md-square rounded-circle"
+								href=""><i class="fab fa-linkedin-in"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row g-5">
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-item">
+						<h4 class="text-light mb-3">
+							청렴한 후원, <br>아이누리와 함께하세요
+						</h4>
+						<p class="">
+							아이누리는 모든 후원금이 신뢰할 수 있는 방식으로 관리되고, <br>아동들에게 직접적으로 도움이 될 수
+							있도록 투명하게 전달되는 플랫폼입니다. 후원자 여러분의 소중한 기부가 가장 <br>좋은 쓰임이 될 수 있도록
+							최선을 다하겠습니다.
+						</p>
+						<a href="/news/address"
+							class="btn border-secondary py-2 px-4 rounded-pill text-primary">찾아오시는
+							길</a>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="d-flex flex-column text-start footer-item">
+						<h4 class="text-light mb-3">공지사항/소식</h4>
+						<a class="btn-link" href="/news/1">공지사항</a> <a class="btn-link"
+							href="/news/2">기업소개</a> <a class="btn-link" href="/news/3">후원금
+							사용내역</a> <a class="btn-link" href="/news/5">진행프로젝트</a> <a
+							class="btn-link" href="/news/6">신규후원아동</a> <a class="btn-link"
+							href="/news/7">인재채용</a> <a class="btn-link" href="/news/8">보도자료</a>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="d-flex flex-column text-start footer-item">
+						<h4 class="text-light mb-3">고객지원</h4>
+						<a class="btn-link" href="/news/4">자주묻는질문(FAQ)</a> <a
+							class="btn-link" href="/news/assist/question">1:1 문의하기</a>
+
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-item">
+						<h4 class="text-light">INFORMATION</h4>
+						<p>
+						<h5 class="text-light">주소 :</h5>
+						대구 북구 산격동 대학로 80 정보전산원
+						</p>
+						<p>
+						<h5 class="text-light">이메일 :</h5>
+						infomation@inuri.com
+						</p>
+						<p>
+						<h5 class="text-light">고객센터 :</h5>
+						(+012) 3456 7890
+						</p>
+
+						<img src="img/payment.png" class="img-fluid" alt="">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Footer End -->
+
+
+
+	<script>
+		function sendmsg() {
+
+			//챗봇용
+			msg = $("#msg").val();//id 값으로 input 접근
+			//alert(msg);
+			$.ajax({ //ajax를 사용
+				type : "POST", //포스트방식으로
+				url : "/gpt/response", //해당 주소로 데이터 전송
+				data : {
+					msg : msg
+				},
+				success : function(result) {//성공시
+					document.getElementById('result').innerHTML = result
+							+ "......(줄임)";
+				},
+				error : function(request, status, error) {//실패시
+					//alert(request.status + " " + request.responseText);
+					refresh();
+
+				}
+			});
+
+		}
+	</script>
+
+	<script>
+		document
+				.getElementById('chatIcon')
+				.addEventListener(
+						'click',
+						function() {
+							const chatWidget = document
+									.getElementById('chatWidget');
+							chatWidget.style.display = chatWidget.style.display === 'none'
+									|| chatWidget.style.display === '' ? 'block'
+									: 'none';
+						});
+
+		document.getElementById('sendButton').addEventListener('click',
+				function() {
+					const chatInput = document.getElementById('chatInput');
+					const chatBody = document.getElementById('chatBody');
+
+					if (chatInput.value.trim() !== '') {
+						const message = document.createElement('p');
+						message.textContent = chatInput.value;
+						chatBody.appendChild(message);
+						chatInput.value = ''; // Clear input field
+					}
+				});
+	</script>
+
+
+	<!-- JavaScript Libraries -->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="/lib/easing/easing.min.js"></script>
+	<script src="/lib/waypoints/waypoints.min.js"></script>
+	<script src="/lib/lightbox/js/lightbox.min.js"></script>
+	<script src="/lib/owlcarousel/owl.carousel.min.js"></script>
+
+	<!-- Template Javascript -->
+	<script src="/js/main.js"></script>
 
 </body>
 
-</html> 
-        
+</html>
