@@ -124,9 +124,7 @@
 															<a th:href="@{|/news/article/${news.nid}|}">[[${news.ntitle}]]</a>
 														</p>
 													</td>
-													<td>
-														<p class="mb-0 mt-4">[[${news.ndate}]]</p>
-													</td>
+													<td th:text="${#temporals.format(news.ndate, 'yyyy-MM-dd HH:mm')}"></td>
 												</tr>
 											</th:block>
 										</tbody>
