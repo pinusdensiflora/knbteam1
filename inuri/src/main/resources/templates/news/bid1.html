@@ -31,19 +31,24 @@
 					<div class="row g-4 p-2">
 						<div class="col-xl-3">
 
-
+							<form th:action="@{/news/search}" method="get" id="searchForm">
+							
+							
+								<input type="hidden" id="kw" name="kw" th:value="${kw}">
+								<input type="hidden" id="page" name="page"
+									th:value="${paging.number}">
+							
 							<div class="input-group w-100 mx-auto d-flex">
 								<input type="text" class="form-control p-3"
 									placeholder="검색어를 입력하세요" th:value="${kw}" id="search_kw">
 								<button class="btn btn-primary " type="submit" id="btn_search">
 									<i class="fa fa-search"></i>
 								</button>
+								
 							</div>
-							<form th:action="@{/news/search}" method="get" id="searchForm">
-								<input type="hidden" id="kw" name="kw" th:value="${kw}">
-								<input type="hidden" id="page" name="page"
-									th:value="${paging.number}">
 							</form>
+								
+							
 
 
 						</div>
@@ -119,9 +124,7 @@
 															<a th:href="@{|/news/article/${news.nid}|}">[[${news.ntitle}]]</a>
 														</p>
 													</td>
-													<td>
-														<p class="mb-0 mt-4">[[${news.ndate}]]</p>
-													</td>
+													<td th:text="${#temporals.format(news.ndate, 'yyyy-MM-dd HH:mm')}"></td>
 												</tr>
 											</th:block>
 										</tbody>

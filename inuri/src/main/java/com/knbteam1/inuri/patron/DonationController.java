@@ -2,7 +2,7 @@
  * 생성자 : 김근환 
  * 생성일 : 9.15 
  * 연락처 : ghwan07@gmail.com
- * 수정일 : 9.24
+ * 수정일 : 9.26
  */
 package com.knbteam1.inuri.patron;
 
@@ -14,6 +14,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,12 +42,29 @@ public class DonationController {
     @Autowired
     private CustomerService customerService;
 
-    // 후원 페이지 렌더링 & 정보 가져오기
+ // 후원 페이지 렌더링 & 정보 가져오기
     @GetMapping("/donate")
     public String donate(@RequestParam("childId") Integer childId, Model model) {
         Optional<Child> child = childService.getChildById(childId);
-        Customer currentCustomer = customerService.authen(); // 현재 로그인된 고객 정보 가져오기 (authen 사용)
         
+        // 현재 로그인된 고객 정보 가져오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        
+        // 로그인되지 않은 경우 로그인 페이지로 리다이렉트
+        if (authentication == null || !authentication.isAuthenticated() || "anonymousUser".equals(authentication.getPrincipal())) {
+            return "redirect:/signin"; // CustomerController의 로그인 페이지로 리다이렉트
+        }
+
+        // Customer 객체를 생성하거나 필요한 정보를 추출
+        // UserDetails에서 필요한 정보를 추출하여 Customer 객체를 생성하는 과정
+        Customer currentCustomer = new Customer(); // Customer 객체 생성
+       
+        if (authentication.getPrincipal() instanceof UserDetails) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            currentCustomer.setUsername(userDetails.getUsername()); // 필요한 정보 설정
+            
+        }
+
         if (child.isPresent()) {
             model.addAttribute("child", child.get());
             model.addAttribute("customer", currentCustomer); // 고객 정보를 모델에 추가

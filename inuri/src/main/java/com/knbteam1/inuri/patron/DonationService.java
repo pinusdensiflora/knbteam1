@@ -7,6 +7,7 @@
 package com.knbteam1.inuri.patron;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,13 +34,15 @@ public class DonationService {
 
         Donation savedDonation = donationRepository.save(donation);  // DB에 저장
         
-     // 이메일 전송
+        // 이메일 전송
         String emailSubject = "후원이 완료되었습니다.";
         String emailBody = customer.getName() + "님, " + child.getChname()+ " 어린이에게 " + amount + "원을 후원해주셔서 감사합니다.";  // 고객 이름 사용
         mailService.create(customer.getUsername(), emailSubject, emailBody);
 
         return savedDonation;
     }
-    
-    
+
+    public Optional<Donation> findByChild_ChidAndCustomer_Cid(Integer childId, Integer customerId) {
+        return donationRepository.findFirstByChild_ChidAndCustomer_Cid(childId, customerId);
+    }
 }

@@ -30,8 +30,9 @@ public class Child {
     private String chname; // 이름
     private String chimg; // 이미지
     private String chgender; // 성별
-    private String chlocation; // 거주지 (국가를 저장하는 필드)
+    private String chlocation; // 거주지
     private String chdesc; // 아동 설명
+    private String chemail; // 아동 이메일 주소
 
     @OneToMany(mappedBy = "child")
     private List<Donation> donations; // 후원 내역
