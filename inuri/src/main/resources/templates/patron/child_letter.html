@@ -29,9 +29,25 @@
     <div class="form-group">
         <textarea class="form-control" id="summernote" name="message" rows="4"></textarea>
     </div>
-    <button type="submit" class="btn btn-primary mt-3">편지 보내기</button>
-</form>
+    <button type="submit" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary mt-3 float-end">
+    <i class="fa fa-envelope me-2 text-primary"></i>편지 보내기</button>
 
+</form>
+<script>
+    $('#summernote').summernote({
+        placeholder: '내용을 입력해 주세요.',
+        tabsize: 2,
+        height: 350,
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+        ]
+    });
+</script>
 
 
 </div>
