@@ -133,7 +133,7 @@ public class NewsService {
 		return newsRepository.findAll(spec, pageable);
 	}
 
-	// utext처리
+/*	// utext처리 _ 해당코드 페이징과 숫자와 같은일부 검색어에서 동작하지 않음 keywordlist_new 메서드는 하단에 다시 선언함
 	public Page<News> keywordlist_new(int page, String kw) {
 
 		List<Sort.Order> sorts = new ArrayList<>();
@@ -154,7 +154,7 @@ public class NewsService {
         return new PageImpl<>(filteredNews, pageable, filteredNews.size());
 
 
-	}
+	}*/
 
 	// readdetail
 	public News readdetail(Integer id) {
@@ -229,8 +229,43 @@ public class NewsService {
 		};
 	}
 
-	public String stripHtmlTags(String input) {
-		return input.replaceAll("<[^>]*>", ""); // Regex to remove HTML tags
-	}
+//	public String stripHtmlTags(String input) {
+//		return input.replaceAll("<[^>]*>", ""); // Regex to remove HTML tags
+//	}
 
+	
+	
+	//========
+	
+	 // HTML 태그 제거 메서드
+    public String stripHtmlTags(String input) {
+        return input.replaceAll("<[^>]*>", ""); // HTML 태그 제거
+    }
+
+    // 검색어 정규화 메서드
+    private String normalize(String input) {
+        return input.replaceAll("\\s+", "").toLowerCase(); // 공백 제거 및 소문자로 변환
+    }
+
+    // 페이징 및 검색 메서드
+    public Page<News> keywordlist_new(int page, String kw) {
+        List<Sort.Order> sorts = new ArrayList<>();
+        sorts.add(Sort.Order.desc("ndate"));
+
+        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+
+        // Specification을 사용하여 검색 조건 정의
+        Specification<News> spec = (root, query, criteriaBuilder) -> {
+            String strippedKw = stripHtmlTags(kw).toLowerCase(); // 검색어에서 HTML 태그 제거
+            return criteriaBuilder.or(
+                criteriaBuilder.like(criteriaBuilder.function("REPLACE", String.class, root.get("ntitle"), criteriaBuilder.literal("<[^>]*>"), criteriaBuilder.literal("")), "%" + strippedKw + "%"),
+                criteriaBuilder.like(criteriaBuilder.function("REPLACE", String.class, root.get("ndesc"), criteriaBuilder.literal("<[^>]*>"), criteriaBuilder.literal("")), "%" + strippedKw + "%")
+            );
+        };
+
+        // 페이징과 함께 검색 결과 반환
+        return newsRepository.findAll(spec, pageable);
+    }
+	
+	
 }

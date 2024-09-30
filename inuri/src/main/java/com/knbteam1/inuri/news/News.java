@@ -30,7 +30,7 @@ public class News {
 	
 	private String ntitle;
 	
-	@Column(columnDefinition = "TEXT")//썸머노트
+	@Column(columnDefinition = "MEDIUMTEXT")//썸머노트
 	private String ndesc;
 	
 	private String ncate;
