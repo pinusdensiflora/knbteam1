@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/images")
 public class OpenAiController {
     private final OpenAiService openAiService;
 
@@ -19,9 +18,9 @@ public class OpenAiController {
     }
 
     @PostMapping("/generate")
-    public ResponseEntity<Map<String, String>> generateImage(@RequestBody String imagePrompt) {
-        System.out.println("imagePrompt = " + imagePrompt);
-        String imageUrl = openAiService.generateImage(imagePrompt);
+    public ResponseEntity<Map<String, String>> generateImage(@RequestBody String prompt) {
+        System.out.println(prompt);
+        String imageUrl = openAiService.generateImage(prompt);
 
         Map<String, String> response = new HashMap<>();
         response.put("imageUrl", imageUrl);
