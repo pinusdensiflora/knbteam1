@@ -11,7 +11,7 @@
 
         <!--Header start -->
         <div class="container-fluid page-header py-5">
-            <h1 class="text-center text-white display-6">환영합니다!</h1>
+            <h1 class="text-center text-white display-6">나의 질문내역</h1>
 
         </div>
       <!--  Header End -->
@@ -20,10 +20,7 @@
 <div class="container-fluid py-5">
 		<div class="container py-5 text-center">
 			<div class="row justify-content-center">
-				<div class="col-lg-6">
-					<h3 class="display-6">나의 질문내역</h3>
-					
-                    </div>
+
                     
                     <table class="table">
                     <thead>
@@ -40,9 +37,8 @@
              <td>
                 <a th:href="@{|/detailquestion/${question.qid}|}" class="mb-0 mt-4">[[${question.subject}]]</p>
             </td>
-            <td>
-                <p class="mb-0 mt-4">[[${question.qdate}]]</p>
-            </td>
+            <td th:text="${#temporals.format(question.qdate, 'yyyy-MM-dd HH:mm')}"></td>
+            
         </tr>
 </th:block>
     </tbody>
