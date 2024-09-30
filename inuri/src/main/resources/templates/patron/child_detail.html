@@ -91,21 +91,22 @@
                 <p><strong>거주지:</strong> <span th:text="${child.chlocation}">거주지</span></p>
                 </br>
 				<p th:text="${child.chdesc}"></p>
-							<div class="d-flex justify-content-center flex-lg-wrap">
-							
-							<a th:href="@{/donation/donate(childId=${child.chid})}"
-								class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary me-4"><i
-								class="fa fa-heart me-2 text-primary"></i> 후원하기</a>
-								
-								<!-- 현재 로그인한 사용자가 후원자일 때만 편지 쓰기 버튼 표시 -->
-<div class="d-flex justify-content-center flex-lg-wrap"> <!-- mt-3: 상단 마진 추가 -->
-    <a th:if="${hasDonated}" 
-       th:href="@{/child_letter/{chid}(chid=${child.chid})}" 
-       class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
-       class="fa fa-envelope me-2 text-primary"></i>편지 쓰기</a> <!-- 편지 아이콘으로 변경 -->
+				
+	<div class="d-flex justify-content-center flex-lg-wrap" style="margin-top: 150px;"> <!-- 100px의 상단 마진 추가 -->
+    <a th:href="@{/donation/donate(childId=${child.chid})}"
+       class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary me-4">
+       <i class="fa fa-heart me-2 text-primary"></i> 후원하기
+    </a>
+
+    <!-- 현재 로그인한 사용자가 후원자일 때만 편지 쓰기 버튼 표시 -->
+    <div class="d-flex justify-content-center flex-lg-wrap"> <!-- 50px의 상단 마진 추가 -->
+        <a th:if="${hasDonated}" 
+           th:href="@{/child_letter/{chid}(chid=${child.chid})}" 
+           class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary">
+           <i class="fa fa-envelope me-2 text-primary"></i> 편지 쓰기
+        </a>
+    </div>
 </div>
-								
-								</div>
 
 						</div>
 						<div class="col-lg-12">
