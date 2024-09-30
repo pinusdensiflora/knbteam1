@@ -48,6 +48,12 @@ public class AdminController {
         return "admin/child/addChild";
     }
 
+    @GetMapping("/children")
+    public String readChildren(Model model) {
+        model.addAttribute("children", adminService.readAllChildren());
+        return "admin/child/readChildren";
+    }
+
     @GetMapping("/faq")
     public String readFaq(Model model) {
         model.addAttribute("faqlist", newsService.readlist(5));

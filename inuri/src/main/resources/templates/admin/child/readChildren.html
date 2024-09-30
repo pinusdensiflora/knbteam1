@@ -17,15 +17,17 @@ admin/child/addChild.html
                     <tr class="text-dark">
                         <th scope="col">번호</th>
                         <th scope="col">이름</th>
-                        <th scope="col">나이</th>
+                        <th scope="col">생일</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>번호</td>
-                        <td><a th:href="@{|/admin/child/${1}|}">이름</a></td>
-                        <td>나이</td>
-                    </tr>
+                    <th:block th:each="child:${children}">
+                        <tr>
+                            <td>[[${child.chid}]]</td>
+                            <td>[[${child.chname}]]</td>
+                            <td>[[${child.chdob}]]</td>
+                        </tr>
+                    </th:block>
                     </tbody>
                 </table>
             </div>
@@ -49,6 +51,51 @@ admin/child/addChild.html
                     </li>
                 </ul>
             </nav>
+        </div>
+    </div>
+
+<!--    &lt;!&ndash; 페이징처리 시작 &ndash;&gt;-->
+<!--    <div th:if="${!paging.isEmpty()}">-->
+<!--        <ul class="pagination justify-content-center">-->
+<!--            <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">-->
+<!--                <a class="page-link" th:href="@{|?page=${paging.number-1}|}">-->
+<!--                    <span>이전</span>-->
+<!--                </a>-->
+<!--            </li>-->
+<!--            <li th:each="page: ${#numbers.sequence(1, paging.totalPages)}"-->
+<!--                th:if="${page >= paging.number and page <= paging.number+10}"-->
+<!--                th:classappend="${page == paging.number+1} ? 'active'"-->
+<!--                class="page-item">-->
+<!--                <a th:text="${page}" class="page-link" th:href="@{|?page=${page-1}|}"></a>-->
+<!--            </li>-->
+<!--            <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">-->
+<!--                <a class="page-link" th:href="@{|?page=${paging.number+1}|}">-->
+<!--                    <span>다음</span>-->
+<!--                </a>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--    </div>-->
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Launch demo t
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

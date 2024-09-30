@@ -9,26 +9,26 @@ admin/main.html
     <div class="row g-4 justify-content-center">
         <div class="container-fluid pt-4 px-4">
             <div class="col g-4">
-                <div class="row g-4 mb-5">
-                    <div class="col-6">
-                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-chart-line fa-3x text-primary"></i>
-                            <div class="ms-3">
-                                <p class="mb-2">오늘 후원금</p>
-                                <h6 class="mb-0">[[${todayDonation}]] 원</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-chart-bar fa-3x text-primary"></i>
-                            <div class="ms-3">
-                                <p class="mb-2">누적 후원금</p>
-                                <h6 class="mb-0">[[${donationSum}]] 원</h6>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!--                <div class="row g-4 mb-5">-->
+                <!--                    <div class="col-6">-->
+                <!--                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">-->
+                <!--                            <i class="fa fa-chart-line fa-3x text-primary"></i>-->
+                <!--                            <div class="ms-3">-->
+                <!--                                <p class="mb-2">오늘 후원금</p>-->
+                <!--                                <h6 class="mb-0">[[${todayDonation}]] 원</h6>-->
+                <!--                            </div>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                    <div class="col-6">-->
+                <!--                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">-->
+                <!--                            <i class="fa fa-chart-bar fa-3x text-primary"></i>-->
+                <!--                            <div class="ms-3">-->
+                <!--                                <p class="mb-2">누적 후원금</p>-->
+                <!--                                <h6 class="mb-0">[[${donationSum}]] 원</h6>-->
+                <!--                            </div>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
                 <div class="row g-4">
                     <div class="col-6">
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
@@ -56,25 +56,30 @@ admin/main.html
         <div class="bg-light text-center rounded p-4">
             <div class="d-flex align-items-center justify-content-between mb-4">
                 <h6 class="mb-0">공지사항 관리</h6>
-                <a href = "/news/1/create">글 작성</a>
+                <a href="/news/1/create">글 작성</a>
             </div>
             <div class="table-responsive">
                 <table class="table text-start align-middle table-bordered table-hover mb-0">
                     <thead>
                     <tr class="text-dark">
-                        <th scope="col"></th>
                         <th scope="col">제목</th>
                         <th scope="col">카테고리</th>
                         <th scope="col">작성일</th>
+                        <th scope="col"></th>
                     </tr>
+
                     </thead>
                     <tbody>
                     <th:block th:each="news:${newsList}">
                         <tr>
-                            <td><input class="form-check-input" type="checkbox"></td>
                             <td>[[${news.ntitle}]]</td>
                             <td>[[${news.ncate}]]</td>
                             <td>[[${news.ndate.toLocalDate()}]]</td>
+                            <td>
+                                <a class="btn btn-primary" th:href="@{|/news/article/${news.nid}|}">
+                                    상세보기
+                                </a>
+                            </td>
                         </tr>
                     </th:block>
                     </tbody>
