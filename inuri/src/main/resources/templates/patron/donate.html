@@ -154,7 +154,7 @@ function updateTotalAmount() {
 
 <!-- 진짜 결제 스크립트 -->
 <script>
-     IMP.init("imp27761772");
+    IMP.init("imp27761772");
 
     function requestpay() {
         const selectedDonationMethod = document.querySelector('input[name="btnradio"]:checked'); // 선택된 후원 방법
@@ -198,7 +198,30 @@ function updateTotalAmount() {
         );
     }
 
-
+    // 후원 정보 저장 요청
+    function saveDonation(method, amount, period, childId, customerId) {
+        // 서버로 후원 정보 전송
+        fetch("/donation/create", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                method: method,
+                amount: amount,
+                period: period,
+                childId: childId,
+                customerId: customerId
+            }),
+        })
+        .then(response => response.text())
+        .then(result => {
+            alert(result);  // 후원 성공 메시지
+        })
+        .catch(error => {
+            alert("후원 저장 실패: " + error.message);
+        });
+    }
 </script>
 
 
