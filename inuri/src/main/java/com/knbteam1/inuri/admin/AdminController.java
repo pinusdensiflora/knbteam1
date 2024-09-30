@@ -7,10 +7,14 @@ admin/leftNav.html
 package com.knbteam1.inuri.admin;
 
 import com.knbteam1.inuri.news.NewsService;
+import com.knbteam1.inuri.patron.Child;
+import com.knbteam1.inuri.patron.ChildService;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RequestMapping("/admin")
@@ -19,10 +23,12 @@ public class AdminController {
 
     private final AdminService adminService;
     private final NewsService newsService;
+    private final ChildService childService;
 
-    public AdminController(AdminService adminService, NewsService newsService) {
+    public AdminController(AdminService adminService, NewsService newsService, ChildService childService) {
         this.adminService = adminService;
         this.newsService = newsService;
+        this.childService = childService;
     }
 
     @GetMapping("")
@@ -49,8 +55,14 @@ public class AdminController {
     }
 
     @GetMapping("/children")
-    public String readChildren(Model model) {
-        model.addAttribute("children", adminService.readAllChildren());
+    public String readChildren(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            Model model
+    ) {
+
+        Page<Child> paging = childService.getFilteredChildren(page, "", "", "all");
+        model.addAttribute("paging", paging);
+        model.addAttribute("page", paging.getNumber() + 1);
         return "admin/child/readChildren";
     }
 

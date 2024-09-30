@@ -4,7 +4,7 @@ admin/child/addChild.html
 생성날짜: 9.10
 연락처: rkdgur5381@gmail.com
  -->
-<html layout:decorate="~{admin/admin}">
+<html layout:decorate="~{admin/admin}" xmlns:layout="http://www.w3.org/1999/xhtml">
 <div layout:fragment="content" class="col-lg-9">
     <div class="container-fluid pt-4 px-4">
         <div class="bg-light text-center rounded p-4">
@@ -21,8 +21,17 @@ admin/child/addChild.html
                     </tr>
                     </thead>
                     <tbody>
-                    <th:block th:each="child:${children}">
-                        <tr>
+                    <th:block th:each="child : ${paging.content}">
+                        <tr style="cursor: pointer"
+                                data-bs-toggle="modal"
+                            data-bs-target="#childInfoModal"
+                            th:data-child-name="${child.chname}"
+                            th:data-child-dob="${child.chdob}"
+                            th:data-child-gender="${child.chgender}"
+                            th:data-child-location="${child.chlocation}"
+                            th:data-child-desc="${child.chdesc}"
+                            th:data-child-img="@{|https://inuri-bucket-106wnz.s3.ap-northeast-2.amazonaws.com/${child.chimg}|}"
+                            th:data-child-id="${child.chid}">
                             <td>[[${child.chid}]]</td>
                             <td>[[${child.chname}]]</td>
                             <td>[[${child.chdob}]]</td>
@@ -31,72 +40,107 @@ admin/child/addChild.html
                     </tbody>
                 </table>
             </div>
-            <!-- Pagination -->
-            <nav aria-label="Page navigation example" class="mt-5">
+            <!-- 페이징처리 시작 -->
+            <div class="mt-5" th:if="${!paging.isEmpty()}">
                 <ul class="pagination justify-content-center">
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                            <span class="sr-only">Previous</span>
+                    <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
+                        <a class="page-link" th:href="@{|?page=${paging.number-1}|}">
+                            <span>이전</span>
                         </a>
                     </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                            <span class="sr-only">Next</span>
+                    <li th:each="page: ${#numbers.sequence(1, paging.totalPages)}"
+                        th:if="${page >= paging.number and page <= paging.number+10}"
+                        th:classappend="${page == paging.number+1} ? 'active'"
+                        class="page-item">
+                        <a th:text="${page}" class="page-link" th:href="@{|?page=${page-1}|}"></a>
+                    </li>
+                    <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
+                        <a class="page-link" th:href="@{|?page=${paging.number+1}|}">
+                            <span>다음</span>
                         </a>
                     </li>
                 </ul>
-            </nav>
+            </div>
+            <!-- 페이징처리 끝 -->
+
         </div>
     </div>
 
-<!--    &lt;!&ndash; 페이징처리 시작 &ndash;&gt;-->
-<!--    <div th:if="${!paging.isEmpty()}">-->
-<!--        <ul class="pagination justify-content-center">-->
-<!--            <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">-->
-<!--                <a class="page-link" th:href="@{|?page=${paging.number-1}|}">-->
-<!--                    <span>이전</span>-->
-<!--                </a>-->
-<!--            </li>-->
-<!--            <li th:each="page: ${#numbers.sequence(1, paging.totalPages)}"-->
-<!--                th:if="${page >= paging.number and page <= paging.number+10}"-->
-<!--                th:classappend="${page == paging.number+1} ? 'active'"-->
-<!--                class="page-item">-->
-<!--                <a th:text="${page}" class="page-link" th:href="@{|?page=${page-1}|}"></a>-->
-<!--            </li>-->
-<!--            <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">-->
-<!--                <a class="page-link" th:href="@{|?page=${paging.number+1}|}">-->
-<!--                    <span>다음</span>-->
-<!--                </a>-->
-<!--            </li>-->
-<!--        </ul>-->
-<!--    </div>-->
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Launch demo t
-    </button>
-
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+    <!-- Modal (single, outside the table) -->
+    <div class="modal fade" id="childInfoModal" tabindex="-1" aria-labelledby="childInfoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg"> <!-- Ensure the modal is large enough -->
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <h1 class="modal-title fs-5" id="childInfoModalLabel">아동 정보</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    ...
+                    <div class="container-fluid py-3">
+                        <div class="container py-5">
+                            <div>
+                                <div class="row g-4">
+                                    <!-- Image Column -->
+                                    <div class="col-lg-6">
+                                        <div class="child-img">
+                                            <img id="modal-child-img" class="img-fluid w-100 rounded-top rounded-bottom" alt="Child Image">
+                                        </div>
+                                    </div>
+                                    <!-- Info Column -->
+                                    <div class="col-lg-6">
+                                        <h4 class="fw-bold mb-3" id="modal-child-name">아동 이름</h4>
+                                        <p><strong>생년월일:</strong> <span id="modal-child-dob">생년월일</span></p>
+                                        <p><strong>성별:</strong> <span id="modal-child-gender">성별</span></p>
+                                        <p><strong>거주지:</strong> <span id="modal-child-location">거주지</span></p>
+                                        <br/>
+                                        <p id="modal-child-desc"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <!-- Dynamic link to the child detail page -->
+                    <a id="modal-child-detail-link" class="btn btn-primary" href="#">More Details</a>
                 </div>
             </div>
         </div>
     </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('childInfoModal');
+
+            // Add an event listener to update modal content when it's shown
+            modal.addEventListener('show.bs.modal', function (event) {
+                // Button that triggered the modal
+                const button = event.relatedTarget;
+
+                // Extract data from button's data-* attributes
+                const childName = button.getAttribute('data-child-name');
+                const childDob = button.getAttribute('data-child-dob');
+                const childGender = button.getAttribute('data-child-gender');
+                const childLocation = button.getAttribute('data-child-location');
+                const childDesc = button.getAttribute('data-child-desc');
+                const childImg = button.getAttribute('data-child-img');
+                const childId = button.getAttribute('data-child-id'); // Child ID for the details link
+
+                // Update modal content
+                document.getElementById('modal-child-name').textContent = childName;
+                document.getElementById('modal-child-dob').textContent = childDob;
+                document.getElementById('modal-child-gender').textContent = childGender;
+                document.getElementById('modal-child-location').textContent = childLocation;
+                document.getElementById('modal-child-desc').textContent = childDesc;
+                document.getElementById('modal-child-img').src = childImg;
+
+                // Update the "More Details" link with the dynamic child ID
+                const detailLink = `/child_detail/${childId}`; // Assuming this is the correct URL format
+                document.getElementById('modal-child-detail-link').href = detailLink;
+            });
+        });
+    </script>
+
 </div>
 </html>
