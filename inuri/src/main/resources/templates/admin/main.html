@@ -65,46 +65,81 @@ admin/main.html
                         <th scope="col">제목</th>
                         <th scope="col">카테고리</th>
                         <th scope="col">작성일</th>
-                        <th scope="col"></th>
                     </tr>
-
                     </thead>
                     <tbody>
                     <th:block th:each="news:${newsList}">
-                        <tr>
+                        <tr style="cursor: pointer;"
+                            data-bs-toggle="modal"
+                            data-bs-target="#newsModal"
+                            th:data-news-title="${news.ntitle}"
+                            th:data-news-category="${news.ncate}"
+                            th:data-news-date="${news.ndate.toLocalDate()}"
+                            th:data-news-description="${news.ndesc}"
+                            th:data-news-id="${news.nid}"
+                        >
                             <td>[[${news.ntitle}]]</td>
-                            <td>[[${news.ncate}]]</td>
+                            <td>[[${news.n}]]</td>
                             <td>[[${news.ndate.toLocalDate()}]]</td>
-                            <td>
-                                <a class="btn btn-primary" th:href="@{|/news/article/${news.nid}|}">
-                                    상세보기
-                                </a>
-                            </td>
                         </tr>
                     </th:block>
                     </tbody>
                 </table>
             </div>
-            <nav aria-label="Page navigation example" class="mt-5">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+
+<!--            페이지네이션 들어가야함-->
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="newsModal" tabindex="-1" aria-labelledby="newsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="newsModalLabel">공지사항 상세보기</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
+                    <div class="col-12">
+                        <h1 class="text-primary" id="modal-news-title">공지사항 제목</h1>
+                        <p class="mb-4" id="modal-news-category">카테고리</p>
+                        <p>작성일: <span id="modal-news-date">작성일</span></p>
+                        <div id="modal-news-description" style="min-height: 50vh; height: auto;"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                    <a id="modal-detail-link" class="btn btn-primary" href="#">상세보기</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('newsModal');
+
+            modal.addEventListener('show.bs.modal', function (event) {
+                const button = event.relatedTarget; // Button that triggered the modal
+
+                // Extract data from button's data-* attributes
+                const newsTitle = button.getAttribute('data-news-title');
+                const newsCategory = button.getAttribute('data-news-category');
+                const newsDate = button.getAttribute('data-news-date');
+                const newsDescription = button.getAttribute('data-news-description');
+                const newsId = button.getAttribute('data-news-id')
+
+                // Update modal content
+                document.getElementById('modal-news-title').textContent = newsTitle;
+                document.getElementById('modal-news-category').textContent = newsCategory;
+                document.getElementById('modal-news-date').textContent = newsDate;
+                document.getElementById('modal-news-description').innerHTML = newsDescription;
+
+                // Update the "More Details" link with the dynamic news ID
+                const detailLink = `/news/article/${newsId}`;
+                document.getElementById('modal-detail-link').href = detailLink;
+            });
+        });
+    </script>
 </div>
 </html>
