@@ -4,7 +4,8 @@ navbar.html
 생성날짜: 9.10
 연락처: rkdgur5381@gmail.com
  -->
-<nav th:fragment="navbarFragment" class="container-fluid fixed-top" style="top:0;">
+<nav th:fragment="navbarFragment" class="container-fluid fixed-top" style="top:0;"
+     xmlns:sec="http://www.w3.org/1999/xhtml">
     <div class="container topbar bg-primary d-none d-lg-block">
         <div class="d-flex justify-content-between">
             <div class="top-link ps-2">
@@ -42,7 +43,10 @@ navbar.html
                 <div class="navbar-nav mx-auto">
                     <a href="/child_list" class="nav-item nav-link">후원 아동</a>
                     <a href="/news" class="nav-item nav-link">소식</a>
-                    <a href="/admin" class="nav-item nav-link">관리자</a>
+                    <a
+                            sec:authorize="isAuthenticated()"
+                            th:if="${#authentication.principal.authorities.?[authority == 'ROLE_ADMIN'].size() > 0}"
+                            href="/admin" class="nav-item nav-link">관리자</a>
                 </div>
                 <!--                마이페이지-->
                 <div class="d-flex m-3 pe-5 me-0">

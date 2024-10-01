@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.knbteam1.inuri.auth.Customer;
 import com.knbteam1.inuri.auth.CustomerService;
@@ -74,10 +75,10 @@ public class DonationController {
         }
     }
  
-    // 후원 정보 저장
+ // 후원 정보 저장
     @PostMapping("/create")
     @ResponseBody
-    public ResponseEntity<Map<String, String>> createDonation(@RequestBody Map<String, Object> donationData) {
+    public ResponseEntity<?> createDonation(@RequestBody Map<String, Object> donationData) {
         try {
             // 클라이언트로부터 받은 데이터 처리
             String method = (String) donationData.get("method");
@@ -95,10 +96,12 @@ public class DonationController {
             // 후원 정보 생성 및 저장
             Donation donation = donationService.createDonation(method, amount, period, child, customer);
 
-            // 응답 메시지
+            // 후원 저장에 성공했을 경우 아동의 상세 페이지 URL을 포함한 응답 반환
+            String redirectUrl = "/child_detail/" + childId;  // 아동 상세 페이지 URL을 구성
             Map<String, String> response = new HashMap<>();
-            response.put("message", "후원 저장에 성공했습니다.");
-            return ResponseEntity.ok(response);
+            response.put("redirectUrl", redirectUrl);  // 클라이언트에서 사용할 리다이렉트 URL
+
+            return ResponseEntity.ok(response);  // URL 포함된 응답 반환
 
         } catch (Exception e) {
             // 오류 처리
@@ -108,3 +111,4 @@ public class DonationController {
         }
     }
 }
+

@@ -42,6 +42,7 @@ public class NewsController {
 	@Value("${cloud.aws.s3.endpoint}")
     private String s3Endpoint;
 	
+
 	
 	//news CREATE ==================================================================================
 	//관리자만접근

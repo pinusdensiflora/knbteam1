@@ -1,0 +1,70 @@
+/* body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+} */
+
+/*챗봇용 css*/
+.chat-icon {
+	position: fixed;
+	bottom: 100px;
+	right: 20px;
+	/*background: #007bff;*/
+	/*border-radius: 50%;*/
+	padding: 10px;
+	cursor: pointer;
+	/*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);*/
+}
+
+.chat-icon .icon {
+	width: 10px;
+	height: 10px;
+	fill: white;
+}
+
+.chat-widget {
+	display: none;
+	position: fixed;
+	bottom: 200px;
+	right: 20px;
+	width: 300px;
+	border: 1px solid #007bff;
+	border-radius: 5px;
+	background: white;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.chat-header {
+	background: #007bff;
+	color: white;
+	padding: 10px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+.chat-body {
+	padding: 10px;
+	height: 200px;
+	overflow-y: auto;
+}
+
+.chat-footer {
+	display: flex;
+	padding: 10px;
+}
+
+.chat-footer input {
+	flex: 1;
+	padding: 10px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+}
+
+.chat-footer button {
+	padding: 10px;
+	background: #007bff;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}

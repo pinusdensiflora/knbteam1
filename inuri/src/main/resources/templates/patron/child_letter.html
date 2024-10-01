@@ -14,7 +14,7 @@
 <div class="container-fluid page-header py-5" style="padding-bottom: 30px;">
     <!-- 상단 헤더 -->
     <h1 class="text-center text-white display-6">아동에게 전달되는 편지</h1>
-    
+
     <ol class="breadcrumb justify-content-center mb-0">
         <li class="breadcrumb-item"><a href="/news">공지사항</a></li>
         <li class="breadcrumb-item"><a href="/news/info">소식</a></li>
@@ -23,16 +23,86 @@
     </ol>
 </div>
 
-<!-- 편지 작성 폼 -->
-<form action="#" th:action="@{/send_letter}" method="post">
-    <input type="hidden" name="childId" th:value="${child.chid}" />
-    <div class="form-group">
-        <textarea class="form-control" id="summernote" name="message" rows="4"></textarea>
-    </div>
-    <button type="submit" class="btn btn-primary mt-3">편지 보내기</button>
-</form>
+    <!-- 편지 작성 폼 -->
+    <form action="#" th:action="@{/send_letter}" method="post" onsubmit="cleanMessage()">
+        <input type="hidden" name="childId" th:value="${child.chid}"/>
+        <div class="form-group">
+            <div class="d-flex flex-column align-items-center justify-content-center w-100">
+                <div class="d-flex w-100 align-items-center my-3" style="gap:10px;">
+                    <input type="text" class="form-control w-50" id="prompt" placeholder="생성하고 싶은 이미지를 입력하세요."/>
+                    <button type="button" class="btn btn-primary" id="generateImageBtn">Generate Image</button>
+                </div>
 
+                <!-- Area to display the generated image -->
+                <div id="imageContainer" class="mb-10 py-3 w-50" style="display:none;">
+                    <img id="generatedImage" src="" alt="Generated Image" class="img-fluid rounded mx-auto d-block"/>
+                </div>
+            </div>
 
+            <input type="hidden" name="imageUrl" id="imageUrl" />
 
+            <textarea class="form-control" id="summernote" name="message" rows="4"></textarea>
+        </div>
+        <button type="submit" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary mt-3 float-end">
+            <i class="fa fa-envelope me-2 text-primary"></i>편지 보내기
+        </button>
+    </form>
+    <!-- 편지 p태그 제거 -->
+    <script>
+        function cleanMessage() {
+            const textarea = document.getElementById('summernote');
+            // HTML을 텍스트로 변환
+            textarea.value = textarea.value.replace(/<\/?p>/g, ''); // <p>와 </p>를 모두 제거
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            // On button click, make an AJAX request
+            $('#generateImageBtn').click(function () {
+                const prompt = $('#prompt').val();
+
+                if (!prompt) {
+                    alert('Please enter a prompt.');
+                    return;
+                }
+
+                // AJAX request to fetch generated image
+                $.ajax({
+                    url: '/generate', // Endpoint that will process the prompt and return image URL
+                    type: 'POST',
+                    data: {prompt: prompt},
+                    success: function (response) {
+                        // If image URL is returned, update the image src and show the image
+                        if (response.imageUrl) {
+                            $('#generatedImage').attr('src', response.imageUrl);
+                            $('#imageContainer').show(); // Show the image container
+                            $('#imageUrl').val(response.imageUrl);
+                        } else {
+                            alert('Failed to generate image.');
+                        }
+                    },
+                    error: function () {
+                        alert('Error occurred while generating the image.');
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script>
+        $('#summernote').summernote({
+            placeholder: '내용을 입력해 주세요.',
+            tabsize: 2,
+            height: 350,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+            ]
+        });
+    </script>
 </div>
 </html>
