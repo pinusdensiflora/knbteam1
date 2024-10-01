@@ -9,16 +9,16 @@ navbar.html
     <div class="container topbar bg-primary d-none d-lg-block">
         <div class="d-flex justify-content-between">
             <div class="top-link ps-2">
-                <a href="#" class="text-white"><small class="text-white mx-2">Privacy Policy</small>/</a>
-                <a href="#" class="text-white"><small class="text-white mx-2">Terms of Use</small></a>
+                <a href="/news/1" class="text-white"><small class="text-white mx-2">공지사항</small>/</a>
+                <a href="/news/assist/question" class="text-white"><small class="text-white mx-2">1:1 문의하기</small></a>
             </div>
             <div class="top-link pe-2">
                 
                 <div sec:authorize="isAnonymous()">
                 <a href="/signin" class="text-white"><small class="text-white mx-2">로그인</small></a>
                 <a href="/signup" class="text-white"><small class="text-white mx-2">회원가입</small></a>
-                
-                
+
+
                 </div>
                 
 				<div sec:authorize="isAuthenticated()">
