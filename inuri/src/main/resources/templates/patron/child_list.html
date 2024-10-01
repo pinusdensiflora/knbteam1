@@ -6,27 +6,27 @@
 <html layout:decorate="~{layout}">
 <div layout:fragment="content">
 
-<style>
-.child-img {
-    width: 100%;  /* 부모 요소의 너비에 맞춤 */
-    height: 300px;  /* 원하는 높이 설정 */
-    overflow: hidden;  /* 잘리는 부분 숨김 */
-    position: relative;
-}
+    <style>
+        .child-img {
+            width: 100%; /* 부모 요소의 너비에 맞춤 */
+            height: 300px; /* 원하는 높이 설정 */
+            overflow: hidden; /* 잘리는 부분 숨김 */
+            position: relative;
+        }
 
-.child-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;  /* 비율 유지하며 잘림 */
-    display: block;  /* 이미지 아래 여백 없애기 */
-}
-</style>
-<!-- Spinner Start -->
-	<div id="spinner"
-		class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
-		<div class="spinner-grow text-primary" role="status"></div>
-	</div>
-	<!-- Spinner End -->
+        .child-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 비율 유지하며 잘림 */
+            display: block; /* 이미지 아래 여백 없애기 */
+        }
+    </style>
+    <!-- Spinner Start -->
+    <div id="spinner"
+         class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" role="status"></div>
+    </div>
+    <!-- Spinner End -->
 
     <div class="container-fluid page-header py-5" style="padding-bottom: 30px;">
         <!-- 상단 헤더 -->
@@ -39,16 +39,16 @@
             <li class="breadcrumb-item"><a href="/news/address">찾아오시는 길</a></li>
         </ol>
     </div>
-<!-- 아동 필터 버튼 -->
-<div class="container my-4 text-center">
-    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-        <a href="/child_list?filter=all" class="btn btn-outline-primary" id="btnradio1">모든 아동</a>
-        
-        <a href="/child_list?filter=sponsored" class="btn btn-outline-primary" id="btnradio2">후원받은 아동</a>
-        
-        <a href="/child_list?filter=unsponsored" class="btn btn-outline-primary" id="btnradio3">후원이 필요한 아동</a>
+    <!-- 아동 필터 버튼 -->
+    <div class="container my-4 text-center">
+        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+            <a href="/child_list?filter=all" class="btn btn-outline-primary" id="btnradio1">모든 아동</a>
+
+            <a href="/child_list?filter=sponsored" class="btn btn-outline-primary" id="btnradio2">후원받은 아동</a>
+
+            <a href="/child_list?filter=unsponsored" class="btn btn-outline-primary" id="btnradio3">후원이 필요한 아동</a>
+        </div>
     </div>
-</div>
 
     <!-- 검색창 시작 -->
     <div style="display: flex; justify-content: flex-end; margin: 30px;">
@@ -63,7 +63,8 @@
                     </select>
 
                     <!-- 검색어 입력 -->
-                    <input type="text" name="keyword" class="form-control p-3" placeholder="검색어를 입력하세요" th:value="${keyword}" aria-describedby="search-icon" style="width: 35%;">
+                    <input type="text" name="keyword" class="form-control p-3" placeholder="검색어를 입력하세요"
+                           th:value="${keyword}" aria-describedby="search-icon" style="width: 35%;">
 
                     <!-- 검색 버튼 -->
                     <button type="submit" class="input-group-text p-3" id="search-icon">
@@ -84,42 +85,63 @@
                             <div class="col-lg-12">
                                 <div class="row g-4">
                                     <!-- 아동 리스트 반복 시작 -->
-                                    
-<div class="container-fluid child">
-        <div class="container py-3">
-            <div class="tab-class text-center">
-                <div class="tab-content">
-                    <div id="tab-1" class="tab-pane fade show p-0 active">
-                        <div class="row g-4">
-                            <div class="col-lg-12">
-                                <div class="row g-4">
-                                    <!-- 아동 리스트 반복 시작 -->
-                                    <div th:each="child : ${paging.content}" class="col-md-4 col-lg-4 col-sm-6">
-                                        <div class="rounded position-relative child-item">
-                                            <!-- 아동 이미지 -->
-                                            <div class="child-img">
-                                            <a th:href="@{/child_detail/{chid}(chid=${child.chid})}">
-                                                <img th:src="@{|https://inuri-bucket-106wnz.s3.ap-northeast-2.amazonaws.com/${child.chimg}|}" class="img-fluid rounded-top" alt="img">
-                                                </a>
-                                            </div>
-                                            <!-- 아동 정보 -->
-                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <a th:href="@{/child_detail/{chid}(chid=${child.chid})}">
-                                                    <h4 th:text="${child.chname}"></h4>
-                                                </a>
-                                                <p>성별: <span th:text="${child.chgender}"></span></p>
-                                                <p>거주지: <span th:text="${child.chlocation}"></span></p>
-                                                <p>생년월일: <span th:text="${child.chdob}"></span> (<span th:text="${child.age}"></span>세)</p>
 
+                                    <div class="container-fluid child">
+                                        <div class="container py-3">
+                                            <div class="tab-class text-center">
+                                                <div class="tab-content">
+                                                    <div id="tab-1" class="tab-pane fade show p-0 active">
+                                                        <div class="row g-4">
+                                                            <div class="col-lg-12">
+                                                                <div class="row g-4">
+                                                                    <!-- 아동 리스트 반복 시작 -->
+                                                                    <div th:each="child : ${paging.content}"
+                                                                         class="col-md-4 col-lg-4 col-sm-6">
+                                                                        <div class="rounded position-relative child-item">
+                                                                            <!-- 아동 이미지 -->
+                                                                            <div class="child-img">
+                                                                                <a th:href="@{/child_detail/{chid}(chid=${child.chid})}">
+                                                                                    <img th:src="@{|https://inuri-bucket-106wnz.s3.ap-northeast-2.amazonaws.com/${child.chimg}|}"
+                                                                                         class="img-fluid rounded-top"
+                                                                                         alt="img">
+                                                                                </a>
+                                                                            </div>
+                                                                            <!-- 아동 정보 -->
+                                                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
+                                                                                <a th:href="@{/child_detail/{chid}(chid=${child.chid})}">
+                                                                                    <h4 th:text="${child.chname}"></h4>
+                                                                                </a>
+                                                                                <p>성별: <span
+                                                                                        th:text="${child.chgender}"></span>
+                                                                                </p>
+                                                                                <p>거주지: <span
+                                                                                        th:text="${child.chlocation}"></span>
+                                                                                </p>
+                                                                                <p>생년월일: <span
+                                                                                        th:text="${child.chdob}"></span>
+                                                                                    (<span th:text="${child.age}"></span>세)
+                                                                                </p>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- 아동 리스트 반복 끝 -->
+                                                                    <!-- 검색 결과 및 아동 목록 -->
+                                                                    <div class="row">
+                                                                        <div th:if="${paging.content.isEmpty()}"
+                                                                             class="alert alert-warning">
+                                                                            검색 결과가 없습니다.
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
+
                                     </div>
-                                    <!-- 아동 리스트 반복 끝 -->
-                                    <!-- 검색 결과 및 아동 목록 -->
-    <div class="row">
-        <div th:if="${paging.content.isEmpty()}" class="alert alert-warning">
-            검색 결과가 없습니다.
-        </div>
                                 </div>
                             </div>
                         </div>
@@ -127,44 +149,35 @@
                 </div>
             </div>
         </div>
-    </div>
 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- 페이징처리 시작 -->
+        <div th:if="${!paging.isEmpty()}">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
+                    <a class="page-link" th:href="@{|?page=${paging.number-1}|}">
+                        <span>이전</span>
+                    </a>
+                </li>
+                <li th:each="page: ${#numbers.sequence(1, paging.totalPages)}"
+                    th:if="${page >= paging.number and page <= paging.number+10}"
+                    th:classappend="${page == paging.number+1} ? 'active'"
+                    class="page-item">
+                    <a th:text="${page}" class="page-link" th:href="@{|?page=${page-1}|}"></a>
+                </li>
+                <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
+                    <a class="page-link" th:href="@{|?page=${paging.number+1}|}">
+                        <span>다음</span>
+                    </a>
+                </li>
+            </ul>
         </div>
+        <!-- 페이징처리 끝 -->
+
+        <div style="margin-bottom: 100px;"></div>
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i
+                class="fa fa-arrow-up"></i></a>
+
     </div>
-
-<!-- 페이징처리 시작 -->
-    <div th:if="${!paging.isEmpty()}">
-    <ul class="pagination justify-content-center">
-        <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
-            <a class="page-link" th:href="@{|?page=${paging.number-1}|}">
-                <span>이전</span>
-            </a>
-        </li>
-        <li th:each="page: ${#numbers.sequence(1, paging.totalPages)}"
-            th:if="${page >= paging.number and page <= paging.number+10}"
-            th:classappend="${page == paging.number+1} ? 'active'" 
-            class="page-item">
-            <a th:text="${page}" class="page-link" th:href="@{|?page=${page-1}|}"></a>
-        </li>
-        <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
-            <a class="page-link" th:href="@{|?page=${paging.number+1}|}">
-                <span>다음</span>
-            </a>
-        </li>
-    </ul>
-</div>
-    <!-- 페이징처리 끝 -->
-
-    <div style="margin-bottom: 100px;"></div>
-
-    <!-- Back to Top -->
-    <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
-
-</div>
 </html>

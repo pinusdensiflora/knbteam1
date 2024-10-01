@@ -68,6 +68,7 @@ public class ChildController {
     public String sendLetter(
             @RequestParam("childId") Integer childId,
             @RequestParam("message") String message,
+            @RequestParam(value = "imageUrl", required = false) String imageUrl,
             Authentication authentication) {
 
         Optional<Child> childOpt = childService.getChildById(childId);
@@ -80,7 +81,11 @@ public class ChildController {
             }
 
             try {
-                mailService.create(childEmail, "후원자님의 편지", message);
+                String imagePath = null;
+                if(imageUrl != null && !imageUrl.isEmpty()) {
+                    imagePath = imageUrl;
+                }
+                mailService.create(childEmail, "후원자님의 편지", message, imagePath);
             } catch (Exception e) {
                 return "error/mail_error"; // 메일 전송 실패 처리
             }

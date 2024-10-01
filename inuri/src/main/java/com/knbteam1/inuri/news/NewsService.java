@@ -12,10 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -25,11 +23,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.knbteam1.inuri.configuration.S3Service;
 
+
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.JoinType;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import lombok.RequiredArgsConstructor;
+
 
 @RequiredArgsConstructor
 @Service
@@ -50,6 +52,7 @@ public class NewsService {
 
 	public void create(News news, MultipartFile[] files) throws IOException {
 
+			
 //			//접속자(작성자) 정보 뽑아내기
 //			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //			UserDetails userDetails = (UserDetails) authentication.getPrincipal();
@@ -101,10 +104,10 @@ public class NewsService {
 	/*
 	 * // readlist 페이징 public Page<News> readlistpage(String cate, int page) {
 	 * Pageable pageable = PageRequest.of(page, 10);
-	 * 
+	 *
 	 * return newsRepository.findByNcate(cate, pageable); //return
 	 * newsRepository.findAll(pageable);
-	 * 
+	 *
 	 * //return newsRepository.findByNcate(cate); }
 	 */
 
@@ -143,13 +146,13 @@ public class NewsService {
 
         // Apply stripHtmlTags method to the content field before searching
         List<News> filteredNews = newsPage.getContent().stream()
-                .filter(news -> stripHtmlTags(news.getNtitle()).contains(kw) || 
+                .filter(news -> stripHtmlTags(news.getNtitle()).contains(kw) ||
                                 stripHtmlTags(news.getNdesc()).contains(kw))
                 .collect(Collectors.toList());
 
         // Return the filtered data as a Page
         return new PageImpl<>(filteredNews, pageable, filteredNews.size());
-		
+
 
 	}*/
 
