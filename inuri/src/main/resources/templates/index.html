@@ -59,6 +59,11 @@
 	charset="utf-8"></script>
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+
+
+<!-- Meta tag for Google site verification -->
+<meta name="google-site-verification" content="tAmTpcSPKz-dICgBLNMuRuRF8TOQq2UocwTk_GAdDV4" />
 	
 </head>
 
@@ -320,16 +325,18 @@
 
 
 	<!-- 챗봇시작 -->
-	<div class="chat-icon" id="chatIcon">
+	<div class="chat-icon" id="chatIcon" style="bottom: 30px;">
+		<i class="fa fa-comments" style="color: white;"></i>
 		<!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon">
             <path d="M12 2C6.48 2 2 6.48 2 12c0 5.52 4.48 10 10 10 1.94 0 3.73-.55 5.26-1.49L22 22l-2.51-5.26C21.45 14.73 22 13.42 22 12c0-5.52-4.48-10-10-10zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
-        </svg> -->
-		<img src="/img/chaticon.png">
+        </svg>  -->
+		<!-- <img src="/img/chaticon.png"> -->
 	</div>
 
-	<div class="chat-widget" id="chatWidget">
-		<div class="chat-header">안녕 인공지능 챗봇</div>
+	<div class="chat-widget" id="chatWidget" style="bottom: 80px;">
+		<div class="chat-header">인공지능 챗봇</div>
 		<div class="chat-body" id="chatBody">
+			
 			<div id="result"></div>
 			<!-- result에 응답이 띄워짐 -->
 		</div>
@@ -337,8 +344,8 @@
 
 		<div class="chat-footer">
 			<input type="text" name="msg" id="msg"
-				placeholder="Type your message...">
-			<button onclick="sendmsg()">버튼</button>
+				placeholder="메세지를 입력하세요">
+			<button onclick="sendmsg()"><i class="fa fa-paper-plane" style="color: white;"></i></button>
 		</div>
 	</div>
 
