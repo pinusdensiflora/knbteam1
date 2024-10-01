@@ -38,7 +38,4 @@ public class Answer {
 	@ToString.Exclude // Exclude the child from toString() to prevent recursion
 	@ManyToOne
 	private Question question;
-	
-	
-	
 }
