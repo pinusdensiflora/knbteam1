@@ -8,34 +8,44 @@
 .chat-icon {
 	position: fixed;
 	bottom: 100px;
-	right: 20px;
-	/*background: #007bff;*/
-	/*border-radius: 50%;*/
+	right: 30px;
+	background: #7FC30F;
+	border-radius: 50%;
 	padding: 10px;
 	cursor: pointer;
-	/*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);*/
+	width: 40px;  /* 원하는 너비 */
+	height: 40px; /* 원하는 높이 */
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	display: flex; /* 추가 */
+    align-items: center; /* 추가 */
+    justify-content: center; /* 추가 */
+	
 }
 
 .chat-icon .icon {
 	width: 10px;
 	height: 10px;
 	fill: white;
+	align-items: center;      /* 수직 가운데 정렬 */
+	justify-content: center;
 }
 
 .chat-widget {
 	display: none;
 	position: fixed;
-	bottom: 200px;
+	bottom: 150px;
 	right: 20px;
 	width: 300px;
-	border: 1px solid #007bff;
+	border: 1px solid #7FC30F;
 	border-radius: 5px;
 	background: white;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	z-index: 10; /*상단으로 고정*/
+	
 }
 
 .chat-header {
-	background: #007bff;
+	background: #7FC30F;
 	color: white;
 	padding: 10px;
 	border-top-left-radius: 5px;
@@ -62,7 +72,7 @@
 
 .chat-footer button {
 	padding: 10px;
-	background: #007bff;
+	background: #7FC30F;
 	color: white;
 	border: none;
 	border-radius: 5px;

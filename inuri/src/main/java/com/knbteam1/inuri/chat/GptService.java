@@ -1,3 +1,8 @@
+/*
+ * 생산자 : 배다원
+ * 생성일 : 0930
+ * 연락처 : dawnzeze@gmail.com
+ * */
 package com.knbteam1.inuri.chat;
 
 import org.springframework.beans.factory.annotation.Autowired;
