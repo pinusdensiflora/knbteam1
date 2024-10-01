@@ -79,7 +79,6 @@
                             <div class="child-img">
                                 <img th:src="@{|https://inuri-bucket-106wnz.s3.ap-northeast-2.amazonaws.com/${child.chimg}|}"
                                      class="img-fluid w-100 rounded-top rounded-bottom" alt="img">
-
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -92,15 +91,18 @@
 
                             <div class="d-flex justify-content-center flex-lg-wrap" style="margin-top: 150px;">
                                 <!-- 100px의 상단 마진 추가 -->
-                                <a th:href="@{/donation/donate(childId=${child.chid})}"
-                                   class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary me-4">
+<!--                                <a th:href="@{/donation/donate(childId=${child.chid})}"-->
+                                <a href="#"
+                                   class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary me-4"
+                                   data-bs-toggle="modal" data-bs-target="#donateModal"
+                                >
                                     <i class="fa fa-heart me-2 text-primary"></i> 후원하기
                                 </a>
                                 <button
-                                   sec:authorize="isAuthenticated()"
-                                   th:if="${#authentication.principal.authorities.?[authority == 'ROLE_ADMIN'].size() > 0}"
-                                   class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-danger me-4"
-                                   data-bs-toggle="modal" data-bs-target="#deleteConfirmModal">
+                                        sec:authorize="isAuthenticated()"
+                                        th:if="${#authentication.principal.authorities.?[authority == 'ROLE_ADMIN'].size() > 0}"
+                                        class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-danger me-4"
+                                        data-bs-toggle="modal" data-bs-target="#deleteConfirmModal">
                                     삭제
                                 </button>
 
@@ -166,41 +168,270 @@
                                             </ul>
                                         </nav>
                                     </div>
-
-
-                                </div>
-
-
-                            </div>
-                        </div>
-
-
-                        <!-- Modal -->
-                        <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="deleteConfirmModalLabel">아동 삭제 확인</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        정말로 삭제하시겠습니까?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <a th:href="@{|/child/delete/${child.chid}|}" type="button" class="btn btn-danger">삭제하기</a>
-                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">취소</button>
-                                    </div>
                                 </div>
                             </div>
                         </div>
-
+                        <!-- Back to Top -->
+                        <a href="#"
+                           class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i
+                                class="fa fa-arrow-up"></i></a>
 
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                    <!-- Back to Top -->
-                    <a href="#"
-                       class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i
-                            class="fa fa-arrow-up"></i></a>
+    <!-- Delete Confirm Modal -->
+    <div class="modal fade" id="deleteConfirmModal" tabindex="-1"
+         aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="deleteConfirmModalLabel">아동 삭제 확인</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    정말로 삭제하시겠습니까?
+                </div>
+                <div class="modal-footer">
+                    <a th:href="@{|/child/delete/${child.chid}|}" type="button"
+                       class="btn btn-danger">삭제하기</a>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">취소
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--    Donate Modal -->
+    <div class="modal fade" id="donateModal" tabindex="-1"
+         aria-labelledby="donateModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="donateModalLabel">후원 결제</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex flex-column justify-content-center">
+                    <!-- 후원 방법 -->
+                    <h2 class="text-center">후원 방법</h2>
+                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off"
+                               onclick="showRegularOptions()" checked>
+                        <label class="btn btn-outline-primary" for="btnradio1">정기 후원</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off"
+                               onclick="showOneTimeOptions()">
+                        <label class="btn btn-outline-primary" for="btnradio2">일시 후원</label>
+                    </div>
+
+                    <!-- hr 줄의 길이를 50%로 조정하고 위아래 여백을 추가 (20px) -->
+                    <hr class="w-100 m-2 mx-auto my-3">
+
+                    <!-- 후원 금액 -->
+                    <h2 class="text-center">후원 금액</h2>
+
+                    <!-- 후원 금액 선택 -->
+                    <div id="donationAmount" class="d-flex justify-content-center" style="gap: 1rem">
+                        <!-- 후원 금액 옵션이 여기에 동적으로 추가됩니다 -->
+                    </div>
+
+                    <!-- 직접 입력 필드 -->
+                    <div id="customAmountField" style="display:none; width: 50%; margin: 0 auto; padding-top: 10px;">
+                        <input type="number" id="customAmountInput" placeholder="금액 입력" class="form-control">
+                    </div>
+
+                    <!-- hr 줄의 길이를 50%로 조정하고 위아래 여백을 추가 (20px) -->
+                    <hr class="w-100 m-2 mx-auto my-3">
 
 
+                    <!-- 총 후원 금액 표시 -->
+                    <div id="totalAmount" class="text-center align-items-center">
+                        <h3>총 후원 금액: <span id="totalAmountValue">0</span> 원</h3>
+                    </div>
+
+
+                    <!-- 고객과 아동 정보를 담는 hidden input 필드 -->
+                    <input type="hidden" id="childId" th:value="${child.chid}">
+                    <input type="hidden" id="customerId" th:value="${customer.cid}">
+                    <input type="hidden" id="buyerEmail" th:value="${customer.username}">
+                    <input type="hidden" id="buyerName" th:value="${customer.name}">
+                    <input type="hidden" id="buyerPostcode" th:value="${customer.postcode}">
+                    <input type="hidden" id="childName" th:value="${child.chname}">
+                </div>
+                <div class="modal-footer align-items-center">
+                    <button type="button" class="btn btn-secondary" onclick="requestpay()">
+                        결제
+                    </button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">취소
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        //후원 금액 선택
+        function showRegularOptions() {
+            const donationAmountDiv = document.getElementById('donationAmount');
+            donationAmountDiv.innerHTML = `
+        <input type="radio" class="btn-check" name="donation" id="donation1" value="30000" autocomplete="off" onclick="updateTotalAmount(); hideCustomAmount()">
+        <label class="btn btn-outline-primary" for="donation1">30,000</label>
+
+        <input type="radio" class="btn-check" name="donation" id="donation2" value="50000" autocomplete="off" onclick="updateTotalAmount(); hideCustomAmount()">
+        <label class="btn btn-outline-primary" for="donation2">50,000</label>
+
+        <input type="radio" class="btn-check" name="donation" id="donation3" value="100000" autocomplete="off" onclick="updateTotalAmount(); hideCustomAmount()">
+        <label class="btn btn-outline-primary" for="donation3">100,000</label>
+
+        <input type="radio" class="btn-check" name="donation" id="customDonation" value="custom" autocomplete="off" onclick="showCustomAmount()">
+        <label class="btn btn-outline-primary" for="customDonation">직접 입력</label>
+    `;
+            document.getElementById('customAmountField').style.display = 'none'; // 직접 입력 필드는 숨김
+            updateTotalAmount(); // 총 후원 금액 업데이트
+        }
+
+        //일시 후원 클릭 시
+        function showOneTimeOptions() {
+            const donationAmountDiv = document.getElementById('donationAmount');
+            donationAmountDiv.innerHTML = `
+        <input type="radio" class="btn-check" name="donation" id="donation1" value="50000" autocomplete="off" onclick="updateTotalAmount(); hideCustomAmount()">
+        <label class="btn btn-outline-primary" for="donation1">50,000</label>
+
+        <input type="radio" class="btn-check" name="donation" id="donation2" value="100000" autocomplete="off" onclick="updateTotalAmount(); hideCustomAmount()">
+        <label class="btn btn-outline-primary" for="donation2">100,000</label>
+
+        <input type="radio" class="btn-check" name="donation" id="donation3" value="200000" autocomplete="off" onclick="updateTotalAmount(); hideCustomAmount()">
+        <label class="btn btn-outline-primary" for="donation3">200,000</label>
+
+        <input type="radio" class="btn-check" name="donation" id="customDonation" value="custom" autocomplete="off" onclick="showCustomAmount()">
+        <label class="btn btn-outline-primary" for="customDonation">직접 입력</label>
+    `;
+            document.getElementById('customAmountField').style.display = 'none'; // 직접 입력 필드는 숨김
+            updateTotalAmount(); // 총 후원 금액 업데이트
+        }
+
+        //직접 입력 필드 표시
+        function showCustomAmount() {
+            document.getElementById('customAmountField').style.display = 'block';
+            document.getElementById('customAmountInput').value = ''; // 입력 값 초기화
+            document.getElementById('customAmountInput').addEventListener('input', updateTotalAmount);
+        }
+
+        //직접 입력 필드를 숨기는 함수
+        function hideCustomAmount() {
+            document.getElementById('customAmountField').style.display = 'none'; // 직접 입력 필드 숨김
+            document.getElementById('customAmountInput').value = ''; // 입력 값 초기화
+        }
+
+        //총 후원 금액 업데이트
+        function updateTotalAmount() {
+            const selectedDonation = document.querySelector('input[name="donation"]:checked');
+            const customAmountInput = document.getElementById('customAmountInput');
+            let totalAmount = 0;
+
+            if (selectedDonation) {
+                if (selectedDonation.value === 'custom') {
+                    totalAmount = parseInt(customAmountInput.value) || 0;
+                } else {
+                    totalAmount = parseInt(selectedDonation.value);
+                }
+            }
+
+            document.getElementById('totalAmountValue').innerText = totalAmount.toLocaleString();
+        }
+
+        // 페이지 로드 시 정기 후원 옵션 표시
+        window.onload = function () {
+            showRegularOptions();
+        };
+    </script>
+
+    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+
+    <!-- 진짜 결제 스크립트 -->
+    <script>
+        IMP.init("imp27761772");
+
+        function requestpay() {
+            const selectedDonationMethod = document.querySelector('input[name="btnradio"]:checked'); // 선택된 후원 방법
+            const totalAmount = document.getElementById('totalAmountValue').innerText.replace(/,/g, ''); // 총 후원 금액
+            const childId = document.getElementById('childId').value;  // 서버에서 전달된 아동 ID
+            const customerId = document.getElementById('customerId').value;  // 서버에서 전달된 후원자 ID
+            const buyerEmail = document.getElementById('buyerEmail').value; // 로그인한 고객의 이메일 (username)
+            const buyerName = document.getElementById('buyerName').value; // 로그인한 고객의 이름 (name)
+            const buyerPostcode = document.getElementById('buyerPostcode').value; // 로그인한 고객의 우편번호 (postcode)
+            const childName = document.getElementById('childName').value; // 아동의 이름
+
+            if (!selectedDonationMethod) {
+                alert("후원 방법을 선택해 주세요.");
+                return;
+            }
+
+            const donationMethod = selectedDonationMethod.nextElementSibling.innerText; // 후원 방법 (정기 후원, 일시 후원)
+            const donationPeriod = donationMethod === '정기 후원' ? 12 : 0;  // 정기 후원: 12개월, 일시 후원: 0개월
+
+            // 결제 요청
+            IMP.request_pay(
+                {
+                    pg: "danal_tpay",
+                    pay_method: "card",
+                    merchant_uid: `merchant_${new Date().getTime()}`, // 주문 고유 ID
+                    name: `${donationMethod} : ${childName}`,  // 후원 방법과 아동 이름을 결합하여 표시
+                    amount: totalAmount, // 총 후원 금액
+                    buyer_email: buyerEmail, // 동적으로 로그인한 고객의 이메일을 사용
+                    buyer_name: buyerName,   // 동적으로 로그인한 고객의 이름을 사용
+                    buyer_postcode: buyerPostcode, // 동적으로 로그인한 고객의 우편번호 사용
+                },
+                function (response) {
+                    if (response.success) {
+                        alert("후원이 완료됐습니다.");
+                        // 결제 성공 시 후원 정보 서버에 저장
+                        saveDonation(donationMethod, totalAmount, donationPeriod, childId, customerId);
+                    } else {
+                        alert("결제 실패: " + response.error_msg);
+                    }
+                },
+            );
+        }
+
+        let hasErrorOccurred = false; // 오류 발생 여부를 추적하는 변수
+
+        // 후원 정보 저장 요청
+        function saveDonation(method, amount, period, childId, customerId) {
+            // 서버로 후원 정보 전송
+            fetch("/donation/create", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    method: method,
+                    amount: amount,
+                    period: period,
+                    childId: childId,
+                    customerId: customerId
+                }),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('후원 저장 실패'); // 응답이 실패할 경우 오류 발생
+                    }
+                    return response.json(); // JSON 응답으로 변경
+                })
+                .then(result => {
+                    // 결제 성공 시 아동의 상세 페이지로 리다이렉트
+                    window.location.href = result.redirectUrl; // 리다이렉트 URL로 이동
+                })
+                .catch(error => {
+                    alert("후원 저장 실패: " + error.message);
+                });
+        }
+    </script>
+
+</div>
 </html>

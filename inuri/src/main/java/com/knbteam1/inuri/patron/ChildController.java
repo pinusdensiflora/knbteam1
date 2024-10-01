@@ -115,6 +115,7 @@ public class ChildController {
                 Customer currentCustomer = customerService.authen();
                 boolean hasDonated = donationService.findByChild_ChidAndCustomer_Cid(chid, currentCustomer.getCid()).isPresent();
                 model.addAttribute("hasDonated", hasDonated); // 후원 여부를 모델에 추가
+                model.addAttribute("customer", currentCustomer);
             } else {
                 model.addAttribute("hasDonated", false); // 로그인하지 않은 경우 후원 여부는 false
             }
