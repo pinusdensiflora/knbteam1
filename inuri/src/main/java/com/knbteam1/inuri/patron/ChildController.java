@@ -186,7 +186,7 @@ public class ChildController {
 
     // 아동 삭제
     @GetMapping("/child/delete/{chid}")
-    public String deleteChild(@PathVariable Integer chid) {
+    public String deleteChild(@PathVariable("chid") Integer chid) {
         childService.deleteChildById(chid);
         return "redirect:/child_list"; // 아동 목록으로 리다이렉트
     }

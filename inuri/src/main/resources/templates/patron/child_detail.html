@@ -6,170 +6,201 @@
 -->
 <html layout:decorate="~{layout}">
 <div layout:fragment="content">
-<style>
-.child-img {
-    width: 100%;  /* 부모 요소의 너비에 맞춤 */
-    height: 450px;  /* 원하는 높이 설정 */
-    overflow: hidden;  /* 잘리는 부분 숨김 */
-    position: relative;
-}
+    <style>
+        .child-img {
+            width: 100%; /* 부모 요소의 너비에 맞춤 */
+            height: 450px; /* 원하는 높이 설정 */
+            overflow: hidden; /* 잘리는 부분 숨김 */
+            position: relative;
+        }
 
-.child-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;  /* 비율 유지하며 잘림 */
-    display: block;  /* 이미지 아래 여백 없애기 */
-}
-</style>
-	<!-- Spinner Start -->
-	<div id="spinner"
-		class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
-		<div class="spinner-grow text-primary" role="status"></div>
-	</div>
-	<!-- Spinner End -->
-
-	<!-- Modal Search Start -->
-	<div class="modal fade" id="searchModal" tabindex="-1"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-fullscreen">
-			<div class="modal-content rounded-0">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Search by
-						keyword</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"
-						aria-label="Close"></button>
-				</div>
-				<div class="modal-body d-flex align-items-center">
-					<div class="input-group w-75 mx-auto d-flex">
-						<input type="search" class="form-control p-3"
-							placeholder="keywords" aria-describedby="search-icon-1">
-						<span id="search-icon-1" class="input-group-text p-3"><i
-							class="fa fa-search"></i></span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Modal Search End -->
-
-
-	<!-- Single Page Header start -->
-	<div class="container-fluid page-header py-5"
-		style="padding-bottom: 30px;">
-		<!-- 상단 헤더 -->
-		<h1 class="text-center text-white display-6">후원받은 아동</h1>
-
-		<ol class="breadcrumb justify-content-center mb-0">
-			<li class="breadcrumb-item"><a href="/news">공지사항</a></li>
-			<li class="breadcrumb-item"><a href="/news/info">소식</a></li>
-			<li class="breadcrumb-item"><a href="/news/assist">고객지원</a></li>
-			<li class="breadcrumb-item"><a href="/news/address">찾아오시는 길</a></li>
-		</ol>
-	</div>
-	<!-- Single Page Header End -->
-
-
-
-
-	<!-- Single Product Start -->
-	<div class="container-fluid py-3">
-		<div class="container py-5">
-			<div>
-				<div>
-					<div class="row g-4">
-						<div class="col-lg-6">
-							<div class="child-img">
-								<img th:src="@{|https://inuri-bucket-106wnz.s3.ap-northeast-2.amazonaws.com/${child.chimg}|}"
-								 class="img-fluid w-100 rounded-top rounded-bottom" alt="img">
-									
-							</div>
-						</div>
-						<div class="col-lg-6">
-							<h4 class="fw-bold mb-3" th:text="${child.chname}">아동 이름</h4>
-				<p><strong>생년월일:</strong> <span th:text="${child.chdob}">생년월일</span></p>
-                <p><strong>성별:</strong> <span th:text="${child.chgender}">성별</span></p>
-                <p><strong>거주지:</strong> <span th:text="${child.chlocation}">거주지</span></p>
-                </br>
-				<p th:text="${child.chdesc}"></p>
-				
-	<div class="d-flex justify-content-center flex-lg-wrap" style="margin-top: 150px;"> <!-- 100px의 상단 마진 추가 -->
-    <a th:href="@{/donation/donate(childId=${child.chid})}"
-       class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary me-4">
-       <i class="fa fa-heart me-2 text-primary"></i> 후원하기
-    </a>
-
-    <!-- 현재 로그인한 사용자가 후원자일 때만 편지 쓰기 버튼 표시 -->
-    <div class="d-flex justify-content-center flex-lg-wrap"> <!-- 50px의 상단 마진 추가 -->
-        <a th:if="${hasDonated}" 
-           th:href="@{/child_letter/{chid}(chid=${child.chid})}" 
-           class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary">
-           <i class="fa fa-envelope me-2 text-primary"></i> 편지 쓰기
-        </a>
+        .child-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 비율 유지하며 잘림 */
+            display: block; /* 이미지 아래 여백 없애기 */
+        }
+    </style>
+    <!-- Spinner Start -->
+    <div id="spinner"
+         class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" role="status"></div>
     </div>
-</div>
+    <!-- Spinner End -->
 
-						</div>
-						<div class="col-lg-12">
-							<nav>
-								<div class="nav nav-tabs mb-3">
-									<button class="nav-link active border-white border-bottom-0"
-										type="button" role="tab" id="nav-about-tab"
-										data-bs-toggle="tab" data-bs-target="#nav-about"
-										aria-controls="nav-about" aria-selected="true">후원자들</button>		
-								</div>
-							</nav>
-							<div class="tab-content mb-5">
-								<div class="tab-pane active" id="nav-about" role="tabpanel"
-									aria-labelledby="nav-about-tab">
-											
-								<!-- 페이징 및 후원자 목록 -->
-								<div class="row">
-    <div th:each="donation, iterStat : ${donations}" class="col-md-4 col-lg-3 col-sm-6 mb-3">
-        <div class="p-3 border border-secondary rounded shadow-sm" style="background-color: #f9f9f9;">
-            <strong>후원자 이름:</strong>
-            <span th:text="${donation.customer.name}"></span><br>
-            <strong>후원 금액:</strong>
-            <span th:text="${donation.donationAmount}"></span> 원<br>
-            <strong>후원 날짜:</strong>
-            <span th:text="${#temporals.format(donation.ddate, 'yyyy-MM-dd')}"></span><br>
-
+    <!-- Modal Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1"
+         aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content rounded-0">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Search by
+                        keyword</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center">
+                    <div class="input-group w-75 mx-auto d-flex">
+                        <input type="search" class="form-control p-3"
+                               placeholder="keywords" aria-describedby="search-icon-1">
+                        <span id="search-icon-1" class="input-group-text p-3"><i
+                                class="fa fa-search"></i></span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-
-<div class="d-flex justify-content-center" th:if="${#lists.size(donations) > 100}">
-    <nav>
-        <ul class="pagination">
-            <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
-                <a class="page-link" th:href="@{/donations(page=${currentPage - 1})}">이전</a>
-            </li>
-            <li class="page-item" th:each="page : ${#numbers.range(1, totalPages)}" th:classappend="${page == currentPage} ? 'active'">
-                <a class="page-link" th:href="@{/donations(page=${page})}" th:text="${page}"></a>
-            </li>
-            <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
-                <a class="page-link" th:href="@{/donations(page=${currentPage + 1})}">다음</a>
-            </li>
-        </ul>
-    </nav>
-</div>
-
-								
-
-        
-								
-								</div>
-								
-								
-							</div>
-						</div>
+    <!-- Modal Search End -->
 
 
-					</div>
+    <!-- Single Page Header start -->
+    <div class="container-fluid page-header py-5"
+         style="padding-bottom: 30px;">
+        <!-- 상단 헤더 -->
+        <h1 class="text-center text-white display-6">후원받은 아동</h1>
 
-				<!-- Back to Top -->
-					<a href="#"
-						class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i
-						class="fa fa-arrow-up"></i></a>
-						
-						
+        <ol class="breadcrumb justify-content-center mb-0">
+            <li class="breadcrumb-item"><a href="/news">공지사항</a></li>
+            <li class="breadcrumb-item"><a href="/news/info">소식</a></li>
+            <li class="breadcrumb-item"><a href="/news/assist">고객지원</a></li>
+            <li class="breadcrumb-item"><a href="/news/address">찾아오시는 길</a></li>
+        </ol>
+    </div>
+    <!-- Single Page Header End -->
+
+
+    <!-- Single Product Start -->
+    <div class="container-fluid py-3">
+        <div class="container py-5">
+            <div>
+                <div>
+                    <div class="row g-4">
+                        <div class="col-lg-6">
+                            <div class="child-img">
+                                <img th:src="@{|https://inuri-bucket-106wnz.s3.ap-northeast-2.amazonaws.com/${child.chimg}|}"
+                                     class="img-fluid w-100 rounded-top rounded-bottom" alt="img">
+
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <h4 class="fw-bold mb-3" th:text="${child.chname}">아동 이름</h4>
+                            <p><strong>생년월일:</strong> <span th:text="${child.chdob}">생년월일</span></p>
+                            <p><strong>성별:</strong> <span th:text="${child.chgender}">성별</span></p>
+                            <p><strong>거주지:</strong> <span th:text="${child.chlocation}">거주지</span></p>
+                            </br>
+                            <p th:text="${child.chdesc}"></p>
+
+                            <div class="d-flex justify-content-center flex-lg-wrap" style="margin-top: 150px;">
+                                <!-- 100px의 상단 마진 추가 -->
+                                <a th:href="@{/donation/donate(childId=${child.chid})}"
+                                   class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary me-4">
+                                    <i class="fa fa-heart me-2 text-primary"></i> 후원하기
+                                </a>
+                                <button
+                                   sec:authorize="isAuthenticated()"
+                                   th:if="${#authentication.principal.authorities.?[authority == 'ROLE_ADMIN'].size() > 0}"
+                                   class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-danger me-4"
+                                   data-bs-toggle="modal" data-bs-target="#deleteConfirmModal">
+                                    삭제
+                                </button>
+
+                                <!-- 현재 로그인한 사용자가 후원자일 때만 편지 쓰기 버튼 표시 -->
+                                <div class="d-flex justify-content-center flex-lg-wrap"> <!-- 50px의 상단 마진 추가 -->
+                                    <a th:if="${hasDonated}"
+                                       th:href="@{/child_letter/{chid}(chid=${child.chid})}"
+                                       class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary">
+                                        <i class="fa fa-envelope me-2 text-primary"></i> 편지 쓰기
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-12">
+                            <nav>
+                                <div class="nav nav-tabs mb-3">
+                                    <button class="nav-link active border-white border-bottom-0"
+                                            type="button" role="tab" id="nav-about-tab"
+                                            data-bs-toggle="tab" data-bs-target="#nav-about"
+                                            aria-controls="nav-about" aria-selected="true">후원자들
+                                    </button>
+                                </div>
+                            </nav>
+                            <div class="tab-content mb-5">
+                                <div class="tab-pane active" id="nav-about" role="tabpanel"
+                                     aria-labelledby="nav-about-tab">
+
+                                    <!-- 페이징 및 후원자 목록 -->
+                                    <div class="row">
+                                        <div th:each="donation, iterStat : ${donations}"
+                                             class="col-md-4 col-lg-3 col-sm-6 mb-3">
+                                            <div class="p-3 border border-secondary rounded shadow-sm"
+                                                 style="background-color: #f9f9f9;">
+                                                <strong>후원자 이름:</strong>
+                                                <span th:text="${donation.customer.name}"></span><br>
+                                                <strong>후원 금액:</strong>
+                                                <span th:text="${donation.donationAmount}"></span> 원<br>
+                                                <strong>후원 날짜:</strong>
+                                                <span th:text="${#temporals.format(donation.ddate, 'yyyy-MM-dd')}"></span><br>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex justify-content-center" th:if="${#lists.size(donations) > 100}">
+                                        <nav>
+                                            <ul class="pagination">
+                                                <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
+                                                    <a class="page-link"
+                                                       th:href="@{/donations(page=${currentPage - 1})}">이전</a>
+                                                </li>
+                                                <li class="page-item" th:each="page : ${#numbers.range(1, totalPages)}"
+                                                    th:classappend="${page == currentPage} ? 'active'">
+                                                    <a class="page-link" th:href="@{/donations(page=${page})}"
+                                                       th:text="${page}"></a>
+                                                </li>
+                                                <li class="page-item"
+                                                    th:classappend="${currentPage == totalPages} ? 'disabled'">
+                                                    <a class="page-link"
+                                                       th:href="@{/donations(page=${currentPage + 1})}">다음</a>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="deleteConfirmModalLabel">아동 삭제 확인</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        정말로 삭제하시겠습니까?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a th:href="@{|/child/delete/${child.chid}|}" type="button" class="btn btn-danger">삭제하기</a>
+                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">취소</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <!-- Back to Top -->
+                    <a href="#"
+                       class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i
+                            class="fa fa-arrow-up"></i></a>
+
+
 </html>
