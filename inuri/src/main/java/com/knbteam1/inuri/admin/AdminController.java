@@ -49,11 +49,6 @@ public class AdminController {
         return "admin/patrons/readPatronList";
     }
 
-    @GetMapping("/children/add")
-    public String addChild() {
-        return "admin/child/addChild";
-    }
-
     @GetMapping("/children")
     public String readChildren(
             @RequestParam(value = "page", defaultValue = "0") int page,
