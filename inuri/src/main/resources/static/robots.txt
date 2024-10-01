@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /
+
+Allow: /$
+Allow: /sitemap.xml
+
+Sitemap: https://inuri.world/sitemap.xml
