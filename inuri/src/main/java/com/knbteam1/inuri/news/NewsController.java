@@ -42,12 +42,7 @@ public class NewsController {
 	@Value("${cloud.aws.s3.endpoint}")
     private String s3Endpoint;
 	
-	//챗봇 테스트용 임시
-	@GetMapping("/chat")
-	public String chat() {
-		return "chat/chattest";
-	}
-	
+
 	
 	//news CREATE ==================================================================================
 	//관리자만접근
