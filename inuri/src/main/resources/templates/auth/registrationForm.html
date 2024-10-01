@@ -10,86 +10,81 @@ memberInform.html
 <html layout:decorate="~{layout}">
 <div layout:fragment="content">
 
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="/js/kakaoAddress.js"></script>
 
 
-        <!--Header start -->
-        <div class="container-fluid page-header py-5">
-            <h1 class="text-center text-white display-6">환영합니다!</h1>
+    <!--Header start -->
+    <div class="container-fluid page-header py-5">
+        <h1 class="text-center text-white display-6">환영합니다!</h1>
 
+    </div>
+    <!--  Header End -->
+
+    <div class="container-fluid py-5">
+        <div class="container py-5 text-center">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <h1 class="display-4">회원가입</h1>
+
+
+                    <form th:action="@{/signup}" th:object="${customerCreateForm}" method="post">
+                        <div th:replace="~{auth/form_errors :: formErrorsFragment}"></div>
+
+                        <input th:field="*{name}" type="text" class="form-control  me-4" placeholder="성함">
+                        <br>
+                        <input th:field="*{username}" type="email" class="form-control me-4" placeholder="이메일">
+                        <br>
+                        <input th:field="*{password1}" type="password" class="form-control me-4" placeholder="비밀번호">
+                        <br>
+                        <input th:field="*{password2}" type="password" class="form-control me-4" placeholder="비밀번호 확인">
+                        <br>
+                        <div class="d-flex" style="gap: 1rem">
+                            <input type="button" class="btn btn-secondary" onclick="sample4_execDaumPostcode()"
+                                   value="주소 찾기"><br>
+                            <input th:field="*{postcode}" id="sample4_postcode" type="text" class="form-control me-4"
+                                   placeholder="우편번호">
+                        </div>
+                        <br>
+                        <input th:field="*{addr}" type="text" id="sample4_roadAddress" disabled class="form-control me-4" placeholder="주소">
+
+                        <br>
+                        <input type="text" id="sample4_detailAddress" name="location_detail" class="form-control me-4" placeholder="상세주소">
+                        <br>
+                        <input th:field="*{tel}" type="text" class="form-control me-4" placeholder="전화번호">
+                        <br>
+
+
+                        <p class="mb-4 mt-3">※8자 이상 대문자, 소문자, 숫자, 특수문자 중 3가지 이상을 사용해
+                            주세요.</p>
+
+                        <!-- Checkboxes start -->
+                        <div class="form-group mb-2 text-start">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="agreeTerms"
+                                       required> <label class="form-check-label"
+                                                        for="agreeTerms"> 아이누리의 이용 약관 및 개인 정보 처리 방침에 동의합니다. </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-4 text-start">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox"
+                                       id="ageVerification" required> <label
+                                    class="form-check-label" for="ageVerification"> 나는 만
+                                18세 이상입니다. 만 18세 미만의 경우 보호자(법정대리인)의 동의를 얻었습니다. </label>
+                            </div>
+                        </div>
+                        <!-- Checkboxes end -->
+
+                        <button type="submit" class="btn btn-primary w-100 py-2">회원가입</button>
+
+
+                    </form>
+                </div>
+            </div>
         </div>
-      <!--  Header End -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="container-fluid py-5">
-		<div class="container py-5 text-center">
-			<div class="row justify-content-center">
-				<div class="col-lg-6">
-					<h1 class="display-4">회원가입</h1>
-					
-					
-	<form th:action="@{/signup}" th:object="${customerCreateForm}" method="post">
-<div th:replace="~{auth/form_errors :: formErrorsFragment}"></div>
-		
-<input th:field="*{name}" type="text" class="form-control  me-4" placeholder="성함">
-<br>
-<input th:field="*{username}" type="email" class="form-control me-4" placeholder="이메일">
-<br>
-<input th:field="*{password1}" type="password" class="form-control me-4" placeholder="비밀번호">
-<br>
-<input th:field="*{password2}" type="password" class="form-control me-4" placeholder="비밀번호 확인">
-<br>
-<input th:field="*{addr}" type="text" class="form-control me-4" placeholder="주소">
-<br>
-<input th:field="*{postcode}" type="text" class="form-control me-4" placeholder="우편번호">
-<br>
-<input th:field="*{tel}" type="text" class="form-control me-4" placeholder="전화번호">
-<br>
-
-
-
-<p class="mb-4 mt-3">※8자 이상 대문자, 소문자, 숫자, 특수문자 중 3가지 이상을 사용해
-							주세요.</p>
-
-						<!-- Checkboxes start -->
-						<div class="form-group mb-2 text-start">
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" id="agreeTerms"
-									required> <label class="form-check-label"
-									for="agreeTerms"> 아이누리의 이용 약관 및 개인 정보 처리 방침에 동의합니다. </label>
-							</div>
-						</div>
-
-						<div class="form-group mb-4 text-start">
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox"
-									id="ageVerification" required> <label
-									class="form-check-label" for="ageVerification"> 나는 만
-									18세 이상입니다. 만 18세 미만의 경우 보호자(법정대리인)의 동의를 얻었습니다. </label>
-							</div>
-						</div>
-						<!-- Checkboxes end -->
-
-						<button type="submit" class="btn btn-primary w-100 py-2">회원가입</button>
-
-
-	</form>
-</div>
-</div>
-</div>
-</div>
+    </div>
 
 
 </div>
