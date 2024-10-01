@@ -188,7 +188,7 @@ function updateTotalAmount() {
             },
             function (response) {
                 if (response.success) {
-                    alert("결제 성공");
+                    alert("후원이 완료됐습니다.");
                     // 결제 성공 시 후원 정보 서버에 저장
                     saveDonation(donationMethod, totalAmount, donationPeriod, childId, customerId);
                 } else {
@@ -196,6 +196,72 @@ function updateTotalAmount() {
                 }
             },
         );
+    }
+
+    let hasErrorOccurred = false; // 오류 발생 여부를 추적하는 변수
+
+ // 후원 정보 저장 요청
+    function saveDonation(method, amount, period, childId, customerId) {
+        // 서버로 후원 정보 전송
+        fetch("/donation/create", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                method: method,
+                amount: amount,
+                period: period,
+                childId: childId,
+                customerId: customerId
+            }),
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('후원 저장 실패'); // 응답이 실패할 경우 오류 발생
+            }
+            return response.json(); // JSON 응답으로 변경
+        })
+        .then(result => {
+            // 결제 성공 시 아동의 상세 페이지로 리다이렉트
+            window.location.href = result.redirectUrl; // 리다이렉트 URL로 이동
+        })
+        .catch(error => {
+            alert("후원 저장 실패: " + error.message);
+        });
+    }
+</script>
+
+
+
+<!-- 고객과 아동 정보를 담는 hidden input 필드 -->
+<input type="hidden" id="childId" th:value="${child.chid}">
+<input type="hidden" id="customerId" th:value="${customer.cid}">
+<input type="hidden" id="buyerEmail" th:value="${customer.username}">
+<input type="hidden" id="buyerName" th:value="${customer.name}">
+<input type="hidden" id="buyerPostcode" th:value="${customer.postcode}">
+<input type="hidden" id="childName" th:value="${child.chname}">
+<!-- 결제 버튼 -->
+<button type="button" class="btn btn-secondary" style="margin-top: 20px;" onclick="requestpay()">다음</button>
+<div style="margin-bottom: 100px;"></div>
+<!-- 가결제 -->
+<!-- <script>
+    function requestpay() {
+        const selectedDonationMethod = document.querySelector('input[name="btnradio"]:checked'); // 선택된 후원 방법
+        const totalAmount = document.getElementById('totalAmountValue').innerText.replace(/,/g, ''); // 총 후원 금액
+        const childId = document.getElementById('childId').value;  // 서버에서 전달된 아동 ID
+        const customerId = document.getElementById('customerId').value;  // 서버에서 전달된 후원자 ID
+
+        if (!selectedDonationMethod) {
+            alert("후원 방법을 선택해 주세요.");
+            return;
+        }
+
+        const donationMethod = selectedDonationMethod.nextElementSibling.innerText; // 후원 방법 (정기 후원, 일시 후원)
+        const donationPeriod = donationMethod === '정기 후원' ? 12 : 0;  // 정기 후원: 12개월, 일시 후원: 0개월
+
+        // 결제 정보 서버에 저장
+        saveDonation(donationMethod, totalAmount, donationPeriod, childId, customerId);
     }
 
     // 후원 정보 저장 요청
@@ -214,29 +280,33 @@ function updateTotalAmount() {
                 customerId: customerId
             }),
         })
-        .then(response => response.text())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('후원 저장 실패'); // 응답이 실패할 경우 오류 발생
+            }
+            return response.json(); // JSON 응답으로 변경
+        })
         .then(result => {
-            alert(result);  // 후원 성공 메시지
+            // 결제 성공 시 아동의 상세 페이지로 리다이렉트
+            window.location.href = result.redirectUrl; // 리다이렉트 URL로 이동
         })
         .catch(error => {
             alert("후원 저장 실패: " + error.message);
         });
     }
-</script>
-
+</script> -->
 
 <!-- 고객과 아동 정보를 담는 hidden input 필드 -->
-<input type="hidden" id="childId" th:value="${child.chid}">
+<!-- <input type="hidden" id="childId" th:value="${child.chid}">
 <input type="hidden" id="customerId" th:value="${customer.cid}">
 <input type="hidden" id="buyerEmail" th:value="${customer.username}">
 <input type="hidden" id="buyerName" th:value="${customer.name}">
 <input type="hidden" id="buyerPostcode" th:value="${customer.postcode}">
 <input type="hidden" id="childName" th:value="${child.chname}">
-<!-- 결제 버튼 -->
+결제 버튼
 <button type="button" class="btn btn-secondary" style="margin-top: 20px;" onclick="requestpay()">다음</button>
-<div style="margin-bottom: 100px;"></div>
-
-
+<div style="margin-bottom: 100px;"></div> -->
+<!-- 가결제 끝 -->
 </div>
 </div>
 </div>

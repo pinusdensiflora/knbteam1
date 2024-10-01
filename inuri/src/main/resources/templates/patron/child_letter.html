@@ -6,26 +6,25 @@
 <html layout:decorate="~{layout}">
 <div layout:fragment="content">
 
-    <!-- Spinner Start -->
-    <div id="spinner"
-         class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
-        <div class="spinner-grow text-primary" role="status"></div>
-    </div>
-    <!-- Spinner End -->
-    <div class="container-fluid page-header py-5" style="padding-bottom: 30px;">
-        <!-- 상단 헤더 -->
-        <h1 class="text-center text-white display-6">아동에게 전달되는 편지</h1>
+<!-- Spinner Start -->
+        <div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
+            <div class="spinner-grow text-primary" role="status"></div>
+        </div>
+        <!-- Spinner End -->
+<div class="container-fluid page-header py-5" style="padding-bottom: 30px;">
+    <!-- 상단 헤더 -->
+    <h1 class="text-center text-white display-6">아동에게 전달되는 편지</h1>
 
-        <ol class="breadcrumb justify-content-center mb-0">
-            <li class="breadcrumb-item"><a href="/news">공지사항</a></li>
-            <li class="breadcrumb-item"><a href="/news/info">소식</a></li>
-            <li class="breadcrumb-item"><a href="/news/assist">고객지원</a></li>
-            <li class="breadcrumb-item"><a href="/news/address">찾아오시는 길</a></li>
-        </ol>
-    </div>
+    <ol class="breadcrumb justify-content-center mb-0">
+        <li class="breadcrumb-item"><a href="/news">공지사항</a></li>
+        <li class="breadcrumb-item"><a href="/news/info">소식</a></li>
+        <li class="breadcrumb-item"><a href="/news/assist">고객지원</a></li>
+        <li class="breadcrumb-item"><a href="/news/address">찾아오시는 길</a></li>
+    </ol>
+</div>
 
     <!-- 편지 작성 폼 -->
-    <form action="#" th:action="@{/send_letter}" method="post">
+    <form action="#" th:action="@{/send_letter}" method="post" onsubmit="cleanMessage()">
         <input type="hidden" name="childId" th:value="${child.chid}"/>
         <div class="form-group">
             <div class="d-flex flex-column align-items-center justify-content-center w-100">
@@ -44,9 +43,18 @@
 
             <textarea class="form-control" id="summernote" name="message" rows="4"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary mt-3">편지 보내기</button>
+        <button type="submit" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary mt-3 float-end">
+            <i class="fa fa-envelope me-2 text-primary"></i>편지 보내기
+        </button>
     </form>
-
+    <!-- 편지 p태그 제거 -->
+    <script>
+        function cleanMessage() {
+            const textarea = document.getElementById('summernote');
+            // HTML을 텍스트로 변환
+            textarea.value = textarea.value.replace(/<\/?p>/g, ''); // <p>와 </p>를 모두 제거
+        }
+    </script>
     <script>
         $(document).ready(function () {
             // On button click, make an AJAX request

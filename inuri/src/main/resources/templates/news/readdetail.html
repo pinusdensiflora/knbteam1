@@ -33,7 +33,9 @@
                         <div class="col-12">
                             <div class="mx-auto" >
                                 <h1 class="text-primary">[[${news.ntitle}]]</h1>
-                                <p class="mb-4"> <a th:href="@{|/news/${news.nkind}|}">[[${cateValue}]]</a><br> 작성일 : [[${news.ndate}]] <br> 조회수 : [[${news.nhit}]] </p>
+                                <p class="mb-4"> <a th:href="@{|/news/${news.nkind}|}">[[${cateValue}]]</a>
+                                <br> 작성일 : <span th:text="${#temporals.format(news.ndate, 'yyyy-MM-dd HH:mm')}"></span> 
+                                <br> 조회수 : [[${news.nhit}]] </p>
                             	<hr>
                             </div>
                         </div>
