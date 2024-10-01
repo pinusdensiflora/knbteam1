@@ -43,19 +43,19 @@ memberInform.html
 	<form th:action="@{/signup}" th:object="${customerCreateForm}" method="post">
 <div th:replace="~{auth/form_errors :: formErrorsFragment}"></div>
 		
-<input th:field="*{name}" type="text" class="form-control border-0 me-4" placeholder="성함">
+<input th:field="*{name}" type="text" class="form-control  me-4" placeholder="성함">
 <br>
-<input th:field="*{username}" type="email" class="form-control border-0 me-4" placeholder="이메일">
+<input th:field="*{username}" type="email" class="form-control me-4" placeholder="이메일">
 <br>
-<input th:field="*{password1}" type="password" class="form-control border-0 me-4" placeholder="비밀번호">
+<input th:field="*{password1}" type="password" class="form-control me-4" placeholder="비밀번호">
 <br>
-<input th:field="*{password2}" type="password" class="form-control border-0 me-4" placeholder="비밀번호 확인">
+<input th:field="*{password2}" type="password" class="form-control me-4" placeholder="비밀번호 확인">
 <br>
-<input th:field="*{addr}" type="text" class="form-control border-0 me-4" placeholder="주소">
+<input th:field="*{addr}" type="text" class="form-control me-4" placeholder="주소">
 <br>
-<input th:field="*{postcode}" type="text" class="form-control border-0 me-4" placeholder="우편번호">
+<input th:field="*{postcode}" type="text" class="form-control me-4" placeholder="우편번호">
 <br>
-<input th:field="*{tel}" type="text" class="form-control border-0 me-4" placeholder="전화번호">
+<input th:field="*{tel}" type="text" class="form-control me-4" placeholder="전화번호">
 <br>
 
 
