@@ -16,7 +16,6 @@ admin/faq/faqList.html
                 <table class="table text-start align-middle table-bordered table-hover mb-0">
                     <thead>
                     <tr class="text-dark">
-                        <th scope="col"><input class="form-check-input" type="checkbox"></th>
                         <th scope="col">번호</th>
                         <th scope="col">제목</th>
                         <th scope="col">작성일</th>
@@ -35,7 +34,6 @@ admin/faq/faqList.html
                                 th:data-news-description="${faq.ndesc}"
                                 th:data-news-id="${faq.nid}"
                         >
-                            <td><input class="form-check-input" type="checkbox"></td>
                             <td>[[${faq.nid}]]</td>
                             <td>[[${faq.ntitle}]]</td>
                             <td>[[${faq.ndate.toLocalDate()}]]</td>

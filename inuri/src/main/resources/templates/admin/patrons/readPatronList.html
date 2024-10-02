@@ -15,7 +15,6 @@ admin/readPatronList.html
                 <table class="table text-start align-middle table-bordered table-hover mb-0">
                     <thead>
                     <tr class="text-dark">
-                        <th scope="col"><input class="form-check-input" type="checkbox"></th>
                         <th scope="col">이름</th>
                         <th scope="col">메일</th>
                         <th scope="col">가입일</th>
@@ -25,7 +24,6 @@ admin/readPatronList.html
                     <tbody>
                     <th:block th:each="patron:${patrons}">
                         <tr>
-                            <td><input class="form-check-input" type="checkbox"></td>
                             <td>[[${patron.name}]]</td>
                             <td>[[${patron.username}]]</td>
                             <td>[[${patron.cdate.toLocalDate()}]]</td>
