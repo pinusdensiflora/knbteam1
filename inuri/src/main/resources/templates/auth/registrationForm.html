@@ -42,14 +42,14 @@ memberInform.html
                         <div class="d-flex" style="gap: 1rem">
                             <input type="button" class="btn btn-secondary" onclick="sample4_execDaumPostcode()"
                                    value="주소 찾기"><br>
-                            <input th:field="*{postcode}" id="sample4_postcode" type="text" class="form-control me-4"
+                            <input th:field="*{postcode}" id="sample4_postcode" readonly type="text" class="form-control me-4"
                                    placeholder="우편번호">
                         </div>
                         <br>
-                        <input th:field="*{addr}" type="text" id="sample4_roadAddress" disabled class="form-control me-4" placeholder="주소">
+                        <input th:field="*{addr}" type="text" id="sample4_roadAddress" readonly class="form-control me-4" placeholder="주소">
 
                         <br>
-                        <input type="text" id="sample4_detailAddress" name="location_detail" class="form-control me-4" placeholder="상세주소">
+                        <input th:field="*{detailAddr}" type="text" id="sample4_detailAddress" name="location_detail" class="form-control me-4" placeholder="상세주소">
                         <br>
                         <input th:field="*{tel}" type="text" class="form-control me-4" placeholder="전화번호">
                         <br>

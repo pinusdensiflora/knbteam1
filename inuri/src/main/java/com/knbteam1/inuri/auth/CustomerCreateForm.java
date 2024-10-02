@@ -25,7 +25,10 @@ public class CustomerCreateForm {
     
     @NotEmpty(message = "주소는 필수항목입니다.")
     private String addr;
-    
+
+    @NotEmpty(message = "상세 주소는 필수항목입니다.")
+    private String detailAddr;
+
     @NotEmpty(message = "우편번호는 필수항목입니다.")
     private String postcode;
     
