@@ -10,7 +10,7 @@ admin/faq/faqList.html
         <div class="bg-light text-center rounded p-4">
             <div class="d-flex align-items-center justify-content-between mb-4">
                 <h6 class="mb-0">FAQ</h6>
-                <a href = "/news/4/create">글 작성</a>
+                <a href="/news/4/create">글 작성</a>
             </div>
             <div class="table-responsive">
                 <table class="table text-start align-middle table-bordered table-hover mb-0">
@@ -24,8 +24,17 @@ admin/faq/faqList.html
                     </tr>
                     </thead>
                     <tbody>
-                    <th:block th:each="faq:${faqlist}">
-                        <tr>
+                    <th:block th:each="faq:${paging}">
+                        <tr
+                                style="cursor: pointer;"
+                                data-bs-toggle="modal"
+                                data-bs-target="#newsModal"
+                                th:data-news-title="${faq.ntitle}"
+                                th:data-news-category="${faq.ncate}"
+                                th:data-news-date="${faq.ndate.toLocalDate()}"
+                                th:data-news-description="${faq.ndesc}"
+                                th:data-news-id="${faq.nid}"
+                        >
                             <td><input class="form-check-input" type="checkbox"></td>
                             <td>[[${faq.nid}]]</td>
                             <td>[[${faq.ntitle}]]</td>
@@ -36,26 +45,83 @@ admin/faq/faqList.html
                     </tbody>
                 </table>
             </div>
-            <nav aria-label="Page navigation example" class="mt-5">
+
+
+            <div th:if="${!paging.isEmpty()}" class="mt-3">
                 <ul class="pagination justify-content-center">
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                            <span class="sr-only">Previous</span>
-                        </a>
+                    <li class="page-item"
+                        th:classappend="${!paging.hasPrevious} ? 'disabled'"><a
+                            class="page-link" th:href="@{|?page=${paging.number-1}|}">
+                        <span>이전</span>
+                    </a></li>
+                    <li
+                            th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
+                            th:if="${page >= paging.number-5 and page <= paging.number+5}"
+                            th:classappend="${page == paging.number} ? 'active'"
+                            class="page-item"><a th:text="${page+1}"
+                                                 class="page-link" th:href="@{|?page=${page}|}"></a>
                     </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </li>
+                    <li class="page-item"
+                        th:classappend="${!paging.hasNext} ? 'disabled'"><a
+                            class="page-link" th:href="@{|?page=${paging.number+1}|}">
+                        <span>다음</span>
+                    </a></li>
                 </ul>
-            </nav>
+            </div>
+
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="newsModal" tabindex="-1" aria-labelledby="newsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="newsModalLabel">공지사항 상세보기</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
+                    <div class="col-12">
+                        <h1 class="text-primary" id="modal-news-title">공지사항 제목</h1>
+                        <p class="mb-4" id="modal-news-category">카테고리</p>
+                        <p>작성일: <span id="modal-news-date">작성일</span></p>
+                        <div id="modal-news-description" style="min-height: 50vh; height: auto;"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                    <a id="modal-detail-link" class="btn btn-primary" href="#">상세보기</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('newsModal');
+
+            modal.addEventListener('show.bs.modal', function (event) {
+                const button = event.relatedTarget; // Button that triggered the modal
+
+                // Extract data from button's data-* attributes
+                const newsTitle = button.getAttribute('data-news-title');
+                const newsCategory = button.getAttribute('data-news-category');
+                const newsDate = button.getAttribute('data-news-date');
+                const newsDescription = button.getAttribute('data-news-description');
+                const newsId = button.getAttribute('data-news-id')
+
+                // Update modal content
+                document.getElementById('modal-news-title').textContent = newsTitle;
+                document.getElementById('modal-news-category').textContent = newsCategory;
+                document.getElementById('modal-news-date').textContent = newsDate;
+                document.getElementById('modal-news-description').innerHTML = newsDescription;
+
+                // Update the "More Details" link with the dynamic news ID
+                const detailLink = `/news/article/${newsId}`;
+                document.getElementById('modal-detail-link').href = detailLink;
+            });
+        });
+    </script>
+
 </div>
 </html>
