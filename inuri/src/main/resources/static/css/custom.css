@@ -7,27 +7,41 @@
 /*챗봇용 css*/
 .chat-icon {
 	position: fixed;
-	bottom: 100px;
+	bottom: 80px;
 	right: 30px;
 	background: #7FC30F;
 	border-radius: 50%;
 	padding: 10px;
 	cursor: pointer;
-	width: 40px;  /* 원하는 너비 */
-	height: 40px; /* 원하는 높이 */
+	width: 30px;  /* 원하는 너비 */
+	height: 30px; /* 원하는 높이 */
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 	display: flex; /* 추가 */
     align-items: center; /* 추가 */
     justify-content: center; /* 추가 */
-	
+	transition: 0.5s;
 }
 
 .chat-icon .icon {
-	width: 10px;
-	height: 10px;
+	width: 3px;
+	height: 3px;
 	fill: white;
 	align-items: center;      /* 수직 가운데 정렬 */
 	justify-content: center;
+}
+
+@media (min-width: 500px) {
+	.chat-icon{
+		bottom: 100px;
+		width: 45px;
+		height: 45px;
+	}
+
+	.chat-icon .icon {
+		width: 10px;
+		height: 10px;
+	}
+
 }
 
 .chat-widget {
