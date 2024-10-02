@@ -53,7 +53,7 @@ public class CustomerController {
         c.setUsername(customerCreateForm.getUsername());
         c.setName(customerCreateForm.getName());
         c.setCtel(customerCreateForm.getTel());
-        c.setCaddr(customerCreateForm.getAddr());
+        c.setCaddr(customerCreateForm.getAddr() + " " + customerCreateForm.getDetailAddr());
         c.setPostcode(customerCreateForm.getPostcode());
         c.setPassword(customerCreateForm.getPassword1());
         
