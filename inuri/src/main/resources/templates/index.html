@@ -363,12 +363,20 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="position-relative mx-auto">
-                        <input class="form-control border-0 w-100 py-3 px-4 rounded-pill"
-                               type="text" placeholder="검색어를 입력하세요">
-                        <button type="submit"
-                                class="btn btn-primary border-0 border-secondary py-3 px-4 position-absolute rounded-pill text-white"
-                                style="top: 0; right: 0;">Search
-                        </button>
+                    
+                    <form th:action="@{/news/search}" method="get" id="searchForm">
+
+								<input type="text" class="form-control border-0 w-100 py-3 px-4 rounded-pill" 
+										placeholder="게시글 검색" 
+               							th:value="${kw}" id="search_kw" name="kw">
+        						<button class="btn btn-primary border-0 border-secondary py-3 px-4 position-absolute rounded-pill text-white" 
+        						type="submit" id="btn_search" style="top: 0; right: 0;">
+            					<i class="fa fa-search"></i>
+       						    </button>
+                               
+                    </form>
+                        
+                        
                     </div>
                 </div>
                 <div class="col-lg-3">
