@@ -44,6 +44,8 @@ dependencies {
     
     //chatGPT
 	implementation 'io.github.flashvayne:chatgpt-spring-boot-starter:1.0.4'
+	// Dotenv for .env file
+	implementation 'io.github.cdimascio:java-dotenv:5.2.2'
 }
 
 tasks.named('test') {
