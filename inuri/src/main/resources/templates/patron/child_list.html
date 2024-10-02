@@ -42,28 +42,28 @@
     <!-- 아동 필터 버튼 -->
     <div class="container my-4 text-center">
         <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-            <a href="/child_list?filter=all" class="btn btn-outline-primary" id="btnradio1">모든 아동</a>
+            <a href="/child_list?filter=all" class="btn btn-outline-primary text-nowrap children-filter" id="btnradio1">모든 아동</a>
 
-            <a href="/child_list?filter=sponsored" class="btn btn-outline-primary" id="btnradio2">후원받은 아동</a>
+            <a href="/child_list?filter=sponsored" class="btn btn-outline-primary text-nowrap children-filter" id="btnradio2">후원 받은 아동</a>
 
-            <a href="/child_list?filter=unsponsored" class="btn btn-outline-primary" id="btnradio3">후원이 필요한 아동</a>
+            <a href="/child_list?filter=unsponsored" class="btn btn-outline-primary text-nowrap children-filter" id="btnradio3">후원이 필요한 아동</a>
         </div>
     </div>
 
     <!-- 검색창 시작 -->
-    <div style="display: flex; justify-content: flex-end; margin: 30px;">
-        <div style="width: 40%;">
+    <div class="justify-content-center justify-content-xl-end" style="display: flex; margin: 30px;">
+        <div class="children-search">
             <form action="/child_list" method="get">
                 <div class="input-group w-100">
                     <!-- 검색 기준 선택 -->
-                    <select name="searchType" class="form-select p-3" aria-label="검색 기준" style="width: 15%;">
+                    <select name="searchType" class="form-select p-xl-3 p-1 children-filter children-search-filter" aria-label="검색 기준">
                         <option value="name" th:selected="${searchType == 'name'}">이름</option>
                         <option value="location" th:selected="${searchType == 'location'}">거주지</option>
                         <option value="age" th:selected="${searchType == 'age'}">나이</option>
                     </select>
 
                     <!-- 검색어 입력 -->
-                    <input type="text" name="keyword" class="form-control p-3" placeholder="검색어를 입력하세요"
+                    <input type="text" name="keyword" class="form-control p-3 children-filter" placeholder="검색어를 입력하세요"
                            th:value="${keyword}" aria-describedby="search-icon" style="width: 35%;">
 
                     <!-- 검색 버튼 -->
