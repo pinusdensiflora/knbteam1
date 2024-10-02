@@ -77,10 +77,10 @@ public class QuestionController {
 		if (!file2.isEmpty()) {
 
 			UUID uuid = UUID.randomUUID();
-			String fileName = uuid + "_" + file1.getOriginalFilename();
+			String fileName = uuid + "_" + file2.getOriginalFilename();
 
 			// 파일 업로드 (S3 등)
-			// s3Service.uploadFile(file1, fileName);
+			// s3Service.uploadFile(file2, fileName);
 			System.out.println(fileName);
 			q.setImg2(fileName);
 
