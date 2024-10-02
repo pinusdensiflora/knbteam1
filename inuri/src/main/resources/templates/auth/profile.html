@@ -21,81 +21,69 @@ profile.html
 
 	<!-- profile Start -->
 	<div class="container-fluid py-5 mt-5">
-		
-			
-				<div class="">
-					<div class="row g-4">
-						<!-- Image section -->
-						<div class="col-lg-3 text-center">
-							<div class="border rounded p-3 bg-light">
-								<a href="#"> <img src="img/single-item.jpg"
-									class="img-fluid rounded-circle mb-3" alt="Image">
-								</a> 
-							</div>
-						</div>
-
-						<!-- 총 후원금액 section -->
-						<div class="col-lg-4">
-							<div class="border rounded p-3 bg-light text-center">
-								<p class="fw-bold">총 후원금액 : 530000원</p>
-								<!-- <a href="#"
-									class="btn btn-outline-secondary btn-sm d-block">결제 수단
-									관리</a> --> 
-									<a href="/userQuestions"
-									class="btn btn-outline-secondary btn-sm d-block">1:1 질문내역</a>
-									
-									<a href="#" class="btn btn-outline-secondary btn-sm d-block mt-2">비밀번호
-									변경</a>
-									 
-									<a href="#" class="btn btn-outline-danger btn-sm d-block mt-2">회원탈퇴</a>
-							</div>
-						</div>
-
-						<!-- 후원 목록 section -->
-						<div>
-							
 
 
-						</div>
-
-						<table class="table" >
-							<thead>
-								<tr>
-									<th scope="col" style="width: 20%;">후원일</th>
-									<th scope="col" style="width: 50%;">후원아동명</th>
-									<!-- 제목의 가로폭을 70%로 설정 -->
-									<th scope="col" style="width: 30%;">후원금액</th>
-								</tr>
-							</thead>
-							<tbody>
-
-
-
-
-								<th:block th:each="donation : ${customer.donation}">
-								
-									
-
-									<tr>
-										<td th:text="${#temporals.format(donation.ddate, 'yyyy-MM-dd HH:mm')}"></td>
-										<td>
-											<p class="mb-0 mt-4">[[${donation.child.chname}]]</p>
-										</td>
-										<td>
-											<p class="mb-0 mt-4">[[${donation.donationAmount}]]</p>
-										</td>
-
-									</tr>
-								</th:block>
-							</tbody>
-						</table>
-
+		<div class="">
+			<div class="row g-4">
+				<!-- Image section -->
+				<div class="col-lg-3 text-center">
+					<div class="border rounded-circle p-3 bg-light" >
+						<a href="#"> <img src="img/single-item.jpg"
+							class="img-fluid rounded-circle " alt="Image">
+						</a>
 					</div>
 				</div>
-			
-		
+
+				<!-- 총 후원금액 section -->
+				<div class="col-lg-4">
+					<div class="border rounded p-3 bg-light text-center">
+						<p class="fw-bold">총 후원금액 : 530000원</p>
+
+						<a href="/userQuestions"
+							class="btn btn-outline-secondary btn-sm d-block">1:1 질문내역</a>
+					</div>
+				</div>
+
+				<!-- 후원 목록 section -->
+				<div></div>
+
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col" style="width: 20%;">후원일</th>
+							<th scope="col" style="width: 50%;">후원아동명</th>
+							<!-- 제목의 가로폭을 70%로 설정 -->
+							<th scope="col" style="width: 30%;">후원금액</th>
+						</tr>
+					</thead>
+					<tbody>
+
+
+
+
+						<th:block th:each="donation : ${customer.donation}">
+
+
+
+							<tr>
+								<td
+									th:text="${#temporals.format(donation.ddate, 'yyyy-MM-dd HH:mm')}"></td>
+								<td>
+									<p class="mb-0 mt-4">[[${donation.child.chname}]]</p>
+								</td>
+								<td>
+									<p class="mb-0 mt-4">[[${donation.donationAmount}]]</p>
+								</td>
+
+							</tr>
+						</th:block>
+					</tbody>
+				</table>
+
+			</div>
+		</div>
+
+
 	</div>
 	<!-- profile End -->
-
-
 </html>
