@@ -16,6 +16,9 @@ import com.knbteam1.inuri.patron.ChildRepository;
 import com.knbteam1.inuri.patron.Donation;
 import com.knbteam1.inuri.patron.DonationRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -31,8 +34,9 @@ public class AdminService {
     private final DonationRepository donationRepository;
     private final ChildRepository childRepository;
 
-    public List<News> readAllNews() {
-        return newsRepository.findAll();
+    public Page<News> readAllNews(int page) {
+        Pageable pageable = PageRequest.of(page, 10);
+        return newsRepository.findAll(pageable);
     }
 
     public List<Customer> readAllCustomers() {

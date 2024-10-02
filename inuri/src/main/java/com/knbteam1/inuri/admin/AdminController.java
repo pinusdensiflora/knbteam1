@@ -6,6 +6,7 @@ admin/leftNav.html
 */
 package com.knbteam1.inuri.admin;
 
+import com.knbteam1.inuri.news.News;
 import com.knbteam1.inuri.news.NewsService;
 import com.knbteam1.inuri.patron.Child;
 import com.knbteam1.inuri.patron.ChildService;
@@ -31,11 +32,15 @@ public class AdminController {
         this.childService = childService;
     }
 
-    @GetMapping("")
-    public String index(Model model) {
-        model.addAttribute("newsList", adminService.readAllNews());
+    @GetMapping()
+    public String index(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            Model model) {
+        Page<News> paging = adminService.readAllNews(page);
+        model.addAttribute("paging", paging);
         model.addAttribute("patronsCount", adminService.readAllCustomers().toArray().length);
         model.addAttribute("childrenCount", adminService.readAllChildren().toArray().length);
+
 //        model.addAttribute("donationSum", adminService.readDonations()
 //                .stream()
 //                .mapToInt(donation::getDonationAmount));
@@ -47,11 +52,6 @@ public class AdminController {
     public String readPatron(Model model) {
         model.addAttribute("patrons", adminService.readAllCustomers());
         return "admin/patrons/readPatronList";
-    }
-
-    @GetMapping("/children/add")
-    public String addChild() {
-        return "admin/child/addChild";
     }
 
     @GetMapping("/children")
@@ -67,8 +67,10 @@ public class AdminController {
     }
 
     @GetMapping("/faq")
-    public String readFaq(Model model) {
-        model.addAttribute("faqlist", newsService.readlist(5));
+    public String readFaq(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            Model model) {
+        model.addAttribute("paging", newsService.readlistpage(4, page));
         return "admin/faq/faqList";
     }
 
