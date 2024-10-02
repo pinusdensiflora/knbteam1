@@ -124,10 +124,10 @@
     transition: .5s;
 }
 
-.navbar {
-    height: 100px;
-    border-bottom: 1px solid rgba(255, 255, 255, .1);
-}
+/*.navbar {*/
+/*    height: 100px;*/
+/*    border-bottom: 1px solid rgba(255, 255, 255, .1);*/
+/*}*/
 
 .navbar .navbar-nav .nav-link:hover,
 .navbar .navbar-nav .nav-link.active,
@@ -509,3 +509,13 @@
 
 /*** Footer End ***/
 
+/* logo */
+.nav-logo {
+    width: 10rem; /* 기본 너비 */
+}
+
+@media (min-width: 1200px) { /* xl 크기 이상일 때 */
+    .nav-logo {
+        width: 70%; /* xl 크기일 때 너비 */
+    }
+}
