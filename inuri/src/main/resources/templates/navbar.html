@@ -49,30 +49,28 @@ navbar.html
                             href="/admin" class="nav-item nav-link">관리자</a>
                 </div>
                 <!--                마이페이지-->
-                <div class="d-flex m-3 pe-5 me-0">
-                    <a href="/profile" class="my-auto" id="profile-link">
-        <i class="fas fa-user fa-2x"></i>
-    </a>
-    
-    <script>
-        document
-            .getElementById("profile-link")
-            .addEventListener("click", function(event) {
-                event.preventDefault();
 
-               
-                const isLoggedIn = /* 서버에서 받아온 로그인 상태 */ false;
 
-                if (isLoggedIn) {
-                   
-                    window.location.href = "/profile";
-                } else {
-                   
-                    const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
-                    loginModal.show();
-                }
-            });
-    </script>
+				<div sec:authorize="isAnonymous()">
+					<div class="d-flex m-3 pe-5 me-0">
+						<a href="/profile" class="my-auto" data-bs-toggle="modal" data-bs-target="#loginModal"> 
+						<i
+							class="fas fa-user fa-2x"></i> 
+						</a>
+					</div>
+				</div>
+				
+				<div sec:authorize="isAuthenticated()">
+			                <div class="d-flex m-3 pe-5 me-0">
+                    <a href="/profile" class="my-auto">
+               <i class="fas fa-user fa-2x"></i> 
+                    </a>
+                </div>
+				
+				</div>
+				
+				
+
 			</div>
         </nav>
     </div>
