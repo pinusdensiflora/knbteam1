@@ -58,11 +58,12 @@ navbar.html
 					</div>
 				</div>
 
-				<div sec:authorize="isAuthenticated()">
+				<div sec:authorize="isAuthenticated() ">
 					<div class="d-flex m-3 pe-5 me-0">
 						<a href="/profile" class="my-auto"> <i
 							class="fas fa-user fa-2x"></i>
 						</a>
+						<a href="/signout" class=""><small class="mx-2">로그아웃</small></a>
 					</div>
 
 				</div>
