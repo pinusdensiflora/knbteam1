@@ -1,3 +1,4 @@
+
 <!-- 
 생성자 : 김근환 
 생성일 : 9.27
@@ -24,7 +25,8 @@
 </div>
 
     <!-- 편지 작성 폼 -->
-    <form action="#" th:action="@{/send_letter}" method="post" onsubmit="cleanMessage()">
+    <form action="#" th:action="@{/send_letter}" method="post" onsubmit="cleanMessage()" class="clearfix" style="margin-bottom: 50px;">
+
         <input type="hidden" name="childId" th:value="${child.chid}"/>
         <div class="form-group">
             <div class="d-flex flex-column align-items-center justify-content-center w-100">
@@ -43,9 +45,11 @@
 
             <textarea class="form-control" id="summernote" name="message" rows="4"></textarea>
         </div>
+        
         <button type="submit" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary mt-3 float-end">
             <i class="fa fa-envelope me-2 text-primary"></i>편지 보내기
         </button>
+        
     </form>
     <!-- 편지 p태그 제거 -->
     <script>
