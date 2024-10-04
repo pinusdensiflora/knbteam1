@@ -8,6 +8,7 @@ Profile.java
 package com.knbteam1.inuri.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +26,8 @@ public class ProfileController {
 	@Autowired
 	private QuestionService questionService;
 	
+	
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/profile")
 	public String profile(Model model) {
 
@@ -33,13 +36,14 @@ public class ProfileController {
 		return "auth/profile";
 	}
 	
-	
+	@PreAuthorize("isAuthenticated()")
     @GetMapping("/userQuestions")
     public String userQuestions(Model model) {
     	model.addAttribute("customer", customerService.authen());
     	return "auth/userQuestions"; //1:1질문내역으로 이동
     }
     
+	@PreAuthorize("isAuthenticated()")
     @GetMapping("/detailquestion/{id}")
     public String userAnswer(@PathVariable("id") Integer id,Model model) {
     	model.addAttribute("question", questionService.readdetail(id));
