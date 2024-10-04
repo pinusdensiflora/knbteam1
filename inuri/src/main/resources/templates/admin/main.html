@@ -7,7 +7,7 @@ admin/main.html
 <html layout:decorate="~{admin/admin}">
 <div layout:fragment="content" class="col-lg-9">
     <div class="row g-4 justify-content-center">
-        <div class="container-fluid pt-4 px-4">
+        <div class="container-fluid pt-lg-4 px-lg-4">
             <div class="col g-4">
                 <!--                <div class="row g-4 mb-5">-->
                 <!--                    <div class="col-6">-->
@@ -80,7 +80,7 @@ admin/main.html
                         >
                             <td>[[${news.ntitle}]]</td>
                             <td>[[${news.nkind}]]</td>
-                            <td>[[${news.ndate.toLocalDate()}]]</td>
+                            <td class="text-nowrap">[[${news.ndate.toLocalDate()}]]</td>
                         </tr>
                     </th:block>
                     </tbody>
