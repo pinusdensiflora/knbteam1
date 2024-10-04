@@ -50,9 +50,17 @@ navbar.html
                 </div>
                 <!--                마이페이지-->
                 <div class="d-flex m-3 pe-5 me-0">
+
+                
                     <a href="/profile" class="my-auto">
                         <i class="fas fa-user fa-2x"></i>
                     </a>
+                    <div sec:authorize="isAuthenticated()">
+					
+					<a href="/signout" class=""><small class="mx-2">로그아웃</small></a>
+				
+					</div>
+                    
                 </div>
             </div>
         </nav>
