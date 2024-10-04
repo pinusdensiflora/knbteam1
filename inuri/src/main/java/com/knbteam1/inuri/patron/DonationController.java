@@ -43,7 +43,7 @@ public class DonationController {
     @Autowired
     private CustomerService customerService;
 
- // 후원 페이지 렌더링 & 정보 가져오기
+    // 후원 페이지 렌더링 & 정보 가져오기
     @GetMapping("/donate")
     public String donate(@RequestParam("childId") Integer childId, Model model) {
         Optional<Child> child = childService.getChildById(childId);
@@ -51,24 +51,12 @@ public class DonationController {
         // 현재 로그인된 고객 정보 가져오기
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         
-        // 로그인되지 않은 경우 로그인 페이지로 리다이렉트
-        if (authentication == null || !authentication.isAuthenticated() || "anonymousUser".equals(authentication.getPrincipal())) {
-            return "redirect:/signin"; // CustomerController의 로그인 페이지로 리다이렉트
-        }
-
-        // Customer 객체를 생성하거나 필요한 정보를 추출
-        // UserDetails에서 필요한 정보를 추출하여 Customer 객체를 생성하는 과정
-        Customer currentCustomer = new Customer(); // Customer 객체 생성
-       
-        if (authentication.getPrincipal() instanceof UserDetails) {
-            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            currentCustomer.setUsername(userDetails.getUsername()); // 필요한 정보 설정
-            
-        }
+        // 로그인 여부를 모델에 추가
+        boolean isAuthenticated = authentication != null && authentication.isAuthenticated() && !"anonymousUser".equals(authentication.getPrincipal());
+        model.addAttribute("isAuthenticated", isAuthenticated);
 
         if (child.isPresent()) {
             model.addAttribute("child", child.get());
-            model.addAttribute("customer", currentCustomer); // 고객 정보를 모델에 추가
             return "patron/donate"; 
         } else {
             return "error/404"; 
@@ -96,12 +84,12 @@ public class DonationController {
             // 후원 정보 생성 및 저장
             Donation donation = donationService.createDonation(method, amount, period, child, customer);
 
-            // 후원 저장에 성공했을 경우 아동의 상세 페이지 URL을 포함한 응답 반환
-            String redirectUrl = "/child_detail/" + childId;  // 아동 상세 페이지 URL을 구성
+            // 후원 저장에 성공했을 경우 리다이렉트 URL을 포함한 응답 반환
+            String redirectUrl = "/donation/donateThanks";  // 후원 성공 시 리다이렉트할 URL
             Map<String, String> response = new HashMap<>();
             response.put("redirectUrl", redirectUrl);  // 클라이언트에서 사용할 리다이렉트 URL
 
-            return ResponseEntity.ok(response);  // URL 포함된 응답 반환
+            return ResponseEntity.ok(response);
 
         } catch (Exception e) {
             // 오류 처리
@@ -109,6 +97,13 @@ public class DonationController {
             response.put("message", "후원 저장 실패: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
+    }
+    
+ // 후원 감사 페이지 렌더링
+    @GetMapping("/donateThanks")
+    public String donateThanks(Model model) {
+        // 필요한 모델 속성 추가
+        return "patron/donateThanks"; // 후원 감사 페이지의 템플릿 이름
     }
 }
 
