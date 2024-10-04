@@ -39,41 +39,35 @@ navbar.html
                     data-bs-target="#navbarCollapse">
                 <span class="fa fa-bars text-primary"></span>
             </button>
-            <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
-                <div class="navbar-nav mx-auto">
-                    <a href="/child_list" class="nav-item nav-link">후원 아동</a>
-                    <a href="/news" class="nav-item nav-link">소식</a>
-                    <a
-                            sec:authorize="isAuthenticated()"
-                            th:if="${#authentication.principal.authorities.?[authority == 'ROLE_ADMIN'].size() > 0}"
-                            href="/admin" class="nav-item nav-link">관리자</a>
-                </div>
-                <!--                마이페이지-->
-                <div class="d-flex m-3 pe-5 me-0">
-                    <a href="/profile" class="my-auto" id="profile-link">
-        <i class="fas fa-user fa-2x"></i>
-    </a>
-    
-    <script>
-        document
-            .getElementById("profile-link")
-            .addEventListener("click", function(event) {
-                event.preventDefault();
+			<div class="collapse navbar-collapse bg-white" id="navbarCollapse">
+				<div class="navbar-nav mx-auto">
+					<a href="/child_list" class="nav-item nav-link">후원 아동</a> <a
+						href="/news" class="nav-item nav-link">소식</a> <a
+						sec:authorize="isAuthenticated()"
+						th:if="${#authentication.principal.authorities.?[authority == 'ROLE_ADMIN'].size() > 0}"
+						href="/admin" class="nav-item nav-link">관리자</a>
+				</div>
+				<!--                마이페이지-->
 
-               
-                const isLoggedIn = /* 서버에서 받아온 로그인 상태 */ false;
+				<div sec:authorize="isAnonymous()">
+					<div class="d-flex m-3 pe-5 me-0">
+						<a href="/profile" class="my-auto" data-bs-toggle="modal"
+							data-bs-target="#loginModal"> <i class="fas fa-user fa-2x"></i>
+						</a>
+					</div>
+				</div>
 
-                if (isLoggedIn) {
-                   
-                    window.location.href = "/profile";
-                } else {
-                   
-                    const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
-                    loginModal.show();
-                }
-            });
-    </script>
+				<div sec:authorize="isAuthenticated()">
+					<div class="d-flex m-3 pe-5 me-0">
+						<a href="/profile" class="my-auto"> <i
+							class="fas fa-user fa-2x"></i>
+						</a>
+					</div>
+
+				</div>
+
+
 			</div>
-        </nav>
+		</nav>
     </div>
 </nav>
