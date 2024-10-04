@@ -9,14 +9,13 @@ admin/donation/raedDonationList.html
   <div class="container-fluid pt-4 px-4">
     <div class="bg-light text-center rounded p-4">
       <div class="d-flex align-items-center justify-content-between mb-4">
-        <h6 class="mb-0">FAQ</h6>
+        <h6 class="mb-0">후원 목록</h6>
         <a href = "/news/donation/create">글 작성</a>
       </div>
       <div class="table-responsive">
         <table class="table text-start align-middle table-bordered table-hover mb-0">
           <thead>
           <tr class="text-dark">
-            <th scope="col"><input class="form-check-input" type="checkbox"></th>
             <th scope="col">결제일</th>
             <th scope="col">후원자</th>
             <th scope="col">피후원자</th>
@@ -28,7 +27,6 @@ admin/donation/raedDonationList.html
           <tbody>
           <th:block th:each="donation:${donationlist}">
             <tr>
-              <td><input class="form-check-input" type="checkbox"></td>
               <td>[[${donation.ddate}]]</td>
               <td>[[${donation.customer.username}]]</td>
               <td>[[${donation.child.chname}]]</td>
