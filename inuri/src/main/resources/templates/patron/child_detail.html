@@ -92,12 +92,18 @@
                             <div class="d-flex justify-content-center flex-lg-wrap" style="margin-top: 150px;">
                                 <!-- 100px의 상단 마진 추가 -->
 <!--                                <a th:href="@{/donation/donate(childId=${child.chid})}"-->
-                                <a href="#"
-                                   class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary me-4"
-                                   data-bs-toggle="modal" data-bs-target="#donateModal"
-                                >
-                                    <i class="fa fa-heart me-2 text-primary"></i> 후원하기
-                                </a>
+                                <!-- 로그인 상태에 따라 다른 JavaScript 함수 호출 -->
+<a href="#" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary me-4" 
+   th:if="${#authentication.name != 'anonymousUser'}"
+   onclick="showDonateModal()">
+    <i class="fa fa-heart me-2 text-primary"></i> 후원하기
+</a>
+
+<a href="#" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary me-4" 
+   th:if="${#authentication.name == 'anonymousUser'}"
+   onclick="showLoginModal()">
+    <i class="fa fa-heart me-2 text-primary"></i> 후원하기
+</a>
                                 <button
                                         sec:authorize="isAuthenticated()"
                                         th:if="${#authentication.principal.authorities.?[authority == 'ROLE_ADMIN'].size() > 0}"
@@ -131,43 +137,48 @@
                                 <div class="tab-pane active" id="nav-about" role="tabpanel"
                                      aria-labelledby="nav-about-tab">
 
-                                    <!-- 페이징 및 후원자 목록 -->
-                                    <div class="row">
-                                        <div th:each="donation, iterStat : ${donations}"
-                                             class="col-md-4 col-lg-3 col-sm-6 mb-3">
-                                            <div class="p-3 border border-secondary rounded shadow-sm"
-                                                 style="background-color: #f9f9f9;">
-                                                <strong>후원자 이름:</strong>
-                                                <span th:text="${donation.customer.name}"></span><br>
-                                                <strong>후원 금액:</strong>
-                                                <span th:text="${donation.donationAmount}"></span> 원<br>
-                                                <strong>후원 날짜:</strong>
-                                                <span th:text="${#temporals.format(donation.ddate, 'yyyy-MM-dd')}"></span><br>
+                                    <!-- 후원자들 -->
+<div class="tab-pane active" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
+    <div class="row">
+        <div th:if="${donorMap != null}" th:each="entry : ${donorMap.entrySet()}" class="col-md-4 col-lg-3 col-sm-6 mb-3">
+            <div class="p-3 border border-secondary rounded shadow-sm" style="background-color: #f9f9f9;">
+                <strong>후원자 이름:</strong>
+                <a href="#" 
+                   th:data-dname="${entry.key.name}" 
+                   th:data-donations="${entry.value}" 
+                   class="donor-link" 
+                   data-bs-toggle="modal" 
+                   data-bs-target="#donationModal">
+                   <span th:text="${entry.key.name}"></span>
+                </a>
+                <br>
+                <strong>총 후원 금액:</strong>
+                <span th:text="${entry.value}">0</span> 원<br>
+                <strong>최근 후원 날짜:</strong>
+                <span th:text="${#temporals.format(latestDonationMap[entry.key], 'yyyy-MM-dd')}">날짜</span><br>
+            </div>
+        </div>
+    </div>
+</div>
 
-                                            </div>
-                                        </div>
-                                    </div>
+<!-- 모달 구조 -->
+<div class="modal fade" id="donationModal" tabindex="-1" role="dialog" aria-labelledby="donationModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="donationModalLabel">후원 내역</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modalDonationDetails">
+                <div class="row">
+                    <!-- 후원 내역이 여기에 동적으로 추가됩니다. -->
+                    <h5>개발 예정입니다.</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-                                    <div class="d-flex justify-content-center" th:if="${#lists.size(donations) > 100}">
-                                        <nav>
-                                            <ul class="pagination">
-                                                <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
-                                                    <a class="page-link"
-                                                       th:href="@{/donations(page=${currentPage - 1})}">이전</a>
-                                                </li>
-                                                <li class="page-item" th:each="page : ${#numbers.range(1, totalPages)}"
-                                                    th:classappend="${page == currentPage} ? 'active'">
-                                                    <a class="page-link" th:href="@{/donations(page=${page})}"
-                                                       th:text="${page}"></a>
-                                                </li>
-                                                <li class="page-item"
-                                                    th:classappend="${currentPage == totalPages} ? 'disabled'">
-                                                    <a class="page-link"
-                                                       th:href="@{/donations(page=${currentPage + 1})}">다음</a>
-                                                </li>
-                                            </ul>
-                                        </nav>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -254,13 +265,14 @@
                     </div>
 
 
-                    <!-- 고객과 아동 정보를 담는 hidden input 필드 -->
                     <input type="hidden" id="childId" th:value="${child.chid}">
-                    <input type="hidden" id="customerId" th:value="${customer.cid}">
-                    <input type="hidden" id="buyerEmail" th:value="${customer.username}">
-                    <input type="hidden" id="buyerName" th:value="${customer.name}">
-                    <input type="hidden" id="buyerPostcode" th:value="${customer.postcode}">
-                    <input type="hidden" id="childName" th:value="${child.chname}">
+<!-- 로그인한 경우에만 고객 정보 사용 -->
+<input type="hidden" id="customerId" th:if="${customer != null}" th:value="${customer.cid}">
+<input type="hidden" id="buyerEmail" th:if="${customer != null}" th:value="${customer.username}">
+<input type="hidden" id="buyerName" th:if="${customer != null}" th:value="${customer.name}">
+<input type="hidden" id="buyerPostcode" th:if="${customer != null}" th:value="${customer.postcode}">
+<input type="hidden" id="childName" th:value="${child.chname}">
+
                 </div>
                 <div class="modal-footer align-items-center">
                     <button type="button" class="btn btn-secondary" onclick="requestpay()">
@@ -432,6 +444,18 @@
                 });
         }
     </script>
+    <!-- 후원하기 눌렀을 때 로그인 & 결제 -->
+    <script>
+    function showDonateModal() {
+        const donateModal = new bootstrap.Modal(document.getElementById('donateModal'));
+        donateModal.show();
+    }
+
+    function showLoginModal() {
+        const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+        loginModal.show();
+    }
+</script>
 
 </div>
 </html>

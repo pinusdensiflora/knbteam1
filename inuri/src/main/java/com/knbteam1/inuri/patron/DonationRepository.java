@@ -6,10 +6,16 @@
  */
 package com.knbteam1.inuri.patron;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.knbteam1.inuri.auth.Customer;
+
 public interface DonationRepository extends JpaRepository<Donation, Integer> {
 	Optional<Donation> findFirstByChild_ChidAndCustomer_Cid(Integer chid, Integer customerId);
+	
+	// 특정 고객의 전체 후원 조회
+    List<Donation> findByCustomer(Customer customer);
 }

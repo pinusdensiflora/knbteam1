@@ -21,6 +21,28 @@
             display: block; /* 이미지 아래 여백 없애기 */
         }
     </style>
+    <style>
+    /* 기본 탭 스타일 */
+    .nav-tabs .nav-link {
+        color: black; /* 기본 글자 색상 */
+        background-color: #f8f9fa; /* 탭 배경 색상 */
+        margin-right: 5px; /* 탭 간 간격 */
+        transition: background-color 0.3s ease, box-shadow 0.3s ease; /* 부드러운 전환 효과 */
+    }
+
+    /* 탭에 마우스 올렸을 때 */
+    .nav-tabs .nav-link:hover {
+        background-color: #e9ecef; /* 배경색 살짝 어두워지게 */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 약간의 그림자 효과 */
+    }
+
+    /* 활성화된 탭 스타일 */
+    .nav-tabs .nav-link.active {
+        color: black; /* 활성화된 탭 글자 색상 */
+        background-color: white; /* 활성화된 탭 배경 색상 */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 활성화된 탭에 그림자 추가 */
+    }
+</style>
     <!-- Spinner Start -->
     <div id="spinner"
          class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
@@ -40,15 +62,20 @@
         </ol>
     </div>
     <!-- 아동 필터 버튼 -->
-    <div class="container my-4 text-center">
-        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-            <a href="/child_list?filter=all" class="btn btn-outline-primary text-nowrap children-filter" id="btnradio1">모든 아동</a>
-
-            <a href="/child_list?filter=sponsored" class="btn btn-outline-primary text-nowrap children-filter" id="btnradio2">후원 받은 아동</a>
-
-            <a href="/child_list?filter=unsponsored" class="btn btn-outline-primary text-nowrap children-filter" id="btnradio3">후원이 필요한 아동</a>
-        </div>
-    </div>
+    <!-- 아동 필터 탭형 레이아웃 -->
+<div class="container my-5">
+    <ul class="nav nav-tabs justify-content-center">
+        <li class="nav-item">
+            <a class="nav-link" th:classappend="${filter == 'all'} ? 'active'" href="/child_list?filter=all">모든 아동</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:classappend="${filter == 'sponsored'} ? 'active'" href="/child_list?filter=sponsored">후원받은 아동</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:classappend="${filter == 'unsponsored'} ? 'active'" href="/child_list?filter=unsponsored">후원이 필요한 아동</a>
+        </li>
+    </ul>
+</div>
 
     <!-- 검색창 시작 -->
     <div class="justify-content-center justify-content-xl-end" style="display: flex; margin: 30px;">

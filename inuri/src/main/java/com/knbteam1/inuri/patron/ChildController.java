@@ -7,7 +7,10 @@
 package com.knbteam1.inuri.patron;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,38 +99,60 @@ public class ChildController {
         }
     }
     
- // 특정 아동 상세 페이지
     @GetMapping("/child_detail/{chid}")
     public String childdetail(@PathVariable("chid") Integer chid, Model model, Authentication authentication) {
         Optional<Child> child = childService.getChildById(chid);
 
         if (child.isPresent()) {
             Child childEntity = child.get();
-
-            // 후원 내역을 모델에 추가
-            List<Donation> donations = childEntity.getDonations(); // 아동과 관련된 모든 후원 가져오기
+            List<Donation> donations = childEntity.getDonations();
 
             model.addAttribute("child", childEntity);
-            model.addAttribute("donations", donations);  // 후원 정보 모델에 추가
-            
-            // 현재 로그인된 후원자 정보 가져오기
+            model.addAttribute("donations", donations);
+
+            // 총 후원 금액 계산
+            int totalDonationAmount = donations.stream()
+                                               .mapToInt(Donation::getDonationAmount)
+                                               .sum();
+            model.addAttribute("totalDonationAmount", totalDonationAmount);
+
+            // 후원자 정보
+            Map<Customer, Integer> donorMap = new HashMap<>();
+            Map<Customer, LocalDateTime> latestDonationMap = new HashMap<>();
+
+            for (Donation donation : donations) {
+                Customer donor = donation.getCustomer();
+                if (donor != null) {
+                    donorMap.put(donor, donorMap.getOrDefault(donor, 0) + donation.getDonationAmount());
+                    if (donation.getDdate() != null) {
+                        latestDonationMap.put(donor, donation.getDdate());
+                    }
+                }
+            }
+
+            model.addAttribute("donorMap", donorMap);
+            model.addAttribute("latestDonationMap", latestDonationMap);
+
+            // 로그인된 후원자 정보
             if (authentication != null && authentication.isAuthenticated()) {
                 Customer currentCustomer = customerService.authen();
                 boolean hasDonated = donationService.findByChild_ChidAndCustomer_Cid(chid, currentCustomer.getCid()).isPresent();
-                model.addAttribute("hasDonated", hasDonated); // 후원 여부를 모델에 추가
+                model.addAttribute("hasDonated", hasDonated);
                 model.addAttribute("customer", currentCustomer);
             } else {
-                model.addAttribute("hasDonated", false); // 로그인하지 않은 경우 후원 여부는 false
+                model.addAttribute("hasDonated", false);
+                model.addAttribute("customer", new Customer());
             }
 
             return "patron/child_detail";
         } else {
-            return "error/404"; // 아동이 없을 경우 404 페이지로 연결
+            return "error/404";
         }
     }
 
 
-    
+
+
     // 아동 목록 및 검색 처리
     @GetMapping("/child_list")
     public String list(
