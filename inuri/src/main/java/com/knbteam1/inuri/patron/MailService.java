@@ -41,7 +41,7 @@ public class MailService {
             htmlContent.append("<html><body>");
             htmlContent.append("<p>").append(text).append("</p>");
             if (imageUrl != null && !imageUrl.isEmpty()) {
-                htmlContent.append("<img src='").append(imageUrl).append("' alt='Image' />");
+                htmlContent.append("<img src='").append(imageUrl).append("' alt='Image' width='512' height='512 />");
             }
             htmlContent.append("</body></html>");
             helper.setText(htmlContent.toString(), true); // Set to true for HTML
