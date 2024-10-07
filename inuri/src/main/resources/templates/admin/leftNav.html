@@ -4,8 +4,10 @@ admin/leftNav.html
 생성날짜: 9.10
 연락처: rkdgur5381@gmail.com
  -->
+<!-- admin/leftNav.html -->
 <div th:fragment="leftNav" class="col-lg-3">
-    <div class="sidebar pe-4 pb-3">
+    <!-- Sidebar for lg and larger screens -->
+    <div class="sidebar pe-4 pb-3 d-none d-lg-block">
         <nav class="navbar navbar-light">
             <h3 class="text-primary">ADMIN</h3>
             <div class="navbar-nav w-100">
@@ -17,6 +19,21 @@ admin/leftNav.html
                 <a href="/admin/qalist" class="nav-item nav-link">1:1문의</a>
             </div>
         </nav>
+    </div>
+
+    <!-- Dropdown for smaller screens -->
+    <div class="dropdown d-lg-none">
+        <button class="btn btn-secondary dropdown-toggle w-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            메뉴
+        </button>
+        <ul class="dropdown-menu w-100">
+            <li><a class="dropdown-item" href="/admin">Dashboard</a></li>
+            <li><a class="dropdown-item" href="/admin/children">후원 아동 목록</a></li>
+            <li><a class="dropdown-item" href="/admin/patrons">후원자 관리</a></li>
+            <li><a class="dropdown-item" href="/admin/donations">후원 관리</a></li>
+            <li><a class="dropdown-item" href="/admin/faq">FAQ 관리</a></li>
+            <li><a class="dropdown-item" href="/admin/qalist">1:1문의</a></li>
+        </ul>
     </div>
 </div>
 

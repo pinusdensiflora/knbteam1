@@ -555,3 +555,23 @@
 @media (min-width: 1200px) {
     width: 15%;
 }
+
+/* Hide the sidebar and show dropdown for smaller screens */
+@media (max-width: 991.98px) {
+    .sidebar {
+        display: none;
+    }
+    .dropdown {
+        display: block;
+    }
+}
+
+/* Show the sidebar and hide dropdown for larger screens */
+@media (min-width: 992px) {
+    .sidebar {
+        display: block;
+    }
+    .dropdown {
+        display: none;
+    }
+}
