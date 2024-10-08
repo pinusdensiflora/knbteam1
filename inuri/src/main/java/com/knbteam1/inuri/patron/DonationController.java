@@ -7,16 +7,18 @@
 package com.knbteam1.inuri.patron;
 
 
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +27,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.view.RedirectView;
 
 import com.knbteam1.inuri.auth.Customer;
 import com.knbteam1.inuri.auth.CustomerService;
@@ -36,6 +37,9 @@ public class DonationController {
 
     @Autowired
     private DonationService donationService;
+    
+    @Autowired
+    private DonationRepository donationRepository;
     
     @Autowired
     private ChildService childService; 
@@ -105,5 +109,32 @@ public class DonationController {
         // 필요한 모델 속성 추가
         return "patron/donateThanks"; // 후원 감사 페이지의 템플릿 이름
     }
+  
+    @GetMapping("/donorDonations")
+    @ResponseBody
+    public ResponseEntity<?> getDonorDonations(@RequestParam("donorId") Integer donorId,
+                                                @RequestParam("childId") Integer childId) {
+        try {
+            List<Donation> donations = donationRepository.findByChild_ChidAndCustomer_Cid(childId, donorId);
+            
+            List<Map<String, Object>> donationDetails = donations.stream()
+                .map(donation -> {
+                    Map<String, Object> donationData = new HashMap<>();
+                    donationData.put("amount", donation.getDonationAmount());
+                    donationData.put("date", donation.getDdate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+                    donationData.put("method", donation.getDonationMethod());
+                    return donationData;
+                })
+                .collect(Collectors.toList());
+
+            return ResponseEntity.ok(donationDetails);
+            
+        } catch (Exception e) {
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "후원 내역 조회 실패: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
+    }
+
 }
 

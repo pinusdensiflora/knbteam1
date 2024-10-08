@@ -18,4 +18,7 @@ public interface DonationRepository extends JpaRepository<Donation, Integer> {
 	
 	// 특정 고객의 전체 후원 조회
     List<Donation> findByCustomer(Customer customer);
+    
+    // 특정 아동에 대한 후원 내역 조회
+    List<Donation> findByChild_ChidAndCustomer_Cid(Integer chid, Integer customerId);
 }
