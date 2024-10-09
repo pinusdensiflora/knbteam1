@@ -28,10 +28,21 @@
                         <br>
 
                         <!-- 이메일 필드 -->
-                        <div class="mb-3">
-                            <input th:field="*{username}" type="email" class="form-control me-4" placeholder="이메일"
+                        <div class="mb-3 d-flex" style="gap: 0.1rem">
+                            <!-- 이메일 입력 필드 -->
+                            <input th:field="*{username}" id="emailInput" type="email" class="form-control me-4"
+                                   placeholder="이메일"
                                    th:readonly="${#strings.length(customerCreateForm.username ?: '') > 0}"/>
+                            <!-- 인증 번호 전송 버튼 -->
+                            <button th:hidden="${#strings.length(customerCreateForm.name ?: '') > 0}" id="sendMailBtn"
+                                    class="bg-primary border-0 text-white text-nowrap rounded-3">
+                                인증 번호 발송
+                            </button>
                         </div>
+
+                        <!-- 인증 번호 입력 필드가 생성될 영역 -->
+                        <div class="my-3" id="confirmMail"></div>
+
                         <br>
 
                         <!-- 비밀번호 필드 (소셜 로그인 시 숨김) -->
@@ -108,5 +119,91 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // 인증 번호 전송 버튼과 입력 필드 DOM 요소 가져오기
+            const sendMailBtn = document.getElementById('sendMailBtn');
+            const emailInput = document.getElementById('emailInput');
+            const confirmMailDiv = document.getElementById('confirmMail');
+
+            // 인증 번호 전송 버튼 클릭 이벤트 리스너
+            sendMailBtn.addEventListener('click', function (event) {
+                // 기본 동작 방지 (폼 제출 및 스크롤 방지)
+                event.preventDefault();
+
+                // 이메일 입력 값 가져오기
+                const emailValue = emailInput.value;
+
+                // 이메일이 입력되었는지 확인 후 /api/mail로 요청 보내기
+                if (emailValue) {
+                    fetch(`/api/mail?mail=${emailValue}`)
+                        .then(response => {
+                            console.log(response);
+                            console.log(response.ok);
+                            if (response.ok) {
+                                // 이메일이 성공적으로 전송된 경우
+                                alert('인증 번호가 이메일로 전송되었습니다.');
+
+                                // 인증 번호 입력 필드 및 확인 버튼 추가
+                                confirmMailDiv.innerHTML = `
+                                        <div class="mb-3 d-flex" style="gap: 0.5rem;">
+                                            <input type="text" id="authCodeInput" class="form-control" placeholder="인증 번호를 입력하세요" />
+                                            <button id="verifyCodeBtn" class="btn btn-primary text-white text-nowrap">인증 확인</button>
+                                        </div>
+                                        <div id="verificationResult" class="mt-2"></div>
+                                    `;
+
+                                // 인증 확인 버튼 이벤트 리스너
+                                const verifyCodeBtn = document.getElementById('verifyCodeBtn');
+                                verifyCodeBtn.addEventListener('click', function (event) {
+                                    event.preventDefault();
+                                    // 인증 코드 입력 값 가져오기
+                                    const authCodeInput = document.getElementById('authCodeInput').value;
+
+                                    if (authCodeInput) {
+                                        // 인증 번호 검증 요청
+                                        fetch(`/api/verify?mail=${emailValue}&code=${authCodeInput}`)
+                                            .then(response => response.json())
+                                            .then(data => {
+                                                const verificationResultDiv = document.getElementById('verificationResult');
+
+                                                if (data) {
+                                                    // 인증 입력 필드와 확인 버튼 제거
+                                                    confirmMailDiv.innerHTML = '';
+                                                    // 이메일 입력 필드를 readonly로 설정
+                                                    emailInput.setAttribute('readonly', true);
+                                                    // 메일 발송버튼 제거
+                                                    sendMailBtn.style.display = 'none';
+                                                    // 인증 성공 메시지
+                                                    alert('인증이 성공적으로 완료되었습니다!');
+
+                                                } else {
+                                                    // 인증 실패 메시지
+                                                    verificationResultDiv.innerHTML = `<p class="text-danger">인증 번호가 일치하지 않습니다. 다시 시도해주세요.</p>`;
+                                                }
+                                            })
+                                            .catch(error => {
+                                                console.error('Error:', error);
+                                                alert('인증 중 오류가 발생했습니다.');
+                                            });
+                                    } else {
+                                        alert('인증 번호를 입력해주세요.');
+                                    }
+                                });
+                            } else {
+                                alert('이미 등록된 메일이거나 메일 전송에 실패했습니다.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('메일 전송 중 오류가 발생했습니다.');
+                        });
+                } else {
+                    alert('이메일을 입력해주세요.');
+                }
+            });
+        });
+    </script>
 </div>
 </html>
