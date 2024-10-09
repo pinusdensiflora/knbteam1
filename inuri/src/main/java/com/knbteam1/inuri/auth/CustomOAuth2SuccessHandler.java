@@ -35,25 +35,16 @@ public class CustomOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHa
             // 기존 데이터를 쿼리 파라미터로 전달하여 /signup으로 리디렉션
             // 기존 데이터를 쿼리 파라미터로 전달하여 /signup으로 리디렉션
             String username = URLEncoder.encode(customer.getUsername() != null ? customer.getUsername() : "", StandardCharsets.UTF_8);
-            String name = URLEncoder.encode(customer.getName() != null ? customer.getName() : "", StandardCharsets.UTF_8);
-            String ctel = customer.getCtel() != null ? customer.getCtel() : "";
+//            String name = URLEncoder.encode(customer.getName() != null ? customer.getName() : "", StandardCharsets.UTF_8);
+//            String ctel = customer.getCtel() != null ? customer.getCtel() : "";
 
-            String redirectUrl = String.format("/signup?username=%s&name=%s&ctel=%s",
-                    username, name, ctel);
+            String redirectUrl = String.format("/signup?username=%s",
+                    username);
             System.out.println("redirectUrl = " + redirectUrl);
             getRedirectStrategy().sendRedirect(request, response, redirectUrl);
         } else {
             // 기본 성공 URL로 리디렉션
             super.onAuthenticationSuccess(request, response, authentication);
         }
-    }
-
-
-    private String formatPhoneNumber(String ctel) {
-        if (ctel != null) {
-            // Remove all non-digit characters
-            return ctel.replaceAll("[^0-9]", "");
-        }
-        return ctel; // Return the original ctel if it's null
     }
 }

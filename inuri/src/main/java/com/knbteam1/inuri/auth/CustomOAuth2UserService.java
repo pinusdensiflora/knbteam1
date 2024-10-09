@@ -8,7 +8,6 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -19,24 +18,23 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2User oAuth2User = super.loadUser(userRequest);
+        // Determine the provider
+        String registrationId = userRequest.getClientRegistration().getRegistrationId();
 
-        Map<String, Object> attributeMap = oAuth2User.getAttribute("kakao_account");
-        String email = attributeMap.get("email").toString();
+        String email = switch (registrationId.toLowerCase()) {
+            case "google" -> oAuth2User.getAttribute("email");
+            case "kakao" -> {
+                Map<String, Object> kakaoAccount = oAuth2User.getAttribute("kakao_account");
+                yield kakaoAccount.get("email").toString();
+            }
+            default -> "";
+        };
 
-        Customer customer = customerRepository.findByusername(email).orElseGet(() -> registerCustomer(attributeMap));
+        Customer customer = customerRepository.findByusername(email).orElseGet(() -> {
+            Customer newCustomer = CustomerFactory.create(userRequest, oAuth2User);
+            return customerRepository.save(newCustomer);
+        });
 
         return new OAuth2Customer(customer, oAuth2User.getAttributes());
-    }
-
-    private Customer registerCustomer(Map<String, Object> attributeMap) {
-        Customer customer = Customer.builder()
-                .username(attributeMap.get("email").toString())
-                .name(attributeMap.get("name").toString())
-                .ctel(attributeMap.get("phone_number").toString())
-                .role("ROLE_USER")
-                .build();
-
-        return customerRepository.save(customer);
-
     }
 }
