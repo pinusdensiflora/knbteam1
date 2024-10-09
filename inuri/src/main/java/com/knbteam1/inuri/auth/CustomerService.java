@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -31,7 +32,9 @@ public class CustomerService implements UserDetailsService {
 
         customer.setCdate(LocalDateTime.now());
         customer.setRole("ROLE_USER");
-        customer.setPassword(passwordEncoder.encode(customer.getPassword()));
+        if(customer.getPassword() != null && !customer.getPassword().isEmpty()){
+            customer.setPassword(passwordEncoder.encode(customer.getPassword()));
+        }
 
         this.customerRepository.save(customer);
     }
@@ -59,7 +62,16 @@ public class CustomerService implements UserDetailsService {
         Authentication authentication =
                 SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        String username = userDetails.getUsername();
+        String username = "";
+
+        if(userDetails instanceof UserDetails){
+            username=((UserDetails)userDetails).getUsername();
+        } else if(userDetails instanceof OAuth2User) {
+            username = ((OAuth2User) userDetails).getName();
+        } else {
+            throw new IllegalStateException("Unkown principal type: " + userDetails.getClass());
+        }
+
         Optional<Customer> oc = customerRepository.findByusername(username);
 
         return oc.get();

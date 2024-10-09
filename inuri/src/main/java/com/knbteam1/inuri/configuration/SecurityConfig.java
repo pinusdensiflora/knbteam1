@@ -1,5 +1,7 @@
 package com.knbteam1.inuri.configuration;
 
+import com.knbteam1.inuri.auth.CustomOAuth2SuccessHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -9,6 +11,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -16,6 +21,11 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {// 상속을 받는 형태로 설정하는 방식은 2023 03 이전 방식이다.
+
+    @Autowired
+    private CustomOAuth2SuccessHandler customOAuth2SuccessHandler;
+    @Autowired
+    private OAuth2UserService<OAuth2UserRequest, OAuth2User> customOAuth2UserService;
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -28,6 +38,12 @@ public class SecurityConfig {// 상속을 받는 형태로 설정하는 방식�
                 .formLogin((formLogin) -> formLogin
                         .loginPage("/signin")//커스텀 로그인 창 호출 위치
                         .defaultSuccessUrl("/")) //로그인 성공시 이동할 위치
+                .oauth2Login(oauth2 -> oauth2
+                        .loginPage("/signin")
+                        .userInfoEndpoint(userInfoEndpoint -> userInfoEndpoint
+                                .userService(customOAuth2UserService))
+                        .successHandler(customOAuth2SuccessHandler)
+                )
                 .logout((logout) -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/signout")) //로그아웃 경로
                         .logoutSuccessUrl("/")  //로그아웃 성공한 후에 이동할 위치

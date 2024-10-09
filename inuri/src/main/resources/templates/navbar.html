@@ -13,20 +13,20 @@ navbar.html
                 <a href="/news/assist/question" class="text-white"><small class="text-white mx-2">1:1 문의하기</small></a>
             </div>
             <div class="top-link pe-2">
-                
+
                 <div sec:authorize="isAnonymous()">
-                <a href="/signin" class="text-white" data-bs-toggle="modal" data-bs-target="#loginModal"><small class="text-white mx-2">로그인</small></a>
-                <a href="/signup" class="text-white"><small class="text-white mx-2">회원가입</small></a>
+                    <a href="/signin" class="text-white" data-bs-toggle="modal" data-bs-target="#loginModal"><small
+                            class="text-white mx-2">로그인</small></a>
+                    <a href="/signup" class="text-white"><small class="text-white mx-2">회원가입</small></a>
 
 
                 </div>
-                
-				<div sec:authorize="isAuthenticated()">
-				<small  class ="text-white mx-2">[[${#authentication.name}]]</small>
-				<span th:text="${#authentication.authorities}"></span>
-				<a href="/signout" class="text-white"><small class="text-white mx-2">로그아웃</small></a>
-				
-				</div>
+
+                <div sec:authorize="isAuthenticated()">
+                    <small class="text-white mx-2">[[${#authentication.name}]]</small>
+                    <a href="/signout" class="text-white"><small class="text-white mx-2">로그아웃</small></a>
+
+                </div>
             </div>
         </div>
     </div>
@@ -40,37 +40,39 @@ navbar.html
                 <span class="fa fa-bars text-primary"></span>
             </button>
 
-			<div class="collapse navbar-collapse bg-white" id="navbarCollapse">
-				<div class="navbar-nav mx-auto">
-					<a href="/child_list" class="nav-item nav-link">후원 아동</a> <a
-						href="/news" class="nav-item nav-link">소식</a> <a
-						sec:authorize="isAuthenticated()"
-						th:if="${#authentication.principal.authorities.?[authority == 'ROLE_ADMIN'].size() > 0}"
-						href="/admin" class="nav-item nav-link">관리자</a>
-				</div>
-				<!--                마이페이지-->
+            <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
+                <div class="navbar-nav mx-auto">
+                    <a href="/child_list" class="nav-item nav-link">후원 아동</a>
+                    <a href="/news" class="nav-item nav-link">소식</a>
+                    <a href="/news/4" class="nav-item nav-link">고객지원</a>
+                    <a href="/news/address" class="nav-item nav-link">찾아오시는 길</a>
+                    <a sec:authorize="isAuthenticated()"
+                       th:if="${#authentication.principal.authorities.?[authority == 'ROLE_ADMIN'].size() > 0}"
+                       href="/admin" class="nav-item nav-link">관리자</a>
+                </div>
+                <!--                마이페이지-->
 
-				<div sec:authorize="isAnonymous()">
-					<div class="d-flex m-3 pe-5 me-0">
-						<a href="/profile" class="my-auto" data-bs-toggle="modal"
-							data-bs-target="#loginModal"> <i class="fas fa-user fa-2x"></i>
-						</a>
-					</div>
-				</div>
+                <div sec:authorize="isAnonymous()">
+                    <div class="d-flex m-3 pe-5 me-0">
+                        <a href="/profile" class="my-auto" data-bs-toggle="modal"
+                           data-bs-target="#loginModal"> <i class="fas fa-user fa-2x"></i>
+                        </a>
+                    </div>
+                </div>
 
-				<div sec:authorize="isAuthenticated() ">
-					<div class="d-flex m-3 pe-5 me-0">
-						<a href="/profile" class="my-auto"> <i
-							class="fas fa-user fa-2x"></i>
-						</a>
-						<a href="/signout" class=""><small class="mx-2">로그아웃</small></a>
-					</div>
+                <div sec:authorize="isAuthenticated() ">
+                    <div class="d-flex m-3 pe-5 me-0">
+                        <a href="/profile" class="my-auto"> <i
+                                class="fas fa-user fa-2x"></i>
+                        </a>
+                        <a href="/signout" class=""><small class="mx-2">로그아웃</small></a>
+                    </div>
 
-				</div>
+                </div>
 
 
-			</div>
-		</nav>
+            </div>
+        </nav>
 
     </div>
 </nav>
