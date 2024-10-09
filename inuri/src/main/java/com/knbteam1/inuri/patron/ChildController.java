@@ -8,13 +8,16 @@ package com.knbteam1.inuri.patron;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -149,11 +152,8 @@ public class ChildController {
             return "error/404";
         }
     }
-
-
-
-
     // 아동 목록 및 검색 처리
+ // 아동 목록 및 검색 처리
     @GetMapping("/child_list")
     public String list(
             @RequestParam(value = "keyword", required = false, defaultValue = "") String keyword,
@@ -162,21 +162,27 @@ public class ChildController {
             @RequestParam(value = "filter", defaultValue = "all") String filter, // 필터 파라미터 추가
             Model model) {
 
-        // 필터에 따라 헤더 텍스트 설정
-        String headerTitle;
-        switch (filter) {
-            case "sponsored":
-                headerTitle = "후원받은 아동";
-                break;
-            case "unsponsored":
-                headerTitle = "후원이 필요한 아동";
-                break;
-            default:
-                headerTitle = "모든 아동";
-        }
-
-        // 필터에 따른 아동 목록 가져오기
+        // 후원받은 아동 목록 가져오기
         Page<Child> paging = childService.getFilteredChildren(page, keyword, searchType, filter);
+
+        // 후원받은 아동만 후원 금액으로 정렬
+        List<Child> sortedChildren = paging.getContent().stream()
+            .sorted(Comparator.comparingInt(child -> 
+                ((Child) child).getDonations().stream()
+                    .mapToInt(Donation::getDonationAmount)
+                    .sum()
+            ).reversed()) // 내림차순으로 정렬
+            .collect(Collectors.toList());
+
+        // 정렬된 내용을 다시 Page로 변환
+        paging = new PageImpl<>(sortedChildren, paging.getPageable(), sortedChildren.size());
+
+        // 필터에 따라 헤더 텍스트 설정
+        String headerTitle = switch (filter) {
+            case "sponsored" -> "후원받은 아동";
+            case "unsponsored" -> "후원이 필요한 아동";
+            default -> "모든 아동";
+        };
 
         // 검색 및 필터 관련 정보 모델에 추가
         model.addAttribute("paging", paging);

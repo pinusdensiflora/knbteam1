@@ -144,13 +144,14 @@
             <div class="p-3 border border-secondary rounded shadow-sm" style="background-color: #f9f9f9;">
                 <strong>후원자 이름:</strong>
                 <a href="#" 
-                   th:data-dname="${entry.key.name}" 
-                   th:data-donations="${entry.value}" 
-                   class="donor-link" 
-                   data-bs-toggle="modal" 
-                   data-bs-target="#donationModal">
-                   <span th:text="${entry.key.name}"></span>
-                </a>
+   th:data-donor-id="${entry.key.cid}" 
+   th:data-dname="${entry.key.name}" 
+   th:data-child-id="${child.chid}"
+   class="donor-link" 
+   data-bs-toggle="modal" 
+   data-bs-target="#donationModal">
+   <span th:text="${entry.key.name}"></span>
+</a>
                 <br>
                 <strong>총 후원 금액:</strong>
                 <span th:text="${entry.value}">0</span> 원<br>
@@ -169,16 +170,14 @@
                 <h5 class="modal-title" id="donationModalLabel">후원 내역</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body" id="modalDonationDetails">
-                <div class="row">
+            <div class="modal-body">
+                <div class="row" id="donationList">
                     <!-- 후원 내역이 여기에 동적으로 추가됩니다. -->
-                    <h5>개발 예정입니다.</h5>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
                                 </div>
                             </div>
                         </div>
@@ -284,7 +283,6 @@
             </div>
         </div>
     </div>
-
 
     <script>
         //후원 금액 선택
@@ -455,6 +453,41 @@
         const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
         loginModal.show();
     }
+</script>
+<!-- 모달 상세 내역 -->
+<script>
+document.querySelectorAll('.donor-link').forEach(function (element) {
+    element.addEventListener('click', function () {
+        const donorId = this.getAttribute('data-donor-id');
+        const donorName = this.getAttribute('data-dname');
+        const childId = this.getAttribute('data-child-id'); // 여기서 아동 ID를 가져옵니다
+        const donationList = document.getElementById('donationList');
+
+        // 모달 제목 업데이트
+        document.getElementById('donationModalLabel').textContent = donorName + '의 후원 내역';
+
+        // 기존 내용을 초기화
+        donationList.innerHTML = '';
+
+        // 후원 내역 API 호출
+        fetch(`/donation/donorDonations?donorId=${donorId}&childId=${childId}`)
+            .then(response => response.json())
+            .then(donations => {
+                donations.forEach(function(donation) {
+                    const donationItem = document.createElement('div');
+                    donationItem.classList.add('col-12', 'mb-2');
+                    donationItem.innerHTML = `
+                        <strong>후원 금액:</strong> ${donation.amount} 원 <br>
+                        <strong>후원 날짜:</strong> ${donation.date} <br>
+                        <strong>후원 방법:</strong> ${donation.method} <br>
+                    `;
+                    donationList.appendChild(donationItem);
+                });
+            })
+            .catch(error => console.error('Error:', error));
+    });
+});
+
 </script>
 
 </div>
