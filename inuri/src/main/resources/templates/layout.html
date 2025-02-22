@@ -14,7 +14,7 @@ layout.html
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="" name="keywords">
 <meta content="" name="description">
-<link rel="icon" href="/img/logo_square.png">
+<link rel="icon" href="/img/logo_square.webp">
 
 <!-- Google Web Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -220,7 +220,7 @@ layout.html
 							(+012) 3456 7890
 							</p>
 
-							<img src="img/payment.png" class="img-fluid" alt="">
+							<img src="/img/payment.webp" class="img-fluid" alt="">
 						</div>
 					</div>
 				</div>
@@ -347,9 +347,21 @@ layout.html
 
 					<!-- Breadcrumb Navigation -->
 					<ol class="breadcrumb justify-content-center mb-0 mt-3">
-						<li class="breadcrumb-item"><a href="#">비밀번호 찾기</a></li>
 						<li class="breadcrumb-item"><a href="signup">회원가입</a></li>
 					</ol>
+
+					<!-- OAuth2 로그인 버튼 추가 Start -->
+					<div class="mt-3 d-flex justify-content-center align-items-center" style="gap: 1rem">
+						<a href="/oauth2/authorization/kakao">
+							<img src="/img/kakao_login_medium_wide.webp">
+						</a>
+
+						<a href="/oauth2/authorization/google">
+							<img src="/img/web_light_rd_na_2x.webp">
+						</a>
+					</div>
+					<!-- OAuth2 로그인 버튼 추가 End -->
+
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
